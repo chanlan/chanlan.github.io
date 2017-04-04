@@ -1,0 +1,596 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="对最近的工作做一个总结和反思，最近在处理消息分片的工作，先介绍下应用的场景：我们在做一个直播的产品，直播中会存在很多消息，这样就需要对消息进行处理，然后回放的时候，会用到这些存储的文件，我们目前使用的第三方的聊天室系统，需要对第三方的消息同步到我们的系统存储起来，一方面便于查询问题，因为消息内容中除了第三方的自定义的协议之外，也会涉及到我们业务数据的上报；另外一方面，不需要依赖第三方服务，对自己的">
+<meta property="og:type" content="article">
+<meta property="og:title" content="关于一个接口的设计">
+<meta property="og:url" content="http://chanlan.github.io/2016/12/10/关于一个接口的设计/index.html">
+<meta property="og:site_name" content="Learn And Life.">
+<meta property="og:description" content="对最近的工作做一个总结和反思，最近在处理消息分片的工作，先介绍下应用的场景：我们在做一个直播的产品，直播中会存在很多消息，这样就需要对消息进行处理，然后回放的时候，会用到这些存储的文件，我们目前使用的第三方的聊天室系统，需要对第三方的消息同步到我们的系统存储起来，一方面便于查询问题，因为消息内容中除了第三方的自定义的协议之外，也会涉及到我们业务数据的上报；另外一方面，不需要依赖第三方服务，对自己的">
+<meta property="og:updated_time" content="2017-04-04T04:16:56.373Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="关于一个接口的设计">
+<meta name="twitter:description" content="对最近的工作做一个总结和反思，最近在处理消息分片的工作，先介绍下应用的场景：我们在做一个直播的产品，直播中会存在很多消息，这样就需要对消息进行处理，然后回放的时候，会用到这些存储的文件，我们目前使用的第三方的聊天室系统，需要对第三方的消息同步到我们的系统存储起来，一方面便于查询问题，因为消息内容中除了第三方的自定义的协议之外，也会涉及到我们业务数据的上报；另外一方面，不需要依赖第三方服务，对自己的">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://chanlan.github.io/2016/12/10/关于一个接口的设计/"/>
+
+
+
+
+
+  <title> 关于一个接口的设计 | Learn And Life. </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Learn And Life.</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">Focus on php and open source.</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://chanlan.github.io/2016/12/10/关于一个接口的设计/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="Kivmi">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/images/avatar.gif">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="Learn And Life.">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="Learn And Life." src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                关于一个接口的设计
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-12-10T22:03:36+08:00">
+                2016-12-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>对最近的工作做一个总结和反思，最近在处理消息分片的工作，先介绍下应用的场景：<br>我们在做一个直播的产品，直播中会存在很多消息，这样就需要对消息进行处理，然后回放的时候，会用到这些存储的文件，我们目前使用的第三方的聊天室系统，需要对第三方的消息同步到我们的系统存储起来，一方面便于查询问题，因为消息内容中除了第三方的自定义的协议之外，也会涉及到我们业务数据的上报；另外一方面，不需要依赖第三方服务，对自己的数据管控。在改版之前，第三方会在直播结束，会回调我们的接口，进行消息的同步，写入异步队列，实现串行处理，之前每个直播消息，会生成独立的一个文件，放到云存储s3，由于消息文件过大，导致有些回播在下载消息文件的过程中，加载时间太慢，甚至导致客户端app直接崩溃，为此，之前有人改过一版，只是对于消息过于大的文件，进行了不处理，也就是完全的抛弃掉，回播不会存在聊天消息，这种处理太过于武断，没有从根本上解决问题</p>
+<p>在处理这个问题的过程中，遇到了一些问题<br>之前的处理方式：<br>    将消息文件从redis落地，将消息文件存放于磁盘，然后用shell脚本实现同步到s3</p>
+<p>方案一<br>    我没有修改既有的这种方式，甚至没有对这种方式产生任何的质疑， 于是做了如下的设计</p>
+<p>1.新增接口，提供消息分片的文件列表，需要服务端存储某个视频的消息分片的文件的列表<br>2.仍然使用既有使用shell脚本同步消息文件的方案</p>
+<p>这样的设计有什么问题呢？<br>1.浪费了存储空间，这些消息文件是静态的文件，生成之后就不会变，所以并不需要把消息分片文件列表存放于redis中<br>2.消息文件的同步，将消息文件存放于本地磁盘，然后使用shell脚本同步，而且同步进程使用的单进程，实践证明，这种方式并不是最好的，由于产生的文件的数量比较多，导致消费脚本处理不过来，产生消息文件的积压</p>
+<p>方案二<br>1.做好对旧版本的兼容，对接口进行修改，提供消息文件的索引文件，索引文件是消息分片文件上传到s3之后的文件列表<br>2.不基于shell脚本处理，基于s3提供的sdk，完全使用同步的方式进行处理，即不将redis中的消息内容落地处理，不生成消息文件<br>3.动态生成消息分片文件的时候，同时生成消息索引文件，并同步到s3</p>
+<p>索引文件：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">[</div><div class="line">&#123;</div><div class="line">  timestamp: &quot;1481188775520&quot;,</div><div class="line">  url: &quot;http://test.s3.amazonaws.com/cheetahlive/15/33/14811887487207113059/14811887487207113059_0.json&quot;</div><div class="line">&#125;</div><div class="line">&#123;</div><div class="line">  timestamp: &quot;1481188775520&quot;,</div><div class="line">  url: &quot;http://test.s3.amazonaws.com/cheetahlive/15/33/14811887487207113059/14811887487207113059_1.json&quot;</div><div class="line">&#125;</div><div class="line"></div><div class="line">...</div><div class="line"></div><div class="line">]</div></pre></td></tr></table></figure></p>
+<p>这样，既解决了服务端的存储问题，不用再存储消息分片文件了，直接客户端通过接口请求，拿到消息索引文件，通过解析消息索引文件，得到所需要的消息索引文件列表，同时解决了消息文件存放于存盘，产生的消费能力跟不上导致的文件积压的问题，如果文件比较多，还可以对回调任务处理脚本使用多进程的方式，不用考虑到是否会产生多个进程同时消费一个消息文件的问题，完美支持多进程，这样设计似乎完美了吧？</p>
+<p>真的完美么？</p>
+<p>方案三<br>在方案二的基础上做了以下的修改<br>方案二会产生什么问题呢？<br>1.客户端要下载消息文件，需要先请求索引文件接口，下载并解析索引文件，获取消息分片文件列表，客户端同学会说，你的接口太难用了得改啊<br>2.流量问题，移动端应用，最需要考虑的问题之一，就是能省流量<br>如何更友好的处理这些问题呢？<br>1.简化接口，还是使用索引列表的方式返回，但是处理方式跟方案一不同的地方是，服务端请求索引文件，解析并通过接口返回<br>2.生成的消息文件使用gz压缩，当然这个压缩需要s3支持，开启s3的gz压缩模式，减少消息的传输</p>
+<p>到此，也算是比较完美的了，不知道还没有比较好的方案来处理这个问题？希望能得到大家的交流！</p>
+<p>总结：<br>1.在接口升级的过程中需要考虑到客户端新老版本的兼容性<br>2.对于同步处理还是异步处理的选择，根据特定的业务场景进行选择，考虑有没有必要使用异步处理，不是所有场景都适合使用异步处理的方式<br>3.文件存储，考虑磁盘的使用文件，目录划分<br>4.消费模型，必须需要考虑生产者和消息者之间能力匹配问题，不然会产生积压<br>5.对于数据的处理方式和存储方式，不是所有的数据都需要使用内存或者数据库存储，可以使用云存储，结合cdn技术，更好的管理静态文件<br>6.对于考虑一个方案的时候，需要做更多的可能性测试，通过测试来选取最佳方案<br>7.在思考方案的时候，需要从头到尾的考虑整个的数据的处理过程，可能是一个回路，只是变更一种数据获取方式，所以考虑的时候，尽可能的考虑每一个数据上处理的环节</p>
+<p>人因为梦想而伟大，产品因为一个更好的技术方案而解放我们，多思考细节的东西，才能挖掘别人看不到的东西，一切变化，都因为在变！！</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/12/06/一个shell脚本/" rel="next" title="一个shell脚本">
+                <i class="fa fa-chevron-left"></i> 一个shell脚本
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/12/11/linux的10个命令/" rel="prev" title="linux的10个命令">
+                linux的10个命令 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+  <div style="width:200px;height:200px;margin:0 auto;"><img src="/images/pay.png" ></div>
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview sidebar-panel sidebar-panel-active">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="Kivmi" />
+          <p class="site-author-name" itemprop="name">Kivmi</p>
+          <p class="site-description motion-element" itemprop="description"></p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">14</span>
+              <span class="site-state-item-name">posts</span>
+            </a>
+          </div>
+
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Kivmi</span>
+</div>
+
+
+<div class="powered-by">
+  Powered by <a class="theme-link" href="https://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+
+</body>
+</html>

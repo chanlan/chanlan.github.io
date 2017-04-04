@@ -1,0 +1,729 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="先看下这个10个命令：uptimedmesg | tailvmstat 1mpstat -P ALL 1pidstat 1iostat -xz 1free -msar -n DEV 1sar -n TCP,ETCP 1top
+下面讲解下这个10个命令都是用来做什么的，怎么用
+uptime
+12chenjingxiu:~ kivmi$ uptime00:23上午  up 6 days  1:53,">
+<meta property="og:type" content="article">
+<meta property="og:title" content="linux的10个命令">
+<meta property="og:url" content="http://chanlan.github.io/2016/12/11/linux的10个命令/index.html">
+<meta property="og:site_name" content="Learn And Life.">
+<meta property="og:description" content="先看下这个10个命令：uptimedmesg | tailvmstat 1mpstat -P ALL 1pidstat 1iostat -xz 1free -msar -n DEV 1sar -n TCP,ETCP 1top
+下面讲解下这个10个命令都是用来做什么的，怎么用
+uptime
+12chenjingxiu:~ kivmi$ uptime00:23上午  up 6 days  1:53,">
+<meta property="og:updated_time" content="2017-04-04T04:16:56.365Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="linux的10个命令">
+<meta name="twitter:description" content="先看下这个10个命令：uptimedmesg | tailvmstat 1mpstat -P ALL 1pidstat 1iostat -xz 1free -msar -n DEV 1sar -n TCP,ETCP 1top
+下面讲解下这个10个命令都是用来做什么的，怎么用
+uptime
+12chenjingxiu:~ kivmi$ uptime00:23上午  up 6 days  1:53,">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://chanlan.github.io/2016/12/11/linux的10个命令/"/>
+
+
+
+
+
+  <title> linux的10个命令 | Learn And Life. </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Learn And Life.</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">Focus on php and open source.</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://chanlan.github.io/2016/12/11/linux的10个命令/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="Kivmi">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/images/avatar.gif">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="Learn And Life.">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="Learn And Life." src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                linux的10个命令
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-12-11T00:20:53+08:00">
+                2016-12-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>先看下这个10个命令：<br>uptime<br>dmesg | tail<br>vmstat 1<br>mpstat -P ALL 1<br>pidstat 1<br>iostat -xz 1<br>free -m<br>sar -n DEV 1<br>sar -n TCP,ETCP 1<br>top</p>
+<p>下面讲解下这个10个命令都是用来做什么的，怎么用</p>
+<p>uptime</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">chenjingxiu:~ kivmi$ uptime</div><div class="line">00:23上午  up 6 days  1:53,  3 users,  load average: 1.96, 1.70, 1.70</div></pre></td></tr></table></figure>
+<p>uptime – show how long system has been running<br>DESCRIPTION<br>     The uptime utility displays the current time, the length of time the system has been up, the number of users, and the load average of the system over the<br>          last 1, 5, and 15 minutes.<br>该命令用来查看系统的运行时间和负载情况，分别对应以下列<br>当前时间  启动运行时间 系统启动时间  当前系统用户数   系统最近1分钟、5分钟、15分钟系统的负载情况</p>
+<p>dmesg | tail<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">chenjingxiu:~ kivmi$ sudo  dmesg | tail</div><div class="line">ARPT: 243830.149501: DequeueTime: 0x1906f048 LastTxTime: 0x1ff947d1 PHYTxErr:   0x0000 RxAckRSSI: 0x0000 RxAckSQ: 0x0000</div><div class="line">ARPT: 243830.149527: Raw[0]    1 Valid</div><div class="line">ARPT: 243830.149536: [2]    0 IM</div><div class="line">ARPT: 243830.149541: [3]    1 PM</div><div class="line">ARPT: 243830.149545: [7-4]  0 Suppr</div><div class="line">ARPT: 243830.149550: [14:8] 1 Ncons</div><div class="line">ARPT: 243830.149555: [15]   0 Acked</div><div class="line">ARPT: 243830.149561: txpktpend AC_BK 0 AC_BE 0 AC_VI 0 AC_VO 1 BCMC 0 ATIM 0</div><div class="line">SmartBattery: finished polling type 4</div><div class="line">UserEventAgent is not entitledUserEventAgent is not entitledloginwindow is not entitledloginwindow is not entitledUserEventAgent is not entitledUserEventAgent is not entitledloginwindow is not entitledloginwindow is not entitledUserEventAgent is not entitledUserEventAgent is not entitledloginwindow is not entitledloginwindow is not entitledSmartBattery: finished polling type 4</div></pre></td></tr></table></figure></p>
+<p>dmesg – display the system message buffer<br>DESCRIPTION<br>     Dmesg displays the contents of the system message buffer.  This command needs to be run as root.<br>该命令用来显示linux内核的环形缓冲区(kernel ring buffer)信息,从中获得诸如系统架构、cpu、挂载的硬件，RAM等多个运行级别的大量的系统信息,当计算机启动时，系统内核（操作系统的核心部分）将会被加载到内存中,在加载的过程中会显示很多的信息，在这些信息中我们可以看到内核检测硬件设备，主要是硬件检测，包括磁盘sda,hda,usb等</p>
+<p>vmstat 2 1<br>每两秒采集一次服务器的状态 2 时间间隔 1 次数<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">[chenjingxiu@op ~]$ vmstat 1  3</div><div class="line">procs    -----------memory----------  ---swap-- -----io---- --system-- -----cpu-----</div><div class="line">r  b    swpd   free   buff  cache     si   so    bi    bo   in   cs us sy id wa st</div><div class="line">0  0      0 5564792 408260 20643368    0    0     0    27    1    1  1  2 97  0  0</div><div class="line">0  0      0 5562248 408260 20643372    0    0     0     0 2609 3087  1  2 98  0  0</div><div class="line">6  0      0 5530268 408260 20643380    0    0     0     0 4354 4287  4  6 90  0  0</div></pre></td></tr></table></figure></p>
+<p>NAME<br>       vmstat - Report virtual memory statistics</p>
+<p>SYNOPSIS<br>       vmstat [-a] [-n] [-t] [-S unit] [delay [ count ]]<br>       vmstat [-s] [-n] [-S unit]<br>       vmstat [-m] [-n] [delay [ count ]]<br>       vmstat [-d] [-n] [delay [ count ]]<br>       vmstat [-p disk partition] [-n] [delay [ count ]]<br>       vmstat [-f]<br>       vmstat [-V]</p>
+<p>DESCRIPTION<br>       vmstat reports information about processes, memory, paging, block IO, traps, and cpu activity.The  first  report produced gives averages since the last reboot.  Additional reports give information on a sampling period of length delay.  The process and memory<br>                     reports are instantaneous in either case.</p>
+<p>DESCRIPTION FOR VM MODE</p>
+<p>Procs<br>    r: The number of processes waiting for run time.(在运行队列中等待cpu进程数)<br>    b: The number of processes in uninterruptible sleep.(等待I/O的进程数)</p>
+<p>Memory<br>    swpd: the amount of virtual memory used.(切换到内存交换区的内存数量,如果swpd比较大，但是si,so一直为0，系统性能也是正常的)<br>    free: the amount of idle memory.<br>    buff: the amount of memory used as buffers.(一般对块设备的读写进行缓存)<br>    cache: the amount of memory used as cache.(page cache数量，一般作为文件系统的缓存，如果cache比较大，说明用到cache的文件比较多，如果I/O的bi比较小，说明文件系统效率比较好)<br>    inact: the amount of inactive memory. (-a option)<br>    active: the amount of active memory. (-a option)</p>
+<p>Swap<br>    si: Amount of memory swapped in from disk (/s).(从磁盘交换进内存的页数量)<br>    so: Amount of memory swapped to disk (/s).(从内存交换到磁盘的页数量)</p>
+<p>IO<br>    bi: Blocks received from a block device (blocks/s).(从磁盘读到内存的块数)<br>    bo: Blocks sent to a block device (blocks/s).(从内存写入磁盘的块数)</p>
+<p>System<br>    in: The number of interrupts per second, including the clock.(每秒设备中断数)<br>    cs: The number of context switches per second.(每秒产生的上下文切换次数，cs正常情况下，应小于I/O的包传输速率)</p>
+<p>CPU<br>    These are percentages of total CPU time.<br>    us: Time spent running non-kernel code. (user time, including nice time) (用户进程占用cpu的时间比)<br>    sy: Time spent running kernel code. (system time) (系统进程占用cpu的时间比)<br>    id: Time spent idle. Prior to Linux 2.5.41, this includes IO-wait time.(中央处理器空闲时间占用比)<br>    wa: Time spent waiting for IO. Prior to Linux 2.5.41, included in idle.<br>    st: Time stolen from a virtual machine. Prior to Linux 2.6.11, unknown.</p>
+<p>FIELD DESCRIPTION FOR DISK MODE</p>
+<p>Reads<br>    total: Total reads completed successfully<br>    merged: grouped reads (resulting in one I/O)<br>    sectors: Sectors read successfully<br>    ms: milliseconds spent reading</p>
+<p>Writes<br>    total: Total writes completed successfully<br>    merged: grouped writes (resulting in one I/O)<br>    sectors: Sectors written successfully<br>    ms: milliseconds spent writing</p>
+<p>IO<br>    cur: I/O in progress<br>    s: seconds spent for I/O<br>    ms: milliseconds spent writing</p>
+<p>IO<br>    cur: I/O in progress<br>    s: seconds spent for I/O</p>
+<p>FIELD DESCRIPTION FOR DISK PARTITION MODE</p>
+<pre><code>reads: Total number of reads issued to this partition read sectors: Total read sectors for partition
+writes : Total number of writes issued to this partition
+requested writes: Total number of write requests made for partition
+</code></pre><p>FIELD DESCRIPTION FOR SLAB MODE</p>
+<pre><code>cache: Cache name
+num: Number of currently active objects
+total: Total number of available objects
+size: Size of each object
+pages: Number of pages with at least one active object
+totpages: Total number of allocated pages
+pslab: Number of pages per slab
+</code></pre><p>如果r经常大于4 ，且id经常小于40，表示中央处理器的负荷很重。 如果bi，bo 长期不等于0，表示物理内存容量太小</p>
+<p>mpstat -P ALL 1<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line">[chenjingxiu@op ~]$ mpstat -P ALL 1</div><div class="line">Linux 2.6.32-279.19.1.el6.centos.plus.x86_64 (op.liebaopay.com)         12/11/2016      _x86_64_        (8 CPU)</div><div class="line"></div><div class="line">06:49:57 AM  CPU    %usr   %nice    %sys %iowait    %irq   %soft  %steal  %guest   %idle</div><div class="line">06:49:58 AM  all    0.50    0.00    1.00    0.50    0.00    0.00    0.00    0.00   97.99</div><div class="line">06:49:58 AM    0    1.01    0.00    1.01    1.01    0.00    0.00    0.00    0.00   96.97</div><div class="line">06:49:58 AM    1    1.00    0.00    1.00    3.00    0.00    0.00    0.00    0.00   95.00</div><div class="line">06:49:58 AM    2    0.00    0.00    2.02    0.00    0.00    0.00    0.00    0.00   97.98</div><div class="line">06:49:58 AM    3    0.99    0.00    0.99    0.00    0.00    0.00    0.00    0.00   98.02</div><div class="line">06:49:58 AM    4    0.99    0.00    0.99    0.00    0.00    0.00    0.00    0.00   98.02</div><div class="line">06:49:58 AM    5    0.00    0.00    1.00    0.00    0.00    0.00    0.00    0.00   99.00</div><div class="line">06:49:58 AM    6    0.00    0.00    1.00    0.00    0.00    0.00    0.00    0.00   99.00</div><div class="line">06:49:58 AM    7    0.00    0.00    1.00    0.00    0.00    0.00    0.00    0.00   99.00</div><div class="line"></div><div class="line">06:49:58 AM  CPU    %usr   %nice    %sys %iowait    %irq   %soft  %steal  %guest   %idle</div><div class="line">06:49:59 AM  all    0.50    0.00    1.51    0.00    0.00    0.00    0.00    0.00   97.99</div><div class="line">06:49:59 AM    0    2.97    0.00    5.94    0.00    0.00    0.00    0.00    0.00   91.09</div><div class="line">06:49:59 AM    1    0.00    0.00    1.02    0.00    0.00    0.00    0.00    0.00   98.98</div><div class="line">06:49:59 AM    2    0.99    0.00    1.98    0.00    0.00    0.00    0.00    0.00   97.03</div><div class="line">06:49:59 AM    3    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00  100.00</div><div class="line">06:49:59 AM    4    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00  100.00</div><div class="line">06:49:59 AM    5    0.00    0.00    1.01    0.00    0.00    0.00    0.00    0.00   98.99</div><div class="line">06:49:59 AM    6    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00  100.00</div><div class="line">06:49:59 AM    7    0.00    0.00    1.00    0.00    0.00    0.00    0.00    0.00   99.00</div></pre></td></tr></table></figure></p>
+<p>NAME<br>    mpstat - Report processors related statistics.</p>
+<p>DESCRIPTION<br>    The mpstat command writes to standard output activities for each available processor, processor 0 being the first one.  Global average activities among all processors are also reported.  The mpstat command can be used both on SMP and UP machines, but in the  latter,  only  global  average  activities  will  be printed. If no activity has been selected, then the default report is the CPU utilization report.<br>    The  interval  parameter  specifies  the  amount  of time in seconds between each report.  A value of 0 (or no parameters at all) indicates that processors statistics are to be reported for the time since system startup (boot).  The count parameter can be specified in conjunction with the interval parameter if  this  one  is not set to zero. The value of count determines the number of reports generated at interval seconds apart. If the interval parameter is speci-fied without the count parameter, the mpstat command generates reports continuously.</p>
+<p>OPTIONS<br>    -A     This option is equivalent to specifying -I ALL -u -P ALL<br>    -P { cpu [,…] | ON | ALL  }<br>    Indicate the processor number for which statistics are to be reported.  cpu is the processor number. Note that processor 0 is the  first  processor.The  ON keyword indicates that statistics are to be reported for every online processor, whereas the ALL keyword indicates that statistics are to be reported for all processors.<br>    -u     Report CPU utilization. The following values are displayed:</p>
+<pre><code>CPU Processor number. The keyword all indicates that statistics are calculated as averages among all processors.
+%usr Show the percentage of CPU utilization that occurred while executing at the user level (application).
+%nice Show the percentage of CPU utilization that occurred while executing at the user level with nice priority.
+%sys Show the percentage of CPU utilization that occurred while executing at the system level (kernel). Note that this does not include time spent servicing hardware and software interrupts.
+%iowait Show the percentage of time that the CPU or CPUs were idle during which the system had an outstanding disk I/O request.
+%irq Show the percentage of time spent by the CPU or CPUs to service hardware interrupts.
+%soft Show the percentage of time spent by the CPU or CPUs to service software interrupts.
+%steal Show  the  percentage of time spent in involuntary wait by the virtual CPU or CPUs while the hypervisor was servicing another virtual proces-sor.
+%guest Show the percentage of time spent by the CPU or CPUs to run a virtual processor.
+%idle Show the percentage of time that the CPU or CPUs were idle and the system did not have an outstanding disk I/O request.
+</code></pre><p>ipdstat 1<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">[chenjingxiu@op ~]$ pidstat 1</div><div class="line">Linux 2.6.32-279.19.1.el6.centos.plus.x86_64 (op.liebaopay.com)         12/11/2016      _x86_64_        (8 CPU)</div><div class="line"></div><div class="line">07:01:34 AM       PID    %usr %system  %guest    %CPU   CPU  Command</div><div class="line">07:01:35 AM      3294    0.00    0.84    0.00    0.84     3  python2.7</div><div class="line">07:01:35 AM     14733    0.84    0.00    0.00    0.84     0  sshd</div><div class="line">07:01:35 AM     15959    4.20   11.76    0.00   15.97     0  pidstat</div><div class="line">07:01:35 AM     30156    0.00    0.84    0.00    0.84     1  tmux</div><div class="line"></div><div class="line">07:01:35 AM       PID    %usr %system  %guest    %CPU   CPU  Command</div><div class="line">07:01:36 AM        36    0.00    1.00    0.00    1.00     1  events/1</div><div class="line">07:01:36 AM     14733    0.00    1.00    0.00    1.00     0  sshd</div><div class="line">07:01:36 AM     15959    5.00   13.00    0.00   18.00     0  pidstat</div><div class="line">07:01:36 AM     29962    1.00    0.00    0.00    1.00     0  python</div></pre></td></tr></table></figure></p>
+<p>NAME<br>       pidstat - Report statistics for Linux tasks.</p>
+<p>DESCRIPTION<br>The pidstat command is used for monitoring individual tasks currently being managed by the Linux kernel.  It writes to standard output activities for every task  selected with option -p or for every task managed by the Linux kernel if option -p ALL has been used. Not selecting any tasks is equivalent to speci-fying -p ALL but only active tasks (tasks with non-zero statistics values) will appear in the report.</p>
+<p>The pidstat command can also be used for monitoring the child processes of selected tasks.  Read about option -T below.</p>
+<p>The interval parameter specifies the amount of time in seconds between each report.  A value of 0 (or no parameters at all) indicates that tasks statistics are  to  be reported for the time since system startup (boot).  The count parameter can be specified in conjunction with the interval parameter if this one is not set to zero. The value of count determines the number of reports generated at interval seconds apart. If the interval parameter is specified without the count parameter, the pidstat command generates reports continuously.</p>
+<p>You can select information about specific task activities using flags.  Not specifying any flags selects only CPU activity.</p>
+<p>EXAMPLES</p>
+<p>pidstat 2 5<br>    Display five reports of CPU statistics for every active task in the system at two second intervals.</p>
+<p>pidstat -r -p 1643 2 5<br>    Display five reports of page faults and memory statistics for PID 1643 at two second intervals.</p>
+<p>pidstat -T CHILD -r 2 5<br>    Display five reports of page faults statistics at two second intervals for the child processes of all tasks in the system. Only child processes with non-zero statistics values are displayed.</p>
+<p>iostat -xz 1<br>iostat主要用于监控系统设备的IO负载情况<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line">chenjingxiu:~ kivmi$ iostat -d -K 1 10</div><div class="line">disk0               disk2               disk3 </div><div class="line">KB/t  tps  MB/s     KB/t  tps  MB/s     KB/t  tps  MB/s </div><div class="line">52.04    6  0.31    14.14    0  0.00    14.03    0  0.00 </div><div class="line">4.00    9  0.04     0.00    0  0.00     0.00    0  0.00 </div><div class="line">6.67    3  0.02     0.00    0  0.00     0.00    0  0.00 </div><div class="line">4.00    1  0.00     0.00    0  0.00     0.00    0  0.00 </div><div class="line">394.00    2  0.77     0.00    0  0.00     0.00    0  0.00 </div><div class="line"></div><div class="line">[chenjingxiu@op ~]$ iostat -xz 1</div><div class="line">Linux 2.6.32-279.19.1.el6.centos.plus.x86_64 (op.liebaopay.com)         12/11/2016      _x86_64_        (8 CPU)</div><div class="line"></div><div class="line">avg-cpu:  %user   %nice %system %iowait  %steal   %idle</div><div class="line">1.08    0.00    1.92    0.13    0.01   96.86</div><div class="line"></div><div class="line">Device:         rrqm/s   wrqm/s     r/s     w/s   rsec/s   wsec/s avgrq-sz avgqu-sz   await  svctm  %util</div><div class="line">xvda              0.00     0.09    0.03    7.72     0.89    62.49     8.18     0.05    6.19   1.23   0.95</div><div class="line">xvdi              0.00     9.52    0.03    6.74     2.13   130.09    19.52     0.09   12.73   0.51   0.34</div><div class="line">xvdb              0.00     0.00    0.01    0.12     0.12     9.44    73.96     0.04  304.96   2.07   0.03</div><div class="line">xvdf              0.00     0.01    0.06    3.31     3.25   229.37    69.16     0.03    8.61   0.17   0.06</div><div class="line"></div><div class="line">avg-cpu:  %user   %nice %system %iowait  %steal   %idle</div><div class="line">0.38    0.00    0.75    0.25    0.13   98.50</div><div class="line"></div><div class="line">Device:         rrqm/s   wrqm/s     r/s     w/s   rsec/s   wsec/s avgrq-sz avgqu-sz   await  svctm  %util</div><div class="line">xvda              0.00     0.00    1.00    0.00    16.00     0.00    16.00     0.02   17.00  17.00   1.70</div></pre></td></tr></table></figure></p>
+<p>NAME<br>    iostat - Report Central Processing Unit (CPU) statistics and input/output statistics for devices, partitions and network filesystems (NFS).</p>
+<p>DESCRIPTION<br>    The  iostat  command is used for monitoring system input/output device loading by observing the time the devices are active in relation to their average transfer rates. The iostat command generates reports that can be used to change system configuration to better balance the input/output load between physical disks.</p>
+<p>The first report generated by the iostat command provides statistics concerning the time since the system was booted. Each  subsequent  report  covers  the  time since  the  previous  report.  All  statistics are reported each time the iostat command is run. The report consists of a CPU header row followed by a row of CPU statistics. On multiprocessor systems, CPU statistics are calculated system-wide as averages among all processors. A device header row is displayed followed by a line  of statistics for each device that is configured.  When option -n is used, an NFS header row is displayed followed by a line of statistics for each network filesystem that is mounted.</p>
+<p>The interval parameter specifies the amount of time in seconds between each report. The first report contains  statistics  for  the  time  since  system  startup (boot).  Each  subsequent report contains statistics collected during the interval since the previous report. The count parameter can be specified in conjunction with the interval parameter. If the count parameter is specified, the value of count determines the number of reports generated at interval seconds apart. If the interval parameter is specified without the count parameter, the iostat command generates reports continuously.</p>
+<p>REPORTS<br>    The iostat command generates three types of reports, the CPU Utilization report, the Device Utilization report and the Network Filesystem report.</p>
+<p>CPU Utilization Report<br>    The  first  report generated by the iostat command is the CPU Utilization Report. For multiprocessor systems, the CPU values are global averages among all processors.  The report has the following format:<br>%user<br>Show the percentage of CPU utilization that occurred while executing at the user level (application).</p>
+<p>%nice<br>Show the percentage of CPU utilization that occurred while executing at the user level with nice priority.</p>
+<p>%system<br>Show the percentage of CPU utilization that occurred while executing at the system level (kernel).</p>
+<p>%iowait<br>Show the percentage of time that the CPU or CPUs were idle during which the system had an outstanding disk I/O request.</p>
+<p>%steal<br>Show the percentage of time spent in involuntary wait by the virtual CPU or CPUs while the hypervisor was servicing another virtual processor.</p>
+<p>%idle<br>Show the percentage of time that the CPU or CPUs were idle and the system did not have an outstanding disk I/O request.</p>
+<p>Device Utilization Report<br>    The second report generated by the iostat command is the Device Utilization Report. The device report provides statistics on a per physical device or par-tition  basis.  Block  devices  for which statistics are to be displayed may be entered on the command line. Partitions may also be entered on the command line providing that option -x is not used.  If no device nor partition is entered, then statistics are displayed for every device used by the system,  and providing  that  the  kernel maintains statistics for it.  If the ALL keyword is given on the command line, then statistics are displayed for every device defined by the system, including those that have never been used.  The report may show the following fields, depending on the flags used.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">tps: 每秒传输的次数，一次传输即一次I/O请求（多个逻辑请求可以合并为一次I/O请求)</div><div class="line">kB_read/s: 每秒从设备读取的数据量</div><div class="line">kB_wrtn/s: 每秒向设备写入的数据量</div><div class="line">kB_read: 读取的总数据量</div><div class="line">kB_wrtn: 写入的总数据量</div><div class="line">rrqm/s：每秒这个设备相关的读取请求有多少被Merge了</div><div class="line">wrqm/s：每秒这个设备相关的写入请求有多少被Merge了</div><div class="line">rsec/s：每秒读取的扇区数</div><div class="line">wsec/：每秒写入的扇区数</div><div class="line">rKB/s：The number of read requests that were issued to the device per second</div><div class="line">wKB/s：The number of write requests that were issued to the device per second</div><div class="line">avgrq-sz：平均请求扇区的大小</div><div class="line">avgqu-sz：平均请求队列的长度</div><div class="line">await：每一个IO请求的处理的平均时间（单位是微秒毫秒)，即IO的响应时间,一般情况下，await大于svctm，两者差值越小，则说明队列时间越短，反之差值越大，队列时间越长,说明系统出问题了，await一般低于5ms</div><div class="line">svctm：表示平均每次设备I/O操作的服务时间（以毫秒为单位)，如果svctm的值与await很接近，表示几乎没有I/O等待，磁盘性能很好，如果await的值远高于svctm的值，则表示I/O队列等待太长，系统上运行的应用程序将变慢</div><div class="line">%util： 在统计时间内所有处理IO时间，除以总共统计时间，预示设备的繁忙程度，如果该参数是100%表示设备已经接近满负荷运行了</div></pre></td></tr></table></figure>
+<p>Network Filesystem report<br>    The Network Filesystem (NFS) report provides statistics for each mounted network filesystem.  The report shows the following fields </p>
+<p>OPTIONS<br>    -c     Display the CPU utilization report.<br>    -d     Display the device utilization report.(显示磁盘的使用状态)<br>    -K     对块设备，强制使用Kilobytes为单位<br>    -x     Display  extended  statistics.  This option works with post 2.5 kernels since it needs /proc/diskstats file or a mounted sysfs to get the statistics. This option may also work with older kernels (e.g. 2.4) only if extended statistics are available in /proc/partitions (the  kernel  needs  to  be  patched  for that).(显示I/O相关的扩展数据)<br>    -n     Display the network filesystem (NFS) report. This option works only with kernel 2.6.17 and later.<br>    -p [ { device [,…] | ALL  }  ]<br>        The  -p  option  displays  statistics  for block devices and all their partitions that are used by the system.  If a device name is entered on the command line, then statistics for it and all its partitions are displayed. Last, the ALL keyword indicates that statistics have to be displayed for all the  block devices and partitions defined by the system, including those that have never been used.  Note that this option works only with post 2.5 kernels.</p>
+<p>EXAMPLES</p>
+<pre><code>iostat
+Display a single history since boot report for all CPU and Devices.
+iostat -d 2
+Display a continuous device report at two second intervals.
+iostat -d 2 6
+Display six reports at two second intervals for all devices.
+iostat -x hda hdb 2 6
+Display six reports of extended statistics at two second intervals for devices hda and hdb.
+iostat -p sda 2 6
+Display six reports at two second intervals for device sda and all its partitions (sda1, etc.)
+</code></pre><p>主要看await和%util的值，await是否大于5ms，%util是否大于80%</p>
+<p>free -m<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">[chenjingxiu@op ~]$ free -m </div><div class="line">total       used       free     shared    buffers     cached</div><div class="line">Mem:         30100      24655       5445          0        398      20166</div><div class="line">-/+ buffers/cache:       4089      26010</div><div class="line">Swap:            0          0          0</div></pre></td></tr></table></figure></p>
+<p>NAME<br>       free - Display amount of free and used memory in the system<br>DESCRIPTION<br>       free  displays  the  total  amount  of free and used physical and swap memory in the system, as well as the buffers used by the kernel.  The shared memory column should be ignored; it is obsolete.</p>
+<p>sar -n DEV 1<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">[chenjingxiu@op ~]$ sar -n DEV 1</div><div class="line">Linux 2.6.32-279.19.1.el6.centos.plus.x86_64 (op.liebaopay.com)         12/11/2016      _x86_64_        (8 CPU)</div><div class="line"></div><div class="line">07:26:36 AM     IFACE   rxpck/s   txpck/s    rxkB/s    txkB/s   rxcmp/s   txcmp/s  rxmcst/s</div><div class="line">07:26:37 AM        lo      0.00      0.00      0.00      0.00      0.00      0.00      0.00</div><div class="line">07:26:37 AM      eth0    150.51    152.53     29.42     21.03      0.00      0.00      0.00</div><div class="line"></div><div class="line">07:26:37 AM     IFACE   rxpck/s   txpck/s    rxkB/s    txkB/s   rxcmp/s   txcmp/s  rxmcst/s</div><div class="line">07:26:38 AM        lo      0.00      0.00      0.00      0.00      0.00      0.00      0.00</div><div class="line">07:26:38 AM      eth0    107.00    103.00     24.87     14.36      0.00      0.00      0.00</div></pre></td></tr></table></figure></p>
+<p>NAME<br>       sar - Collect, report, or save system activity information.</p>
+<p>DESCRIPTION<br>The  sar  command  writes to standard output the contents of selected cumulative activity counters in the operating system. The accounting system, based on the values in the count and interval parameters, writes information the specified number of times spaced at the specified intervals  in  seconds.   If  the interval  parameter is set to zero, the sar command displays the average statistics for the time since the system was started. If the interval parameter is specified without the count parameter, then reports are generated continuously.  The collected data can also be saved in the file specified by the -o file-name  flag,  in  addition  to  being  displayed  onto  the  screen.  If  filename  is  omitted,  sar uses the standard system activity daily data file, the /var/log/sa/sadd file, where the dd parameter indicates the current day.  By default all the data available from the kernel are saved in the data file.</p>
+<p>The sar command extracts and writes to standard output records previously saved in a file. This file can be either the one specified by the -f flag or,  by default, the standard system activity daily data file.</p>
+<p>Without the -P flag, the sar command reports system-wide (global among all processors) statistics, which are calculated as averages for values expressed as percentages, and as sums otherwise. If the -P flag is given, the sar command reports activity which relates to the specified processor or processors. If -P ALL is given, the sar command reports statistics for each individual processor and global statistics among all processors.</p>
+<p>You  can  select  information  about specific system activities using flags. Not specifying any flags selects only CPU activity.  Specifying the -A flag is equivalent to specifying -bBdqrRSvwWy -I SUM -I XALL -n ALL -u ALL -P ALL.</p>
+<p>The default version of the sar command (CPU utilization report) might be one of the first facilities the user runs to begin system activity  investigation,because it monitors major system resources. If CPU utilization is near 100 percent (user + nice + system), the workload sampled is CPU-bound.If  multiple samples and multiple reports are desired, it is convenient to specify an output file for the sar command.  Run the sar command as a background process. The syntax for this is:</p>
+<p>sar -o datafile interval count &gt;/dev/null 2&gt;&amp;1 &amp;</p>
+<pre><code>All data is captured in binary form and saved to a file (datafile).  The data can then be selectively displayed with the sar command using the  -f  option.Set the interval and count parameters to select count records at interval second intervals. If the count parameter is not set, all the records saved in the file will be selected.  Collection of data in this manner is useful to characterize system usage over a period of time and determine peak usage hours.
+</code></pre><p>Indicate  the  number  of  transfers  per second that were issued to the device.  Multiple logical requests can be combined into a single I/O<br>request to the device. A transfer is of indeterminate size.</p>
+<p>rd_sec/s<br>Number of sectors read from the device. The size of a sector is 512 bytes.</p>
+<p>wr_sec/s<br>Number of sectors written to the device. The size of a sector is 512 bytes.</p>
+<p>avgrq-sz<br>The average size (in sectors) of the requests that were issued to the device.</p>
+<p>avgqu-sz<br>The average queue length of the requests that were issued to the device.</p>
+<p>await<br>The average time (in milliseconds) for I/O requests issued to the device to be served. This includes the time spent by the requests in  queue<br>and the time spent servicing them.</p>
+<p>svctm<br>The average service time (in milliseconds) for I/O requests that were issued to the device.</p>
+<p>%util<br>Percentage  of  CPU time during which I/O requests were issued to the device (bandwidth utilization for the device). Device saturation occurs<br>when this value is close to 100%.</p>
+<p> sar -n TCP,ETCP 1<br> <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">[chenjingxiu@op ~]$  sar -n TCP,ETCP 1</div><div class="line">Linux 2.6.32-279.19.1.el6.centos.plus.x86_64 (op.liebaopay.com)         12/11/2016      _x86_64_        (8 CPU)</div><div class="line"></div><div class="line">07:38:52 AM  active/s passive/s    iseg/s    oseg/s</div><div class="line">07:38:53 AM      0.00      0.00    122.22    114.14</div><div class="line"></div><div class="line">07:38:52 AM  atmptf/s  estres/s retrans/s isegerr/s   orsts/s</div><div class="line">07:38:53 AM      0.00      0.00      0.00      0.00      0.00</div></pre></td></tr></table></figure></p>
+<p>top<br> <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">top - 07:40:00 up 47 days, 23:57, 122 users,  load average: 2.01, 2.03, 2.06</div><div class="line">Tasks: 2185 total,   1 running, 2174 sleeping,   8 stopped,   2 zombie</div><div class="line">Cpu(s):  0.9%us,  2.2%sy,  0.0%ni, 96.9%id,  0.0%wa,  0.0%hi,  0.0%si,  0.0%st</div><div class="line">Mem:  30822952k total, 25263368k used,  5559584k free,   408320k buffers</div><div class="line">Swap:        0k total,        0k used,        0k free, 20652508k cached</div><div class="line"></div><div class="line">PID USER      PR  NI  VIRT  RES  SHR S %CPU %MEM    TIME+  COMMAND                                                                                                                </div><div class="line">11028 chenjing  20   0 18732 2928  972 R  3.2  0.0   0:00.48 top                                                                                                                     </div><div class="line">3294 ansible   20   0  635m  49m 2928 S  1.3  0.2 525:49.41 python2.7</div></pre></td></tr></table></figure></p>
+<p>NAME<br>       top - display Linux tasks</p>
+<p>a: PID  –  Process Id<br>The task’s unique process ID, which periodically wraps, though never restarting at zero.</p>
+<p>b: PPID  –  Parent Process Pid<br>The process ID of a task’s parent.</p>
+<p>c: RUSER  –  Real User Name<br>The real user name of the task’s owner.</p>
+<p>d: UID  –  User Id<br>The effective user ID of the task’s owner.</p>
+<p>e: USER  –  User Name<br>The effective user name of the task’s owner.</p>
+<p>f: GROUP  –  Group Name<br>The effective group name of the task’s owner.</p>
+<p>g: TTY  –  Controlling Tty<br>The  name  of  the  controlling terminal.  This is usually the device (serial port, pty, etc.) from which the process was started, and which it uses for input or output.  However, a task need not be associated with a terminal, in which case you’ll see ’?’ displayed.</p>
+<p>h: PR  –  Priority<br>The priority of the task.</p>
+<p>i: NI  –  Nice value<br>The nice value of the task.  A negative nice value means higher priority, whereas a positive nice value means lower priority.  Zero in this field simply means priority will not be adjusted in determining a task’s dispatchability.</p>
+<p>j: P  –  Last used CPU (SMP)<br>A  number  representing  the last used processor.  In a true SMP environment this will likely change frequently since the kernel intentionally uses weak affinity.  Also, the very act of running top may break this weak affinity and cause more processes to change CPUs  more  often  (because  of  the  extra demand for cpu time).</p>
+<p>k: %CPU  –  CPU usage<br>The task’s share of the elapsed CPU time since the last screen update, expressed as a percentage of total CPU time.  In a true SMP environment, if ’Irixmode’ is Off, top will operate in ’Solaris mode’ where a task’s cpu usage will be divided by the total number of CPUs.  You toggle ’Irix/Solaris’  modes with the ’I’ interactive command.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">us 用户空间占用CPU百分比</div><div class="line">sy 内核空间占用cpu百分比</div><div class="line">ni 用户空间内改变优先级的进程占用cpu百分比</div><div class="line">id cpu空闲占用百分比</div><div class="line">wa 等待输入输出的cpu占用百分比</div><div class="line">hi 硬件cpu中断占用百分比</div><div class="line">si 软中断占用百分比</div><div class="line">st 虚拟机占用百分比</div></pre></td></tr></table></figure></p>
+<p>l: TIME  –  CPU Time 进程使用cpu时间总计,单位秒<br>Total CPU time the task has used since it started.  When ’Cumulative mode’ is On, each process is listed with the cpu time that it and its dead children has used.  You toggle ’Cumulative mode’ with ’S’, which is a command-line option and an interactive command.  See the ’S’ interactive command for  addi-tional information regarding this mode.</p>
+<p>m: TIME+  –  CPU Time, hundredths 进程使用cpu时间总计, 单位1/100秒<br>The same as ’TIME’, but reflecting more granularity through hundredths of a second.</p>
+<p>n: %MEM  –  Memory usage (RES) 使用物理内存占用比<br>A task’s currently used share of available physical memory.</p>
+<p>o: VIRT  –  Virtual Image (kb)虚拟内存使用量<br>The  total amount of virtual memory used by the task.  It includes all code, data and shared libraries plus pages that have been swapped out. (Note: you can define the STATSIZE=1 environment variable and the VIRT will be calculated from the /proc/#/state VmSize field.)</p>
+<p>p: SWAP  –  Swapped size (kb) 使用虚拟内存，被换出的大小<br>Per-process swap values are now taken from /proc/#/status VmSwap field.</p>
+<p>q: RES  –  Resident size (kb) 进程使用的，未被还出的物理内存大小<br>The non-swapped physical memory a task has used.<br>RES = CODE + DATA.</p>
+<p>r: CODE  –  Code size (kb) 可执行的代码占用物理内存的大小<br>The amount of physical memory devoted to executable code, also known as the ’text resident set’ size or TRS.</p>
+<p>s: DATA  –  Data+Stack size (kb) 可执行代码以外的部分（数据段+棧)占用物理内存的大小<br>The amount of physical memory devoted to other than executable code, also known as the ’data resident set’ size or DRS.</p>
+<p>t: SHR  –  Shared Mem size (kb) 共享内存大小<br>The amount of shared memory used by a task.  It simply reflects memory that could be potentially shared with other processes.</p>
+<p>u: nFLT  –  Page Fault count  页面错误次数<br>The number of major page faults that have occurred for a task.  A page fault occurs when a process attempts to read from or write to a virtual page that</p>
+<p>v: nDRT  –  Dirty Pages count 最后一次写入，未被修改的的页面数<br>The number of pages that have been modified since they were last written to disk.  Dirty pages must be written to disk before the corresponding physical memory location can be used for some other virtual page.</p>
+<p>w: S  –  Process Status 进程状态<br>The status of the task which can be one of:<br>    ’D’ = uninterruptible sleep()<br>    ’R’ = running<br>    ’S’ = sleeping<br>    ’T’ = traced or stopped<br>    ’Z’ = zombie(僵尸进程数)<br>Tasks shown as running should be more properly thought of as ’ready to run’  –  their task_struct is simply represented on the Linux  run-queue.   Even without a true SMP machine, you may see numerous tasks in this state depending on top’s delay interval and nice value.</p>
+<p>x: Command  –  Command line or Program name 命令名<br>Display the command line used to start a task or the name of the associated program.  You toggle between command line and name with ’c’, which is both a command-line option and an interactive command.When you’ve chosen to display command lines, processes without a command line (like kernel threads) will be shown with only the program name  in  paren-theses, as in this example:<br>( mdrecoveryd  )<br>Either  form  of display is subject to potential truncation if it’s too long to fit in this field’s current width.  That width depends upon other fields selected, their order and the current screen width.<br>Note: The ’Command’ field/column is unique, in that it is not fixed-width.  When displayed, this column will be allocated all remaining screen width (up to the maximum 512 characters) to provide for the potential growth of program names into command lines.</p>
+<p>y: WCHAN  –  Sleeping in Function 睡眠状态的进程系统函数名<br>Depending  on  the  availability of the kernel link map (’System.map’), this field will show the name or the address of the kernel function in which the task is currently sleeping.  Running tasks will display a dash (’-’) in this column.<br>Note: By displaying this field, top’s own working set will be increased by over 700Kb.  Your only means of reducing that overhead will be  to  stop  and restart top.</p>
+<p>z: Flags  –  Task Flags 任务标志<br>This column represents the task’s current scheduling flags which are expressed in hexadecimal notation and with zeros suppressed.  These flags are offi-cially documented in <linux sched.h="">.  Less formal documentation can also be found on the ’Fields select’ and ’Order fields’ screens.</linux></p>
+<p>以上均摘录自手册，供大家参考，使用!</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/12/10/关于一个接口的设计/" rel="next" title="关于一个接口的设计">
+                <i class="fa fa-chevron-left"></i> 关于一个接口的设计
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/12/20/go基础/" rel="prev" title="go基础">
+                go基础 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+  <div style="width:200px;height:200px;margin:0 auto;"><img src="/images/pay.png" ></div>
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview sidebar-panel sidebar-panel-active">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="Kivmi" />
+          <p class="site-author-name" itemprop="name">Kivmi</p>
+          <p class="site-description motion-element" itemprop="description"></p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">14</span>
+              <span class="site-state-item-name">posts</span>
+            </a>
+          </div>
+
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Kivmi</span>
+</div>
+
+
+<div class="powered-by">
+  Powered by <a class="theme-link" href="https://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+
+</body>
+</html>
