@@ -84,25 +84,15 @@
 
 
 
-<meta name="description" content="说起指针，不得不提下数组，因为两者在某些方面有相似之处，请看下面的代码：12extern int *x;extern int y[];
-数组在什么时候等同于指针呢？什么时候又不等同于指针呢？
-1.数组和指针的访问方式12char  a[9] = &amp;quot;abcdefgh&amp;quot;;char  *p = &amp;quot;abcdefgh&amp;quot;;
-编译器编译的时候会生成一个符号表，这样a和p都">
-<meta property="og:type" content="article">
-<meta property="og:title" content="C指针">
-<meta property="og:url" content="http://chanlan.github.io/2016/11/25/C指针/index.html">
+<meta name="description" content="代码也是有灵魂的">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Learn And Life.">
+<meta property="og:url" content="http://chanlan.github.io/page/3/index.html">
 <meta property="og:site_name" content="Learn And Life.">
-<meta property="og:description" content="说起指针，不得不提下数组，因为两者在某些方面有相似之处，请看下面的代码：12extern int *x;extern int y[];
-数组在什么时候等同于指针呢？什么时候又不等同于指针呢？
-1.数组和指针的访问方式12char  a[9] = &amp;quot;abcdefgh&amp;quot;;char  *p = &amp;quot;abcdefgh&amp;quot;;
-编译器编译的时候会生成一个符号表，这样a和p都">
-<meta property="og:updated_time" content="2017-04-04T04:16:56.365Z">
+<meta property="og:description" content="代码也是有灵魂的">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="C指针">
-<meta name="twitter:description" content="说起指针，不得不提下数组，因为两者在某些方面有相似之处，请看下面的代码：12extern int *x;extern int y[];
-数组在什么时候等同于指针呢？什么时候又不等同于指针呢？
-1.数组和指针的访问方式12char  a[9] = &amp;quot;abcdefgh&amp;quot;;char  *p = &amp;quot;abcdefgh&amp;quot;;
-编译器编译的时候会生成一个符号表，这样a和p都">
+<meta name="twitter:title" content="Learn And Life.">
+<meta name="twitter:description" content="代码也是有灵魂的">
 
 
 
@@ -130,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="http://chanlan.github.io/2016/11/25/C指针/"/>
+  <link rel="canonical" href="http://chanlan.github.io/page/3/"/>
 
 
 
 
 
-  <title> C指针 | Learn And Life. </title>
+  <title> Learn And Life. </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="en">
@@ -157,7 +147,9 @@
     
   
 
-  <div class="container one-collumn sidebar-position-left page-post-detail ">
+  <div class="container one-collumn sidebar-position-left 
+   page-home 
+ ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -236,9 +228,9 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-
-  <div id="posts" class="posts-expand">
+  <section id="posts" class="posts-expand">
     
+      
 
   
 
@@ -247,7 +239,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://chanlan.github.io/2016/11/25/C指针/">
+  <link itemprop="mainEntityOfPage" href="http://chanlan.github.io/2016/11/20/爱情/">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <meta itemprop="name" content="Kivmi">
@@ -271,7 +263,10 @@
             
             
               
-                C指针
+                
+                <a class="post-title-link" href="/2016/11/20/爱情/" itemprop="url">
+                  爱情
+                </a>
               
             
           </h1>
@@ -284,8 +279,8 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-11-25T20:34:32+08:00">
-                2016-11-25
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-11-20T03:19:21+08:00">
+                2016-11-20
               </time>
             
 
@@ -320,37 +315,21 @@
       
 
       
-        <p>说起指针，不得不提下数组，因为两者在某些方面有相似之处，请看下面的代码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">extern int *x;</div><div class="line">extern int y[];</div></pre></td></tr></table></figure></p>
-<p>数组在什么时候等同于指针呢？什么时候又不等同于指针呢？</p>
-<p>1.数组和指针的访问方式<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">char  a[9] = &quot;abcdefgh&quot;;</div><div class="line">char  *p = &quot;abcdefgh&quot;;</div></pre></td></tr></table></figure></p>
-<p>编译器编译的时候会生成一个符号表，这样a和p都在这个符号表里，每一个符号表，都有一个符号跟地址的对应关系，如下：<br>a–&gt;9980<br>p–&gt;4624</p>
-<p>a–&gt;9980–&gt;+1–&gt;+2–+3–&gt;…-&gt;+i–&gt;–&gt;<br>编译器符号表地址9980<br>取i的值，将它与9980相加<br>取地址(9980+i)的内容</p>
-<p>p–&gt;4624–&gt;5081–&gt;data<br>编译器符号表地址 4624<br>取地址4624的内容，即5081<br>取地址5081的内容<br>也就是说，对于a而言，符号表的地址，即为数组a地址，然而对于p而言，符号表对应的地址，对应的是一个4字节的对象指针，而其内容存放的是一个地址，这个地址存储的数据即为指针所对应的数据。</p>
-<p>2.使用指针来访问数组<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">char *p=&quot;abcdefgh&quot;;</div><div class="line">c = p[i];</div></pre></td></tr></table></figure></p>
-<p>p–&gt;4624–&gt;5081  —|(5081+i)| —5081–&gt;+1–&gt;+2–&gt;+3–&gt;…–&gt;+i–&gt;–&gt;<br>编译器符号表的p地址4624，提取存储于此处的指针5801<br>取下标偏移量，将其与指针的值相加，产生一个地址<br>访问这个地址，取得子符<br>同样也能访问到数组的内容d,只是访问的方式略有不同，首先进行间接引用，然后按照下标偏移量直接访问。</p>
-<p>3.指针所引用的数据，其地址可以是不连续的，而数组，其地址是连续的，指针使用malloc()和 free()来管理内存,且只有字符串才可以初始化指针,其它类型均不可以直接赋值,且初始化之后，是只读的，不可以修改其值 .</p>
-<p>4.数组和指针，有且只有作为函数的参数的时候，才是等同的<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">printf(&quot;array at location %x holds string %s&quot;, a, a);</div></pre></td></tr></table></figure></p>
-<p>这里数组既作为指针使用，也可以作为字符数组使用，只是因为printf是函数，参数中的数组和指针等同<br>又比如main函数<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">int main(char **argv,int argc);</div><div class="line">int main(char *argv[], int argc);</div></pre></td></tr></table></figure></p>
-<p>是等同的.</p>
-<p>5.应用<br>a. 二维数组<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">pea[i][j]</div><div class="line">*(*(pea+i)+j)</div></pre></td></tr></table></figure></p>
-<p>等同，数组中单个元素的存储和引用实际上是以线性形式排列的内存重的，即以第一维作为组，第二位作为每个元素在组内的偏移量，这样线性排列.<br>b.函数指针<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">int (*paf())[20]&#123;</div><div class="line">    int (*pear)[20];</div><div class="line">    pear = calloc(20, sizeof(int));</div><div class="line">    if(!pear) longjmp(error,1);</div><div class="line">    return pear;</div><div class="line">&#125;</div><div class="line">int (result)[20];</div><div class="line">result = paf();</div></pre></td></tr></table></figure></p>
-<p>c.Iliffe向量，即将一个二维数组，创建一个一维数组，数组中的元素是指向其它东西的指针<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">my_function(char **my_array);</div></pre></td></tr></table></figure></p>
-<p>my_array是一个二维数组，一个指向向量的指针数组</p>
+        
+          
+            <p>“酷暑已至，<br>常去旁边的冶金学院游泳，<br>嗮的都成黑炭头，<br>时时想起我那掏碳的男人，<br>这想念像甘甜的美酒一样，<br>令人沉醉，<br>爱情是对我是初见端倪，<br>但已使我一洗尘泥，<br>飘飘欲仙了，<br>我放纵我的天性，<br>相信爱情能给予人创造的力量，<br>我为我的掏碳丈夫感到骄傲，<br>是的，<br>真正的爱情，<br>不应该是利己的，<br>而应该是利他的，<br>是心甘情愿的与爱人一起奋斗，<br>并不断的自我更新的过程，<br>是融合在一起，<br>完全融合在一起的共同斗争，<br>你有没有决心为他而付出自己最大的牺牲，<br>这是衡量是不是正真爱情的标准，<br>否则，<br>就是被自己的感情所欺骗”<br>                —-平凡的世界—-</p>
+<p>很羡慕这样的爱情，朴素，充满了力量，给予我的感动都是满满的，有时候也很期盼那种简单而又真实的情感，也想跟我的爱人，有个约定，等待着那天的到来，在我的生命中，要是有田晓霞似的女友，有贺秀莲似的妻子，那该是人生多么幸福的一件事呢？</p>
 
+          
+        
       
     </div>
 
     <div>
       
-        
-
-      
     </div>
 
     <div>
-      
-        
-
       
     </div>
 
@@ -359,49 +338,30 @@
       
 
       
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-              <a href="/2016/11/20/php闭包/" rel="next" title="PHP闭包">
-                <i class="fa fa-chevron-left"></i> PHP闭包
-              </a>
-            
-          </div>
-
-          <span class="post-nav-divider"></span>
-
-          <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/11/29/c语言中的宏/" rel="prev" title="c语言中的宏">
-                c语言中的宏 <i class="fa fa-chevron-right"></i>
-              </a>
-            
-          </div>
-        </div>
-      
 
       
+      
+        <div class="post-eof"></div>
       
     </footer>
   </article>
 
 
+    
+  </section>
 
-    <div class="post-spread">
-      
-    </div>
-  </div>
-  <div style="width:200px;height:200px;margin:0 auto;"><img src="/images/pay.png" ></div>
+  
+  <nav class="pagination">
+    <a class="extend prev" rel="prev" href="/page/2/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span>
+  </nav>
+
+
 
           </div>
           
 
 
           
-  <div class="comments" id="comments">
-    
-  </div>
-
 
         </div>
         
@@ -566,10 +526,6 @@
   
 
   
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
-
-
 
   
 
