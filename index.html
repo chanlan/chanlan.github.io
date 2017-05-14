@@ -356,126 +356,6 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://chanlan.github.io/2017/05/08/MySQLWorkbench使用SSHTunnel端口转发/">
-
-  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
-    <meta itemprop="name" content="Kivmi">
-    <meta itemprop="description" content="">
-    <meta itemprop="image" content="/images/avatar.gif">
-  </span>
-
-  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-    <meta itemprop="name" content="Learn And Life.">
-    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
-      <img style="display:none;" itemprop="url image" alt="Learn And Life." src="">
-    </span>
-  </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2017/05/08/MySQLWorkbench使用SSHTunnel端口转发/" itemprop="url">
-                  MySQLWorkbench使用SSH Tunnel端口转发
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-05-08T20:30:43+08:00">
-                2017-05-08
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>为了提高工作效率，工具很重要，一般mysql由于存在屏蔽外网访问，必须通过跳转机访问，这样你必须ssh到跳转机，然后才能执行mysql的连接操作，相当的麻烦，因此想使用本地工具远程连接mysql，端口转发就是其中一种实现方式，具体来说在本地执行以下命令，建立一个SSH Tunnel即可，如下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">chenjingxiu@chenjingxiu:~ $ssh -f chenjingxiu@57.69.10.12 -L 3307:57.69.10.58:3306 -N</div><div class="line">Warning: Permanently added &apos;57.69.10.12&apos; (RSA) to the list of known hosts.</div><div class="line">chenjingxiu@57.69.10.12&apos;s password:</div></pre></td></tr></table></figure></p>
-<p>这样就建立跟远程主机的一条通路，然后你就可以像使用本地mysql一样使用远程的mysql了，在这里对选项做下说明<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">-f ssh执行命令之前，进入后台运行状态</div><div class="line">-L 指定一个本地端口3307,它会转发到远程主机57.69.10.58的3306端口，也就是数据库服务器</div><div class="line">-N 不执行远程命令</div></pre></td></tr></table></figure></p>
-<p>对于做了SSH Tunnel处理的本地主机，也可以使用命令行的方式直接访问远程数据库主机，而不用ssh到跳转机，如下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">chenjingxiu@chenjingxiu:~ $mysql -P 3307 -uroot -proot –protocol=TCP</div><div class="line">chenjingxiu@57.69.10.12&apos;s password:</div></pre></td></tr></table></figure></p>
-<p>注意这里需要指定协议为TCP协议.</p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
   <link itemprop="mainEntityOfPage" href="http://chanlan.github.io/2017/05/03/关于代码review/">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -800,6 +680,154 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://chanlan.github.io/2017/04/04/无锁编程实战/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="Kivmi">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/images/avatar.gif">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="Learn And Life.">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="Learn And Life." src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/04/04/无锁编程实战/" itemprop="url">
+                  无锁编程C++中的应用
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-04-04T13:37:30+08:00">
+                2017-04-04
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>At CppCon 2014, Herb Sutter gave a talk about lock-free programming in C++ (part 1, part 2) where he provided the fundamental concepts of lock-free programming, and presented three algorithms to show lock-free techniques. Here is a summary of the most relevant points in the talk.</p>
+<p>The first point that Herb addresses is what benefits lock-free code can bring:</p>
+<p>Improving concurrency and scalability by reducing blocking/waiting.<br>Getting rid of potential issues such as race conditions, deadlocks, scarce composability.<br>Lock-free programming is no panacea, though, since a lock-free algorithm is usually more complex to design, and it has other potential issues, such as contention, which can badly affect performance. From this, it ensues Herb’s first strong suggestion:</p>
+<p>Only apply lock-free technique once you have measured your program and found it has some performance or scalability problem.<br>After implementing the lock-free algorithm, measure again to check that things improved effectively.<br>Fundamentals</p>
+<p>There a few basic principles when thinking about lock-free algorithms:</p>
+<p>Consistency: any significant piece of code should be though of as a transaction bringing the system from one consistent state to another.<br>Isolation: two transactions never operate on the same data.<br>Durability: a committed transaction is never overwritten by another before the latter has “seen” the results of the former.<br>The fundamental technique to achieve that is:</p>
+<p>computing all changes in some private area;<br>using one single atomic write through a special compare/exchange function to make them public.<br>In C++11, this translates into using atomic<t>, which gives two big advantages:</t></p>
+<p>You can think of each read or write operation as atomic, with no lock required.<br>Furthermore, reads and writes are guaranteed not to be reordered.<br>A few important points about atomic are the following:</p>
+<p>For small types, atomic is usually implemented through platform-specific operations.<br>atomic objects must always be initialized (otherwise they will contain garbage).<br>Two atomic operations are guaranteed to be individually atomic, but the status of the object can change in between.<br>Example: Double-checked Locking</p>
+<p>The first example Herb presents is ensuring a global object is constructed only once.</p>
+<p>The key idea is: protecting the atomic write operation through a lock, while letting the atomic read happen without locking. Blocking can thus only happens among those threads that compete to initialize the singleton. The reason behind the algorithm name is that the instance pointer is checked twice, before and after getting the lock on it:</p>
+<p>atomic<widget*> Widget::pInstance{ nullptr };<br>Widget* Widget::Instance() {<br>   if (pInstance == nullptr) {<br>      lock_guard<mutex> lock { mutW };<br>      if (pInstance == nullptr) {<br>         pInstance = new Widget();<br>      }<br>   }<br>}<br>Example: Producer-consumers</mutex></widget*></p>
+<p>The second example described by Herb is a classical producer-consumers algorithm. He begins by describing a traditional solution using locks where:</p>
+<p>The producer gets a lock on the shared queue and push a few objects on to it; for each objects, a condition variable is notified, so consumers know.<br>On the other hand, consumers just try to get a lock on the queue and when one gets it, it checks if there is an object to consume; if there is, then it is popped and processed after releasing the mutex.<br>A first variant of this algorithm is possible using a lock-free technique, whereby the slist is accessed through an atomic variable. What this allow is for the producer to create all of its items at once, then publish them to the consumer by atomically setting the queue’s head. Consumers remain the same.</p>
+<p>Next, a full lock-free implementation is considered. In this case, the algorithm is based on the idea that the producer has to fill a certain number of slots. When it has got a new task, it checks if there is an empty slot, and it store the task there. In the following code, slot is an atomic variable:</p>
+<p>curr = 0;<br>// Phase 1: build and distribute tasks<br>while (ThereAreMoreTasks()) {<br>   task = AllocateAndBuildNewTask();<br>   while (slot[curr] != null)<br>      curr = (curr+1)%K;<br>   slot[curr] = task;<br>   sem[curr].signal();<br>}<br>// Phase 2: Stuff the mailbox with done<br>numNotified = 0;<br>while (numNotified &lt; K) {<br>   while (slot[curr] != null)<br>      curr = (curr+1)%K;<br>   slot[curr] = done;<br>   sem[curr].signal();<br>   ++numNotified;<br>}<br>As to consumers, the code is simpler:</p>
+<p>myTask = null;<br>while (myTask != done) {<br>   while (myTask = slot[mySlot]) == null)<br>      sem[mySlot].wait();<br>   if (myTask != done) {<br>      slot[mySlot] = null;<br>      DoWork(myTask);<br>   }<br>}<br>A consumer waits on a semaphore until some task is in slot. When a task comes in, the consumer gets it and empties the slot. After doing that, the consumer starts processing its data. This responds to the same idea as before of doing work outside of the critical section. But if the consumer is slower than the producer, then it could make sense to do the work before releasing the lock, so that the producer would not fill that same slot again while the consumer is busy, but would preferably fill another empty slot. This shows how you can make different decisions subtly affecting throughput/scalability vs. load balancing.</p>
+<p>Example: Singly-linked list</p>
+<p>A singly-linked list is one of the simplest possible data structures, supporting in this case just four operations: construct, destroy, find, push_front.</p>
+<p>The lock-free implementation proposed by Herb uses an atomic<node*> head{ nullptr }; to access the slist head. The only method actually presenting concurrency issues is push_front, which in a single-threaded version could look like this:</node*></p>
+<p>template<br>void slist<t>::push_front(T t) {<br>   auto p = new Node;<br>   p-&gt;t = t;<br>   p-&gt;next = head;<br>   head = p;<br>}<br>This code has problems since it opens up the possibility of races when setting the new head value. We can fix this problem by using compare_exchange when writing to head, as shown below:</t></p>
+<p>template<br>void slist<t>::push_front(T t) {<br>   auto p = new Node;<br>   p-&gt;t = t;<br>   p-&gt;next = head;</t></p>
+<p>   while (!head.compare_exchange_weak(p-&gt;next, p))<br>      {}<br>}<br>Here we try to swap head and p until we succeed. This use of compareexchangeweak is typical in lock-free code. It is used mostly with loops, while outside of loops compareexchangestrong is used.</p>
+<p>More issues arise when trying to implement a pop operation, which will erase the first element from the list. In this case, one major cause of complexity is the possibility of returning a pointer to an object that could be deleted by another thread shortly thereafter. This problem is well-known in literature as the ABA problem, and Herb goes into detail describing how it can arise in the given scenario.</p>
+<p>C++11 allows an elegant solution to this problem, by not using raw pointers and replacing them with a shared_ptr. In pseudo-code, the implementation becomes:</p>
+<p>template<br>struct Node { T t; shared_ptr<node> next; };<br>atomic<shared_ptr<node>&gt; head;</shared_ptr<node></node></p>
+<p>public:<br>   slist() =default;<br>   ~slist() =default;</p>
+<p>   class reference {<br>      shared_ptr<node> p;<br>   public:<br>      reference(shared<em>ptr<node> p</node></em>) : p{_p} {}<br>      T&amp; operator<em>() { return p-&gt;t; }<br>      T</em> operator-&gt;() { return &amp;p-&gt;t; }<br>   };<br>   auto find(T t) const {<br>      auto p = head.load();<br>      while (p &amp;&amp; p-&gt;t != t)<br>         p = p-&gt;next;<br>      return reference{move(p)};</node></p>
+<p>   void push_front(T t) {<br>      auto p = make_shared<node>();<br>      p-&gt;t = t;<br>      p-&gt;next = head;<br>      while (head.compare_exchange_weak(p-&gt;next, p))<br>         {}<br>   }</node></p>
+<p>   void pop_front() {<br>      auto p = head.load();<br>      while (p &amp;&amp; !head.compare_exchange_weak(p, p-&gt;next))<br>         {}<br>   }<br>};<br>Here the trick is that the pointer is returned wrapped into a shared_ptr, so we are safe as to deletion concerns.</p>
+<p>This implementation shows a nice property known as linearizability, which makes that a series of overlapping operations, can be though of as if they were executed in sequence.</p>
+<p>The final part of the talk is dedicated to discussing an example of measuring a program to find out how it behaves and what benefits it can get from going lock-free.</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
   <link itemprop="mainEntityOfPage" href="http://chanlan.github.io/2017/04/04/无锁编程注意事项/">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -959,154 +987,6 @@ if( g_sprites[nextSprite].alive )
 <p>InterlockedXxx functions prevent CPU read/write reordering on Windows, but not on Xbox 360.<br>Reading and writing of volatile variables using Visual Studio C++ 2005 prevents CPU read/write reordering on Windows, but on Xbox 360, it only prevents compiler read/write reordering.<br>Writes are reordered on Xbox 360, but not on x86 or x64.<br>Reads are reordered on Xbox 360, but on x86 or x64 they are only reordered relative to writes, and only if the reads and writes target different locations.<br>Recommendations</p>
 <p>Use locks when possible because they are easier to use correctly.<br>Avoid locking too frequently, so that locking costs do not become significant.<br>Avoid holding locks for too long, in order to avoid long stalls.<br>Use lockless programming when appropriate, but be sure that the gains justify the complexity.<br>Use lockless programming or spin locks in situations where other locks are prohibited, such as when sharing data between deferred procedure calls and normal code.<br>Only use standard lockless programming algorithms that have been proven to be correct.<br>When doing lockless programming, be sure to use volatile flag variables and memory barrier instructions as needed.<br>When using InterlockedXxx on Xbox 360, use the Acquire and Release variants.<br>References</p>
 <p>MSDN Library. “volatile (C++).” C++ Language Reference.<br>Vance Morrison. “Understand the Impact of Low-Lock Techniques in Multithreaded Apps.” MSDN Magazine, October 2005.<br>Lyons, Michael. “PowerPC Storage Model and AIX Programming.” IBM developerWorks, 16 Nov 2005.<br>McKenney, Paul E. “Memory Ordering in Modern Microprocessors, Part II.” Linux Journal, September 2005. [This article has some x86 details.]<br>Intel Corporation. “Intel® 64 Architecture Memory Ordering.” August 2007. [Applies to both IA-32 and Intel 64 processors.]<br>Niebler, Eric. “Trip Report: Ad-Hoc Meeting on Threads in C++.” The C++ Source, 17 Oct 2006.<br>Hart, Thomas E. 2006. “Making Lockless Synchronization Fast: Performance Implications of Memory Reclamation.” Proceedings of the 2006 International Parallel and Distributed Processing Symposium (IPDPS 2006), Rhodes Island, Greece, April 2006.</p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://chanlan.github.io/2017/04/04/无锁编程实战/">
-
-  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
-    <meta itemprop="name" content="Kivmi">
-    <meta itemprop="description" content="">
-    <meta itemprop="image" content="/images/avatar.gif">
-  </span>
-
-  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-    <meta itemprop="name" content="Learn And Life.">
-    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
-      <img style="display:none;" itemprop="url image" alt="Learn And Life." src="">
-    </span>
-  </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2017/04/04/无锁编程实战/" itemprop="url">
-                  无锁编程C++中的应用
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-04-04T13:37:30+08:00">
-                2017-04-04
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>At CppCon 2014, Herb Sutter gave a talk about lock-free programming in C++ (part 1, part 2) where he provided the fundamental concepts of lock-free programming, and presented three algorithms to show lock-free techniques. Here is a summary of the most relevant points in the talk.</p>
-<p>The first point that Herb addresses is what benefits lock-free code can bring:</p>
-<p>Improving concurrency and scalability by reducing blocking/waiting.<br>Getting rid of potential issues such as race conditions, deadlocks, scarce composability.<br>Lock-free programming is no panacea, though, since a lock-free algorithm is usually more complex to design, and it has other potential issues, such as contention, which can badly affect performance. From this, it ensues Herb’s first strong suggestion:</p>
-<p>Only apply lock-free technique once you have measured your program and found it has some performance or scalability problem.<br>After implementing the lock-free algorithm, measure again to check that things improved effectively.<br>Fundamentals</p>
-<p>There a few basic principles when thinking about lock-free algorithms:</p>
-<p>Consistency: any significant piece of code should be though of as a transaction bringing the system from one consistent state to another.<br>Isolation: two transactions never operate on the same data.<br>Durability: a committed transaction is never overwritten by another before the latter has “seen” the results of the former.<br>The fundamental technique to achieve that is:</p>
-<p>computing all changes in some private area;<br>using one single atomic write through a special compare/exchange function to make them public.<br>In C++11, this translates into using atomic<t>, which gives two big advantages:</t></p>
-<p>You can think of each read or write operation as atomic, with no lock required.<br>Furthermore, reads and writes are guaranteed not to be reordered.<br>A few important points about atomic are the following:</p>
-<p>For small types, atomic is usually implemented through platform-specific operations.<br>atomic objects must always be initialized (otherwise they will contain garbage).<br>Two atomic operations are guaranteed to be individually atomic, but the status of the object can change in between.<br>Example: Double-checked Locking</p>
-<p>The first example Herb presents is ensuring a global object is constructed only once.</p>
-<p>The key idea is: protecting the atomic write operation through a lock, while letting the atomic read happen without locking. Blocking can thus only happens among those threads that compete to initialize the singleton. The reason behind the algorithm name is that the instance pointer is checked twice, before and after getting the lock on it:</p>
-<p>atomic<widget*> Widget::pInstance{ nullptr };<br>Widget* Widget::Instance() {<br>   if (pInstance == nullptr) {<br>      lock_guard<mutex> lock { mutW };<br>      if (pInstance == nullptr) {<br>         pInstance = new Widget();<br>      }<br>   }<br>}<br>Example: Producer-consumers</mutex></widget*></p>
-<p>The second example described by Herb is a classical producer-consumers algorithm. He begins by describing a traditional solution using locks where:</p>
-<p>The producer gets a lock on the shared queue and push a few objects on to it; for each objects, a condition variable is notified, so consumers know.<br>On the other hand, consumers just try to get a lock on the queue and when one gets it, it checks if there is an object to consume; if there is, then it is popped and processed after releasing the mutex.<br>A first variant of this algorithm is possible using a lock-free technique, whereby the slist is accessed through an atomic variable. What this allow is for the producer to create all of its items at once, then publish them to the consumer by atomically setting the queue’s head. Consumers remain the same.</p>
-<p>Next, a full lock-free implementation is considered. In this case, the algorithm is based on the idea that the producer has to fill a certain number of slots. When it has got a new task, it checks if there is an empty slot, and it store the task there. In the following code, slot is an atomic variable:</p>
-<p>curr = 0;<br>// Phase 1: build and distribute tasks<br>while (ThereAreMoreTasks()) {<br>   task = AllocateAndBuildNewTask();<br>   while (slot[curr] != null)<br>      curr = (curr+1)%K;<br>   slot[curr] = task;<br>   sem[curr].signal();<br>}<br>// Phase 2: Stuff the mailbox with done<br>numNotified = 0;<br>while (numNotified &lt; K) {<br>   while (slot[curr] != null)<br>      curr = (curr+1)%K;<br>   slot[curr] = done;<br>   sem[curr].signal();<br>   ++numNotified;<br>}<br>As to consumers, the code is simpler:</p>
-<p>myTask = null;<br>while (myTask != done) {<br>   while (myTask = slot[mySlot]) == null)<br>      sem[mySlot].wait();<br>   if (myTask != done) {<br>      slot[mySlot] = null;<br>      DoWork(myTask);<br>   }<br>}<br>A consumer waits on a semaphore until some task is in slot. When a task comes in, the consumer gets it and empties the slot. After doing that, the consumer starts processing its data. This responds to the same idea as before of doing work outside of the critical section. But if the consumer is slower than the producer, then it could make sense to do the work before releasing the lock, so that the producer would not fill that same slot again while the consumer is busy, but would preferably fill another empty slot. This shows how you can make different decisions subtly affecting throughput/scalability vs. load balancing.</p>
-<p>Example: Singly-linked list</p>
-<p>A singly-linked list is one of the simplest possible data structures, supporting in this case just four operations: construct, destroy, find, push_front.</p>
-<p>The lock-free implementation proposed by Herb uses an atomic<node*> head{ nullptr }; to access the slist head. The only method actually presenting concurrency issues is push_front, which in a single-threaded version could look like this:</node*></p>
-<p>template<br>void slist<t>::push_front(T t) {<br>   auto p = new Node;<br>   p-&gt;t = t;<br>   p-&gt;next = head;<br>   head = p;<br>}<br>This code has problems since it opens up the possibility of races when setting the new head value. We can fix this problem by using compare_exchange when writing to head, as shown below:</t></p>
-<p>template<br>void slist<t>::push_front(T t) {<br>   auto p = new Node;<br>   p-&gt;t = t;<br>   p-&gt;next = head;</t></p>
-<p>   while (!head.compare_exchange_weak(p-&gt;next, p))<br>      {}<br>}<br>Here we try to swap head and p until we succeed. This use of compareexchangeweak is typical in lock-free code. It is used mostly with loops, while outside of loops compareexchangestrong is used.</p>
-<p>More issues arise when trying to implement a pop operation, which will erase the first element from the list. In this case, one major cause of complexity is the possibility of returning a pointer to an object that could be deleted by another thread shortly thereafter. This problem is well-known in literature as the ABA problem, and Herb goes into detail describing how it can arise in the given scenario.</p>
-<p>C++11 allows an elegant solution to this problem, by not using raw pointers and replacing them with a shared_ptr. In pseudo-code, the implementation becomes:</p>
-<p>template<br>struct Node { T t; shared_ptr<node> next; };<br>atomic<shared_ptr<node>&gt; head;</shared_ptr<node></node></p>
-<p>public:<br>   slist() =default;<br>   ~slist() =default;</p>
-<p>   class reference {<br>      shared_ptr<node> p;<br>   public:<br>      reference(shared<em>ptr<node> p</node></em>) : p{_p} {}<br>      T&amp; operator<em>() { return p-&gt;t; }<br>      T</em> operator-&gt;() { return &amp;p-&gt;t; }<br>   };<br>   auto find(T t) const {<br>      auto p = head.load();<br>      while (p &amp;&amp; p-&gt;t != t)<br>         p = p-&gt;next;<br>      return reference{move(p)};</node></p>
-<p>   void push_front(T t) {<br>      auto p = make_shared<node>();<br>      p-&gt;t = t;<br>      p-&gt;next = head;<br>      while (head.compare_exchange_weak(p-&gt;next, p))<br>         {}<br>   }</node></p>
-<p>   void pop_front() {<br>      auto p = head.load();<br>      while (p &amp;&amp; !head.compare_exchange_weak(p, p-&gt;next))<br>         {}<br>   }<br>};<br>Here the trick is that the pointer is returned wrapped into a shared_ptr, so we are safe as to deletion concerns.</p>
-<p>This implementation shows a nice property known as linearizability, which makes that a series of overlapping operations, can be though of as if they were executed in sequence.</p>
-<p>The final part of the talk is dedicated to discussing an example of measuring a program to find out how it behaves and what benefits it can get from going lock-free.</p>
 
           
         
@@ -1672,6 +1552,124 @@ if( g_sprites[nextSprite].alive )
 
 
     
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://chanlan.github.io/2016/12/26/shell脚本日志收集与打包/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="Kivmi">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/images/avatar.gif">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="Learn And Life.">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="Learn And Life." src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/12/26/shell脚本日志收集与打包/" itemprop="url">
+                  shell脚本日志收集与打包
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-12-26T14:53:35+08:00">
+                2016-12-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>线上日志收集是很正常的业务，一般由运营来处理，现在给一段代码来实现日志的收集，打包以及上传到s3备份存储，请看代码:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div><div class="line">122</div><div class="line">123</div><div class="line">124</div><div class="line">125</div><div class="line">126</div><div class="line">127</div><div class="line">128</div><div class="line">129</div><div class="line">130</div><div class="line">131</div><div class="line">132</div><div class="line">133</div><div class="line">134</div><div class="line">135</div><div class="line">136</div><div class="line">137</div><div class="line">138</div><div class="line">139</div><div class="line">140</div><div class="line">141</div><div class="line">142</div><div class="line">143</div><div class="line">144</div><div class="line">145</div><div class="line">146</div></pre></td><td class="code"><pre><div class="line">#!/bin/sh</div><div class="line">function send_sms()</div><div class="line">&#123;</div><div class="line">    . /data/se_scripts/conf/setting_new.conf</div><div class="line">    phone=$phone_number</div><div class="line">    phone=$(echo $phone |sed &apos;s/\n//g&apos;)</div><div class="line">    phone=$(echo $phone |sed &apos;s/\r//g&apos;)</div><div class="line">    sh /data/se_scripts/conf/send_msg_new.sh $&#123;phone&#125; 701 &quot;upload $1 failed&quot; &amp;</div><div class="line">&#125;</div><div class="line"></div><div class="line">function exit_if_timeout()</div><div class="line">&#123;</div><div class="line">    SLEEP_SECONDS=$1</div><div class="line">    CMD=$2</div><div class="line">    #set -x</div><div class="line">    $CMD &amp;</div><div class="line">    pidApp=$!</div><div class="line">    ( sleep $SLEEP_SECONDS ; kill $pidApp ) &amp;</div><div class="line">    killerPid=$!</div><div class="line">    wait $pidApp</div><div class="line">    status=$?</div><div class="line">    (kill -0 $killerPid &amp;&amp; kill $killerPid) || true</div><div class="line">    #set +x</div><div class="line">    return $status</div><div class="line">&#125;</div><div class="line"></div><div class="line">function exec_cmd_with_retry() </div><div class="line">&#123;</div><div class="line">    cmd=$1</div><div class="line">    cur_retry=$2</div><div class="line">    while [ $cur_retry -gt 0 ]; do</div><div class="line">        $cmd</div><div class="line">        ret=$?</div><div class="line">        if [ $ret -eq 0 ]; then</div><div class="line">            return</div><div class="line">        fi</div><div class="line"></div><div class="line">        ((cur_retry -= 1))</div><div class="line">        sleep 10</div><div class="line">    done</div><div class="line">  </div><div class="line">    send_sms &quot;Failed to exec $&#123;cmd&#125; IP:$&#123;local_ip&#125;&quot;</div><div class="line">    exit 1;</div><div class="line">&#125;</div><div class="line"></div><div class="line">function upload_s3path()</div><div class="line">&#123;</div><div class="line">    retry_cnt=$1</div><div class="line">    src_path=$2</div><div class="line">    file=$3</div><div class="line">    arr=($&#123;file//./ &#125;)</div><div class="line">    day=$&#123;file:0:8&#125;</div><div class="line">    hour=$&#123;file:8:2&#125;</div><div class="line">    minute=$&#123;file:10:2&#125;</div><div class="line">    exit_if_timeout 600 &quot;aws s3 cp --profile $s3_profile $src_path/$file $s3_path/$day/$hour/$minute/$file.$local_ip.log&quot; </div><div class="line"></div><div class="line">    ret=$?</div><div class="line">    if [ $ret -eq 0 ] ; then</div><div class="line">        rm -rf $src_path/$file</div><div class="line">    fi</div><div class="line"></div><div class="line">    if [ $ret -eq 0 ] &amp;&amp; [ &quot;$&#123;file&#125;&quot; != &quot;$&#123;ln_file&#125;&quot; ]; then</div><div class="line">        send_sms &quot;$src_path/$file uploads3 retry ok $&#123;local_ip&#125;&quot;</div><div class="line">    elif [ $ret -ne 0 ] &amp;&amp; [ $retry_cnt -eq 0 ]; then</div><div class="line">        send_sms &quot;$src_path/$file uploads3 failed $&#123;local_ip&#125;&quot;</div><div class="line">    fi</div><div class="line">&#125;</div><div class="line"></div><div class="line">function upload_files()</div><div class="line">&#123;</div><div class="line">    for f in `ls $ln_path`</div><div class="line">    do</div><div class="line">        upload_s3path $1 $ln_path $f</div><div class="line">    done</div><div class="line">&#125;</div><div class="line"></div><div class="line">function upload_empty()</div><div class="line">&#123;</div><div class="line">    for f in `ls $lock_touch`</div><div class="line">    do</div><div class="line">        upload_s3path $1 $lock_touch $f</div><div class="line">    done</div><div class="line">&#125;</div><div class="line"></div><div class="line">function upload_logs()</div><div class="line">&#123;</div><div class="line">    cur_retry=5</div><div class="line">    while [ $cur_retry -gt 0 ]; do</div><div class="line">        upload_empty $cur_retry</div><div class="line">        upload_files $cur_retry</div><div class="line">        ((cur_retry -= 1))</div><div class="line">        sleep 10</div><div class="line">    done </div><div class="line">&#125;</div><div class="line"></div><div class="line">#down 机 肯定不会有原始日志，所以不检查原始日志</div><div class="line">function check_empty()</div><div class="line">&#123;</div><div class="line">    for f in `ls $lock_touch`</div><div class="line">    do</div><div class="line">        check=`ls $ln_path | grep  $f | grep -v grep | wc -l`</div><div class="line">        if [ $check -ne 0 ]; then</div><div class="line">            rm -rf $lock_touch/$f</div><div class="line">        fi</div><div class="line">    done</div><div class="line">&#125;</div><div class="line"></div><div class="line">function check_pid()</div><div class="line">&#123;</div><div class="line">    if [ ! -d $&#123;lock_pid&#125; ];then</div><div class="line">        mkdir -p $lock_pid</div><div class="line">        echo $$ &gt; $lock_pid/PID</div><div class="line">        return</div><div class="line">    fi</div><div class="line"></div><div class="line">    check=0</div><div class="line">    running=`cat $lock_pid/PID`</div><div class="line">    if [ ! -z $running  ]; then</div><div class="line">        check=`ps -ef | grep  $running | grep -v grep | wc -l`</div><div class="line">    fi</div><div class="line"></div><div class="line">    if [ &quot;$check&quot; -eq &quot;1&quot; ]; then</div><div class="line">        exit</div><div class="line">    fi</div><div class="line"></div><div class="line">    echo $$ &gt; $lock_pid/PID</div><div class="line">&#125;</div><div class="line"></div><div class="line">#args</div><div class="line">log_path=$1</div><div class="line">log_file=$2</div><div class="line">s3_path=$3</div><div class="line">ln_path=$4</div><div class="line">ln_file=$6</div><div class="line">s3_profile=$7</div><div class="line">lock_pid=$5/pid</div><div class="line">lock_touch=$5/empty</div><div class="line">local_ip=`cat /var/tmp/ifconfigme`</div><div class="line"></div><div class="line">#soft link</div><div class="line">exec_cmd_with_retry &quot;ln -s $log_path/$log_file $ln_path/$ln_file&quot; 5</div><div class="line"></div><div class="line">check_pid</div><div class="line">check_empty</div><div class="line">upload_logs</div><div class="line">rm -rf $lock_pid</div></pre></td></tr></table></figure></p>
+<p>基本上已经够用了，需要定义自己的变量就好！</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
   </section>
 
   
@@ -1717,7 +1715,7 @@ if( g_sprites[nextSprite].alive )
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">22</span>
+              <span class="site-state-item-count">21</span>
               <span class="site-state-item-name">posts</span>
             </a>
           </div>
