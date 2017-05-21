@@ -686,7 +686,23 @@
       
         
           
-            
+            <p>初涉这门语言，该语言以其高性能并发编程而被程序员们所喜欢，虽然鄙人还没涉足如何很好的去运用这门语言来支持现有的产品性能提升，只是抱着学习的态度，了解一门新的语言有哪些特性，可以为我所用，仅此，写下此篇，来记录自己学习历程！</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">go语言哲学</div></pre></td></tr></table></figure>
+<p>少即是多，你理解得越好，你将变得越简洁！这里的少和多主要是针对GO和C、C++之间的比较，下面看看Go做了些什么：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div></pre></td><td class="code"><pre><div class="line">常规的语法(不需要一个符号表来辅助解析)</div><div class="line">GC机制(仅仅是GC)</div><div class="line">没有头文件</div><div class="line">显式依赖关系</div><div class="line">没有循环依赖</div><div class="line">数字常量仅仅是数字(没有类型)</div><div class="line">int和int32不是同种类型</div><div class="line">字母大小写将确定可见性</div><div class="line">任何类型都可以有方法(没有类)</div><div class="line">没有子类型继承(没有子类)</div><div class="line">包级别的初始化和良好定义的初始化顺序</div><div class="line">同一个包的文件一起编译</div><div class="line">包级别的全局定义可以以任意顺序进行</div><div class="line">没有算术类型转换(常量可以弥补)</div><div class="line">接口是隐式实现的(没有”implements”声明)</div><div class="line">嵌入的结构体(没有类型提升和子类)</div><div class="line">方法像函数一样定义(不必定义在特殊的地方)</div><div class="line">方法就是函数</div><div class="line">接口就是方法(没有数据)</div><div class="line">方法仅仅靠名字匹配(不是靠类型)</div><div class="line">没有构造函数和析构函数</div><div class="line">后置增量/减量运算符仅仅是语句，而不是表达式</div><div class="line">没有前置增量/减量运算符</div><div class="line">赋值号是语句，不是表达式</div><div class="line">表达式求值顺序在赋值和函数调用时确定(没有所谓的”sequence point”)</div><div class="line">没有指针算术</div><div class="line">内存总是初始化为0</div><div class="line">对本地变量取地址是合法的</div><div class="line">方法中没有叫this的指针</div><div class="line">分段式栈</div><div class="line">没有常量或其它类型的注记</div><div class="line">没有模板</div><div class="line">没有异常</div><div class="line">内建字符串，切片和映射(map)</div><div class="line">数组边界检查</div></pre></td></tr></table></figure></p>
+<p>Doug Mcilroy，Unix管道的最终发明人，在1964年(!)写道:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">我们应该有一些机制能将程序耦合(串)起来，像花园软管那样——当我们需要另一种方式传送数据时，拧紧另外一段即可。 I/O也可以这么做。</div></pre></td></tr></table></figure></p>
+<p>如果C++和Java注重类型继承和类型系统的分类学，那么Go就注重组合，是一门关于(功能上的)组合和(调用上的)耦合的语言。写这些，只是为了便于理解go语言是什么，便于更快的理解go语言</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">go语言特性</div></pre></td></tr></table></figure>
+<p>1.自动垃圾回收<br>2.更丰富的内置类型<br>3.函数多返回值<br>4.错误处理<br>5.匿名函数和闭包<br>6.类型和接口<br>7.并发编程<br>8.反射<br>9.语言交互性</p>
+<p>….以后补充….</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">go语言初步</div></pre></td></tr></table></figure>
+<p>…..以后补充…..</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">go语言开源项目</div></pre></td></tr></table></figure>
+<p>1.cache2go<br><a href="https://github.com/muesli/cache2go" target="_blank" rel="external">https://github.com/muesli/cache2go</a><br>比较简单的一个缓存库，代码量很少，适合新手学习，可以学习到锁、goroutines等</p>
+<p>2.groupcache<br><a href="https://github.com/golang/groupcache" target="_blank" rel="external">https://github.com/golang/groupcache</a><br>与memcached同一作者，相当于是memcached的go语言实现</p>
+<p>3.nsq<br><a href="https://github.com/bitly/nsq" target="_blank" rel="external">https://github.com/bitly/nsq</a><br>消息分发平台，阅读代码可以了解到很多分布式、负载均衡等方面的编程</p>
+<p>4.docker<br><a href="https://github.com/docker/docker" target="_blank" rel="external">https://github.com/docker/docker</a><br>成为了高手后可以研究下其实现</p>
+<p>5.go语言开发工具集<br><a href="https://github.com/golang/go/wiki/Projects" target="_blank" rel="external">https://github.com/golang/go/wiki/Projects</a></p>
+
           
         
       
