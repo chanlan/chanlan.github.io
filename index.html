@@ -239,7 +239,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://chanlan.github.io/2017/06/06/算法学习/">
+  <link itemprop="mainEntityOfPage" href="http://chanlan.github.io/2017/06/07/朴素算法/">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <meta itemprop="name" content="Kivmi">
@@ -264,7 +264,194 @@
             
               
                 
-                <a class="post-title-link" href="/2017/06/06/算法学习/" itemprop="url">
+                <a class="post-title-link" href="/2017/06/07/朴素算法/" itemprop="url">
+                  朴素算法
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-06-07T23:00:39+08:00">
+                2017-06-07
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="算法时间和空间复杂度"><a href="#算法时间和空间复杂度" class="headerlink" title="算法时间和空间复杂度"></a>算法时间和空间复杂度</h1><h3 id="Table"><a href="#Table" class="headerlink" title="Table"></a>Table</h3><table>
+<thead>
+<tr>
+<th style="text-align:left">排序法</th>
+<th style="text-align:right">时间复杂度</th>
+<th style="text-align:right">最坏时间复杂度</th>
+<th style="text-align:right">稳定度</th>
+<th style="text-align:right">空间复杂度</th>
+<th style="text-align:center">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">冒泡</td>
+<td style="text-align:right">O(N2)</td>
+<td style="text-align:right">O(N2)</td>
+<td style="text-align:right">稳定</td>
+<td style="text-align:right">O(1)</td>
+<td style="text-align:center">n较小</td>
+</tr>
+<tr>
+<td style="text-align:left">选择</td>
+<td style="text-align:right">O(N2)</td>
+<td style="text-align:right">O(N2)</td>
+<td style="text-align:right">不稳定</td>
+<td style="text-align:right">O(1)</td>
+<td style="text-align:center">n较小</td>
+</tr>
+<tr>
+<td style="text-align:left">插入</td>
+<td style="text-align:right">O(N2)</td>
+<td style="text-align:right">O(N2)</td>
+<td style="text-align:right">不稳定</td>
+<td style="text-align:right">O(1)</td>
+<td style="text-align:center">n较小</td>
+</tr>
+<tr>
+<td style="text-align:left">希尔</td>
+<td style="text-align:right">O(NlgN)</td>
+<td style="text-align:right">O(Ns)(1 &lt; s &lt;2)</td>
+<td style="text-align:right">不稳定</td>
+<td style="text-align:right">O(1)</td>
+<td style="text-align:center">s是所选分组</td>
+</tr>
+<tr>
+<td style="text-align:left">快速</td>
+<td style="text-align:right">O(NlgN)</td>
+<td style="text-align:right">O(N2)</td>
+<td style="text-align:right">不稳定</td>
+<td style="text-align:right">O(NlgN)</td>
+<td style="text-align:center">n较大</td>
+</tr>
+<tr>
+<td style="text-align:left">堆排序</td>
+<td style="text-align:right">O(NlgN)</td>
+<td style="text-align:right">O(NlgN)</td>
+<td style="text-align:right">不稳定</td>
+<td style="text-align:right">O(1)</td>
+<td style="text-align:center">n较大</td>
+</tr>
+<tr>
+<td style="text-align:left">归并排序</td>
+<td style="text-align:right">O(NlgN)</td>
+<td style="text-align:right">O(NlgN)</td>
+<td style="text-align:right">稳定</td>
+<td style="text-align:right">O(1)</td>
+<td style="text-align:center">n较大</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h1 id="递归"><a href="#递归" class="headerlink" title="递归"></a>递归</h1><h2 id="分治法"><a href="#分治法" class="headerlink" title="分治法"></a>分治法</h2><h3 id="最大值问题"><a href="#最大值问题" class="headerlink" title="最大值问题"></a>最大值问题</h3><h3 id="尺子上画刻度问题"><a href="#尺子上画刻度问题" class="headerlink" title="尺子上画刻度问题"></a>尺子上画刻度问题</h3><h2 id="动态规划"><a href="#动态规划" class="headerlink" title="动态规划"></a>动态规划</h2><h3 id="斐波纳契数"><a href="#斐波纳契数" class="headerlink" title="斐波纳契数"></a>斐波纳契数</h3><h3 id="背包问题"><a href="#背包问题" class="headerlink" title="背包问题"></a>背包问题</h3><h2 id="树"><a href="#树" class="headerlink" title="树"></a>树</h2><h3 id="树的遍历"><a href="#树的遍历" class="headerlink" title="树的遍历"></a>树的遍历</h3><h3 id="平衡树"><a href="#平衡树" class="headerlink" title="平衡树"></a>平衡树</h3><h3 id="B树"><a href="#B树" class="headerlink" title="B树"></a>B树</h3><h2 id="图"><a href="#图" class="headerlink" title="图"></a>图</h2><h3 id="图的遍历"><a href="#图的遍历" class="headerlink" title="图的遍历"></a>图的遍历</h3><h2 id="排序"><a href="#排序" class="headerlink" title="排序"></a>排序</h2><h3 id="快速排序"><a href="#快速排序" class="headerlink" title="快速排序"></a>快速排序</h3><h3 id="基数排序"><a href="#基数排序" class="headerlink" title="基数排序"></a>基数排序</h3><h2 id="搜索"><a href="#搜索" class="headerlink" title="搜索"></a>搜索</h2><h3 id="二分搜索"><a href="#二分搜索" class="headerlink" title="二分搜索"></a>二分搜索</h3><h3 id="基数搜索"><a href="#基数搜索" class="headerlink" title="基数搜索"></a>基数搜索</h3><h1 id="符号表"><a href="#符号表" class="headerlink" title="符号表"></a>符号表</h1>
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://chanlan.github.io/2017/06/06/Markdown/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="Kivmi">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/images/avatar.gif">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="Learn And Life.">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="Learn And Life." src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/06/06/Markdown/" itemprop="url">
                   Markdown文件
                 </a>
               
@@ -400,7 +587,7 @@
 <h2 id="Credits"><a href="#Credits" class="headerlink" title="Credits"></a>Credits</h2><p><strong>Marxico</strong> was first built upon <a href="http://dillinger.io" target="_blank" rel="external">Dillinger</a>, and the newest version is almost based on the awesome <a href="http://stackedit.io" target="_blank" rel="external">StackEdit</a>. Acknowledgments to them and other incredible open source projects!</p>
 <h2 id="Feedback-amp-Bug-Report"><a href="#Feedback-amp-Bug-Report" class="headerlink" title="Feedback &amp; Bug Report"></a>Feedback &amp; Bug Report</h2><ul>
 <li>Twitter: <a href="https://twitter.com/gock2" target="_blank" rel="external">@gock2</a></li>
-<li>Email: <a href="&#109;&#97;&#105;&#108;&#116;&#x6f;&#58;&#x68;&#x75;&#x73;&#116;&#x67;&#111;&#99;&#x6b;&#x40;&#x67;&#109;&#97;&#x69;&#108;&#46;&#x63;&#111;&#109;">&#x68;&#x75;&#x73;&#116;&#x67;&#111;&#99;&#x6b;&#x40;&#x67;&#109;&#97;&#x69;&#108;&#46;&#x63;&#111;&#109;</a></li>
+<li>Email: <a href="&#109;&#x61;&#x69;&#x6c;&#116;&#x6f;&#58;&#104;&#x75;&#115;&#x74;&#103;&#111;&#99;&#x6b;&#x40;&#103;&#109;&#97;&#105;&#108;&#46;&#x63;&#x6f;&#109;">&#104;&#x75;&#115;&#x74;&#103;&#111;&#99;&#x6b;&#x40;&#103;&#109;&#97;&#105;&#108;&#46;&#x63;&#x6f;&#109;</a></li>
 </ul>
 <hr>
 <p>Thank you for reading this manual. Now please press <code>Ctrl + M</code> and click <code>Link with Evernote</code>. Enjoy your <strong>Marxico</strong> journey!</p>
@@ -1180,154 +1367,6 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://chanlan.github.io/2017/04/04/无锁编程实战/">
-
-  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
-    <meta itemprop="name" content="Kivmi">
-    <meta itemprop="description" content="">
-    <meta itemprop="image" content="/images/avatar.gif">
-  </span>
-
-  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-    <meta itemprop="name" content="Learn And Life.">
-    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
-      <img style="display:none;" itemprop="url image" alt="Learn And Life." src="">
-    </span>
-  </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2017/04/04/无锁编程实战/" itemprop="url">
-                  无锁编程C++中的应用
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-04-04T13:37:30+08:00">
-                2017-04-04
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>At CppCon 2014, Herb Sutter gave a talk about lock-free programming in C++ (part 1, part 2) where he provided the fundamental concepts of lock-free programming, and presented three algorithms to show lock-free techniques. Here is a summary of the most relevant points in the talk.</p>
-<p>The first point that Herb addresses is what benefits lock-free code can bring:</p>
-<p>Improving concurrency and scalability by reducing blocking/waiting.<br>Getting rid of potential issues such as race conditions, deadlocks, scarce composability.<br>Lock-free programming is no panacea, though, since a lock-free algorithm is usually more complex to design, and it has other potential issues, such as contention, which can badly affect performance. From this, it ensues Herb’s first strong suggestion:</p>
-<p>Only apply lock-free technique once you have measured your program and found it has some performance or scalability problem.<br>After implementing the lock-free algorithm, measure again to check that things improved effectively.<br>Fundamentals</p>
-<p>There a few basic principles when thinking about lock-free algorithms:</p>
-<p>Consistency: any significant piece of code should be though of as a transaction bringing the system from one consistent state to another.<br>Isolation: two transactions never operate on the same data.<br>Durability: a committed transaction is never overwritten by another before the latter has “seen” the results of the former.<br>The fundamental technique to achieve that is:</p>
-<p>computing all changes in some private area;<br>using one single atomic write through a special compare/exchange function to make them public.<br>In C++11, this translates into using atomic<t>, which gives two big advantages:</t></p>
-<p>You can think of each read or write operation as atomic, with no lock required.<br>Furthermore, reads and writes are guaranteed not to be reordered.<br>A few important points about atomic are the following:</p>
-<p>For small types, atomic is usually implemented through platform-specific operations.<br>atomic objects must always be initialized (otherwise they will contain garbage).<br>Two atomic operations are guaranteed to be individually atomic, but the status of the object can change in between.<br>Example: Double-checked Locking</p>
-<p>The first example Herb presents is ensuring a global object is constructed only once.</p>
-<p>The key idea is: protecting the atomic write operation through a lock, while letting the atomic read happen without locking. Blocking can thus only happens among those threads that compete to initialize the singleton. The reason behind the algorithm name is that the instance pointer is checked twice, before and after getting the lock on it:</p>
-<p>atomic<widget*> Widget::pInstance{ nullptr };<br>Widget* Widget::Instance() {<br>   if (pInstance == nullptr) {<br>      lock_guard<mutex> lock { mutW };<br>      if (pInstance == nullptr) {<br>         pInstance = new Widget();<br>      }<br>   }<br>}<br>Example: Producer-consumers</mutex></widget*></p>
-<p>The second example described by Herb is a classical producer-consumers algorithm. He begins by describing a traditional solution using locks where:</p>
-<p>The producer gets a lock on the shared queue and push a few objects on to it; for each objects, a condition variable is notified, so consumers know.<br>On the other hand, consumers just try to get a lock on the queue and when one gets it, it checks if there is an object to consume; if there is, then it is popped and processed after releasing the mutex.<br>A first variant of this algorithm is possible using a lock-free technique, whereby the slist is accessed through an atomic variable. What this allow is for the producer to create all of its items at once, then publish them to the consumer by atomically setting the queue’s head. Consumers remain the same.</p>
-<p>Next, a full lock-free implementation is considered. In this case, the algorithm is based on the idea that the producer has to fill a certain number of slots. When it has got a new task, it checks if there is an empty slot, and it store the task there. In the following code, slot is an atomic variable:</p>
-<p>curr = 0;<br>// Phase 1: build and distribute tasks<br>while (ThereAreMoreTasks()) {<br>   task = AllocateAndBuildNewTask();<br>   while (slot[curr] != null)<br>      curr = (curr+1)%K;<br>   slot[curr] = task;<br>   sem[curr].signal();<br>}<br>// Phase 2: Stuff the mailbox with done<br>numNotified = 0;<br>while (numNotified &lt; K) {<br>   while (slot[curr] != null)<br>      curr = (curr+1)%K;<br>   slot[curr] = done;<br>   sem[curr].signal();<br>   ++numNotified;<br>}<br>As to consumers, the code is simpler:</p>
-<p>myTask = null;<br>while (myTask != done) {<br>   while (myTask = slot[mySlot]) == null)<br>      sem[mySlot].wait();<br>   if (myTask != done) {<br>      slot[mySlot] = null;<br>      DoWork(myTask);<br>   }<br>}<br>A consumer waits on a semaphore until some task is in slot. When a task comes in, the consumer gets it and empties the slot. After doing that, the consumer starts processing its data. This responds to the same idea as before of doing work outside of the critical section. But if the consumer is slower than the producer, then it could make sense to do the work before releasing the lock, so that the producer would not fill that same slot again while the consumer is busy, but would preferably fill another empty slot. This shows how you can make different decisions subtly affecting throughput/scalability vs. load balancing.</p>
-<p>Example: Singly-linked list</p>
-<p>A singly-linked list is one of the simplest possible data structures, supporting in this case just four operations: construct, destroy, find, push_front.</p>
-<p>The lock-free implementation proposed by Herb uses an atomic<node*> head{ nullptr }; to access the slist head. The only method actually presenting concurrency issues is push_front, which in a single-threaded version could look like this:</node*></p>
-<p>template<br>void slist<t>::push_front(T t) {<br>   auto p = new Node;<br>   p-&gt;t = t;<br>   p-&gt;next = head;<br>   head = p;<br>}<br>This code has problems since it opens up the possibility of races when setting the new head value. We can fix this problem by using compare_exchange when writing to head, as shown below:</t></p>
-<p>template<br>void slist<t>::push_front(T t) {<br>   auto p = new Node;<br>   p-&gt;t = t;<br>   p-&gt;next = head;</t></p>
-<p>   while (!head.compare_exchange_weak(p-&gt;next, p))<br>      {}<br>}<br>Here we try to swap head and p until we succeed. This use of compareexchangeweak is typical in lock-free code. It is used mostly with loops, while outside of loops compareexchangestrong is used.</p>
-<p>More issues arise when trying to implement a pop operation, which will erase the first element from the list. In this case, one major cause of complexity is the possibility of returning a pointer to an object that could be deleted by another thread shortly thereafter. This problem is well-known in literature as the ABA problem, and Herb goes into detail describing how it can arise in the given scenario.</p>
-<p>C++11 allows an elegant solution to this problem, by not using raw pointers and replacing them with a shared_ptr. In pseudo-code, the implementation becomes:</p>
-<p>template<br>struct Node { T t; shared_ptr<node> next; };<br>atomic<shared_ptr<node>&gt; head;</shared_ptr<node></node></p>
-<p>public:<br>   slist() =default;<br>   ~slist() =default;</p>
-<p>   class reference {<br>      shared_ptr<node> p;<br>   public:<br>      reference(shared<em>ptr<node> p</node></em>) : p{_p} {}<br>      T&amp; operator<em>() { return p-&gt;t; }<br>      T</em> operator-&gt;() { return &amp;p-&gt;t; }<br>   };<br>   auto find(T t) const {<br>      auto p = head.load();<br>      while (p &amp;&amp; p-&gt;t != t)<br>         p = p-&gt;next;<br>      return reference{move(p)};</node></p>
-<p>   void push_front(T t) {<br>      auto p = make_shared<node>();<br>      p-&gt;t = t;<br>      p-&gt;next = head;<br>      while (head.compare_exchange_weak(p-&gt;next, p))<br>         {}<br>   }</node></p>
-<p>   void pop_front() {<br>      auto p = head.load();<br>      while (p &amp;&amp; !head.compare_exchange_weak(p, p-&gt;next))<br>         {}<br>   }<br>};<br>Here the trick is that the pointer is returned wrapped into a shared_ptr, so we are safe as to deletion concerns.</p>
-<p>This implementation shows a nice property known as linearizability, which makes that a series of overlapping operations, can be though of as if they were executed in sequence.</p>
-<p>The final part of the talk is dedicated to discussing an example of measuring a program to find out how it behaves and what benefits it can get from going lock-free.</p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
   <link itemprop="mainEntityOfPage" href="http://chanlan.github.io/2017/04/04/无锁编程注意事项/">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1525,6 +1564,154 @@ if( g_sprites[nextSprite].alive )
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://chanlan.github.io/2017/04/04/无锁编程实战/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="Kivmi">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/images/avatar.gif">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="Learn And Life.">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="Learn And Life." src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/04/04/无锁编程实战/" itemprop="url">
+                  无锁编程C++中的应用
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-04-04T13:37:30+08:00">
+                2017-04-04
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>At CppCon 2014, Herb Sutter gave a talk about lock-free programming in C++ (part 1, part 2) where he provided the fundamental concepts of lock-free programming, and presented three algorithms to show lock-free techniques. Here is a summary of the most relevant points in the talk.</p>
+<p>The first point that Herb addresses is what benefits lock-free code can bring:</p>
+<p>Improving concurrency and scalability by reducing blocking/waiting.<br>Getting rid of potential issues such as race conditions, deadlocks, scarce composability.<br>Lock-free programming is no panacea, though, since a lock-free algorithm is usually more complex to design, and it has other potential issues, such as contention, which can badly affect performance. From this, it ensues Herb’s first strong suggestion:</p>
+<p>Only apply lock-free technique once you have measured your program and found it has some performance or scalability problem.<br>After implementing the lock-free algorithm, measure again to check that things improved effectively.<br>Fundamentals</p>
+<p>There a few basic principles when thinking about lock-free algorithms:</p>
+<p>Consistency: any significant piece of code should be though of as a transaction bringing the system from one consistent state to another.<br>Isolation: two transactions never operate on the same data.<br>Durability: a committed transaction is never overwritten by another before the latter has “seen” the results of the former.<br>The fundamental technique to achieve that is:</p>
+<p>computing all changes in some private area;<br>using one single atomic write through a special compare/exchange function to make them public.<br>In C++11, this translates into using atomic<t>, which gives two big advantages:</t></p>
+<p>You can think of each read or write operation as atomic, with no lock required.<br>Furthermore, reads and writes are guaranteed not to be reordered.<br>A few important points about atomic are the following:</p>
+<p>For small types, atomic is usually implemented through platform-specific operations.<br>atomic objects must always be initialized (otherwise they will contain garbage).<br>Two atomic operations are guaranteed to be individually atomic, but the status of the object can change in between.<br>Example: Double-checked Locking</p>
+<p>The first example Herb presents is ensuring a global object is constructed only once.</p>
+<p>The key idea is: protecting the atomic write operation through a lock, while letting the atomic read happen without locking. Blocking can thus only happens among those threads that compete to initialize the singleton. The reason behind the algorithm name is that the instance pointer is checked twice, before and after getting the lock on it:</p>
+<p>atomic<widget*> Widget::pInstance{ nullptr };<br>Widget* Widget::Instance() {<br>   if (pInstance == nullptr) {<br>      lock_guard<mutex> lock { mutW };<br>      if (pInstance == nullptr) {<br>         pInstance = new Widget();<br>      }<br>   }<br>}<br>Example: Producer-consumers</mutex></widget*></p>
+<p>The second example described by Herb is a classical producer-consumers algorithm. He begins by describing a traditional solution using locks where:</p>
+<p>The producer gets a lock on the shared queue and push a few objects on to it; for each objects, a condition variable is notified, so consumers know.<br>On the other hand, consumers just try to get a lock on the queue and when one gets it, it checks if there is an object to consume; if there is, then it is popped and processed after releasing the mutex.<br>A first variant of this algorithm is possible using a lock-free technique, whereby the slist is accessed through an atomic variable. What this allow is for the producer to create all of its items at once, then publish them to the consumer by atomically setting the queue’s head. Consumers remain the same.</p>
+<p>Next, a full lock-free implementation is considered. In this case, the algorithm is based on the idea that the producer has to fill a certain number of slots. When it has got a new task, it checks if there is an empty slot, and it store the task there. In the following code, slot is an atomic variable:</p>
+<p>curr = 0;<br>// Phase 1: build and distribute tasks<br>while (ThereAreMoreTasks()) {<br>   task = AllocateAndBuildNewTask();<br>   while (slot[curr] != null)<br>      curr = (curr+1)%K;<br>   slot[curr] = task;<br>   sem[curr].signal();<br>}<br>// Phase 2: Stuff the mailbox with done<br>numNotified = 0;<br>while (numNotified &lt; K) {<br>   while (slot[curr] != null)<br>      curr = (curr+1)%K;<br>   slot[curr] = done;<br>   sem[curr].signal();<br>   ++numNotified;<br>}<br>As to consumers, the code is simpler:</p>
+<p>myTask = null;<br>while (myTask != done) {<br>   while (myTask = slot[mySlot]) == null)<br>      sem[mySlot].wait();<br>   if (myTask != done) {<br>      slot[mySlot] = null;<br>      DoWork(myTask);<br>   }<br>}<br>A consumer waits on a semaphore until some task is in slot. When a task comes in, the consumer gets it and empties the slot. After doing that, the consumer starts processing its data. This responds to the same idea as before of doing work outside of the critical section. But if the consumer is slower than the producer, then it could make sense to do the work before releasing the lock, so that the producer would not fill that same slot again while the consumer is busy, but would preferably fill another empty slot. This shows how you can make different decisions subtly affecting throughput/scalability vs. load balancing.</p>
+<p>Example: Singly-linked list</p>
+<p>A singly-linked list is one of the simplest possible data structures, supporting in this case just four operations: construct, destroy, find, push_front.</p>
+<p>The lock-free implementation proposed by Herb uses an atomic<node*> head{ nullptr }; to access the slist head. The only method actually presenting concurrency issues is push_front, which in a single-threaded version could look like this:</node*></p>
+<p>template<br>void slist<t>::push_front(T t) {<br>   auto p = new Node;<br>   p-&gt;t = t;<br>   p-&gt;next = head;<br>   head = p;<br>}<br>This code has problems since it opens up the possibility of races when setting the new head value. We can fix this problem by using compare_exchange when writing to head, as shown below:</t></p>
+<p>template<br>void slist<t>::push_front(T t) {<br>   auto p = new Node;<br>   p-&gt;t = t;<br>   p-&gt;next = head;</t></p>
+<p>   while (!head.compare_exchange_weak(p-&gt;next, p))<br>      {}<br>}<br>Here we try to swap head and p until we succeed. This use of compareexchangeweak is typical in lock-free code. It is used mostly with loops, while outside of loops compareexchangestrong is used.</p>
+<p>More issues arise when trying to implement a pop operation, which will erase the first element from the list. In this case, one major cause of complexity is the possibility of returning a pointer to an object that could be deleted by another thread shortly thereafter. This problem is well-known in literature as the ABA problem, and Herb goes into detail describing how it can arise in the given scenario.</p>
+<p>C++11 allows an elegant solution to this problem, by not using raw pointers and replacing them with a shared_ptr. In pseudo-code, the implementation becomes:</p>
+<p>template<br>struct Node { T t; shared_ptr<node> next; };<br>atomic<shared_ptr<node>&gt; head;</shared_ptr<node></node></p>
+<p>public:<br>   slist() =default;<br>   ~slist() =default;</p>
+<p>   class reference {<br>      shared_ptr<node> p;<br>   public:<br>      reference(shared<em>ptr<node> p</node></em>) : p{_p} {}<br>      T&amp; operator<em>() { return p-&gt;t; }<br>      T</em> operator-&gt;() { return &amp;p-&gt;t; }<br>   };<br>   auto find(T t) const {<br>      auto p = head.load();<br>      while (p &amp;&amp; p-&gt;t != t)<br>         p = p-&gt;next;<br>      return reference{move(p)};</node></p>
+<p>   void push_front(T t) {<br>      auto p = make_shared<node>();<br>      p-&gt;t = t;<br>      p-&gt;next = head;<br>      while (head.compare_exchange_weak(p-&gt;next, p))<br>         {}<br>   }</node></p>
+<p>   void pop_front() {<br>      auto p = head.load();<br>      while (p &amp;&amp; !head.compare_exchange_weak(p, p-&gt;next))<br>         {}<br>   }<br>};<br>Here the trick is that the pointer is returned wrapped into a shared_ptr, so we are safe as to deletion concerns.</p>
+<p>This implementation shows a nice property known as linearizability, which makes that a series of overlapping operations, can be though of as if they were executed in sequence.</p>
+<p>The final part of the talk is dedicated to discussing an example of measuring a program to find out how it behaves and what benefits it can get from going lock-free.</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
   <link itemprop="mainEntityOfPage" href="http://chanlan.github.io/2017/04/04/清明节祭/">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1633,126 +1820,6 @@ if( g_sprites[nextSprite].alive )
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://chanlan.github.io/2017/04/04/hello-world/">
-
-  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
-    <meta itemprop="name" content="Kivmi">
-    <meta itemprop="description" content="">
-    <meta itemprop="image" content="/images/avatar.gif">
-  </span>
-
-  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-    <meta itemprop="name" content="Learn And Life.">
-    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
-      <img style="display:none;" itemprop="url image" alt="Learn And Life." src="">
-    </span>
-  </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2017/04/04/hello-world/" itemprop="url">
-                  RD or TDD ...
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-04-04T12:16:56+08:00">
-                2017-04-04
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>最近从做视频源站服务，开始转向做前端业务需求，也熟悉了下前端业务的代码以及基本的架构，因为最近需求少，来了之后基本没活，不经产生一种疑问？难不成我就这样一直等着？</p>
-<p>开始在想，要不把code reviwe做好？优化下整体架构？对机器人模块进行重构？还是站在整个产品的角度审思下现有的架构设计和业务架构设计，然后对现有的业务进行重新的梳理？但是目前，线上业务是正常的，有必要这么做么？<br>于是产生了，是否做完RD， 就应该开始做TDD？</p>
-<p>没有一个规范的开发流程和开发思路，TDD也是敏捷开发中比较适用的一种方式，其基本的目标就是：<br>    1.确保所有的需求都能被照顾到<br>    2.在代码不断增加和重构的过程中，可以检查所有的功能是否正确<br>所以，也觉得是可以做的，也能彼此对自己的业务更加的熟悉，但是TDD有几个比较难以处理的问题就是：<br>    1.测试范围的确定<br>    2.关注测试而不是设计<br>    3.TDD导致大量的Mock和Stub<br>    4.Test Case并没有想像中的那么简单</p>
-<p>送给一直在奋斗的亲们，也希望大家跟我交流。</p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1798,7 +1865,7 @@ if( g_sprites[nextSprite].alive )
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">23</span>
+              <span class="site-state-item-count">24</span>
               <span class="site-state-item-name">posts</span>
             </a>
           </div>
