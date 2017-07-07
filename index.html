@@ -239,6 +239,138 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://chanlan.github.io/2017/07/03/几个线程函数的使用/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="Kivmi">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/images/avatar.gif">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="Learn And Life.">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="Learn And Life." src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/07/03/几个线程函数的使用/" itemprop="url">
+                  Thread local storage
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-07-03T23:54:43+08:00">
+                2017-07-03
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>#数据类型</p>
+<p>首先看下数据类型的分类，根据是单线程还是多线程，可以分为以下几类<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">全局数据</div><div class="line">局部数据</div><div class="line">线程特定数据(TSD)</div></pre></td></tr></table></figure></p>
+<p>全局数据和局部数据比较好理解，但是线程特定数据是什么？独立于线程的数据，也就是说只有某个线程可以访问，其它线程不可以访问，实现某个线程内，函数调用之间的共享，也就是线程全局数据</p>
+<p>#POSIX系统</p>
+<p>##KEY数据结构数组(至少128个TSD)</p>
+<h3 id="Table"><a href="#Table" class="headerlink" title="Table"></a>Table</h3><h2 id="KEY数组"><a href="#KEY数组" class="headerlink" title="| KEY数组            |"></a>| KEY数组            |</h2><p>| 标志0              |<br>| 析构函数指针0      |  —– &gt; 线程0   pthread_key_t<br>| 标志1              |<br>| 析构函数指针1      |  —– &gt; 线程1   pthread_key_t<br>| 标志2              |<br>| 析构函数指针2      |  —– &gt; 线程2   pthread_key_t<br>| ………….      |<br>| 标志127            |<br>| 析构函数指针127    |  —– &gt; 线程127 pthread_key_t</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">标志: 是否已经被使用 (每次调用pthread_key_create创建一个新的TSD时，系统都会搜索key结构数组，找出其中未使用的元素，并通过pthread_key_t返回)</div><div class="line">析构函数指针: 指向一个析构函数，用户线程结束时后期处理（析构函数参数是一个指向TSD的指针）</div></pre></td></tr></table></figure>
+<p>每一个TSD由标志字段和析构函数指针组成</p>
+<p>##进程数据结构</p>
+<h3 id="Table-1"><a href="#Table-1" class="headerlink" title="Table"></a>Table</h3><h2 id="Pthread结构"><a href="#Pthread结构" class="headerlink" title="| Pthread结构        |"></a>| Pthread结构        |</h2><p>| 指针null           |<br>| 指针null           |<br>| 指针null           |<br>| ………….      |<br>| 指针null           |</p>
+<p>其中KEY数组中已分配的key的标志字段，都会跟Pthread结构相关联，而Pthread中存放指向实际数据的指针，也就是说进程维护KEY结构数组，而线程维护Pthread结构数组</p>
+<p>#函数</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">#include &lt;pthread.h&gt;</div><div class="line"></div><div class="line">/**</div><div class="line"> *param 1：一个键值指针</div><div class="line"> *param 2: 一个destructor函数，如果这个参数不为空，那么每当线程结束时，系统将调用这个函数来释放绑定在这个键上的内存快</div><div class="line"> **/</div><div class="line">int pthread_key_create(pthread_key_t *key, void (*destructor)(void*));</div><div class="line">/* 注销一个TSMG_STATIC(id, type, element)	   </div><div class="line">                              (TSRMG_BULK_STATIC(id, type)→element)</div><div class="line">int pthread_key_delete(pthread_key_t key);</div><div class="line">/* 读取变量的地址 */</div><div class="line">void *pthread_getspecific(pthread_key_t key);</div><div class="line">/* 存储变量的地址， 将普通变量转换成TSD */</div><div class="line">int pthread_setspecific(pthread_key_t key, const void *value);</div></pre></td></tr></table></figure>
+<p>#PHP中的多线程<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">/* Thread local storage */</div><div class="line">static pthread_key_t tls_key;</div><div class="line"># define tsrm_tls_set(what)             pthread_setspecific(tls_key, (void*)(what))</div><div class="line"># define tsrm_tls_get()                 pthread_getspecific(tls_key)</div><div class="line"></div><div class="line">#elif defined(TSRM_ST)</div><div class="line">static int tls_key;</div><div class="line"># define tsrm_tls_set(what)             st_thread_setspecific(tls_key, (void*)(what))</div><div class="line"># define tsrm_tls_get()                 st_thread_getspecific(tls_key)</div><div class="line"></div><div class="line">#elif defined(TSRM_WIN32)</div><div class="line">static DWORD tls_key;</div><div class="line"># define tsrm_tls_set(what)             TlsSetValue(tls_key, (void*)(what))</div><div class="line"># define tsrm_tls_get()                 TlsGetValue(tls_key)</div><div class="line"></div><div class="line">#elif defined(BETHREADS)</div><div class="line">static int32 tls_key;</div><div class="line"># define tsrm_tls_set(what)             tls_set(tls_key, (void*)(what))</div><div class="line"># define tsrm_tls_get()                 (tsrm_tls_entry*)tls_get(tls_key)</div><div class="line"></div><div class="line">#else</div><div class="line"># define tsrm_tls_set(what)</div><div class="line"># define tsrm_tls_get()                 NULL</div></pre></td></tr></table></figure></p>
+<p>由此可见，tsrm_tls(Thread local storage)对象，实现的只是将普通变量，转换成TSD的处理!</p>
+<p>###PHP中的相关的宏和函数<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">#define ZEND_TSRMLS_CACHE TSRMLS_CACHE</div><div class="line">#define TSRMLS_CACHE_UPDATE() TSRMLS_CACHE = tsrm_get_ls_cache()</div><div class="line">#define TSRMG_BULK_STATIC(id, type) ((type) (*((void ***) TSRMLS_CACHE))[TSRM_UNSHUFFLE_RSRC_ID(id)])</div><div class="line">#define TSRMG_STATIC(id, type, element)	  (TSRMG_BULK_STATIC(id, type)-&gt;element)</div><div class="line"> </div><div class="line">void *tsrm_get_ls_cache(void)</div><div class="line">&#123;</div><div class="line">    return tsrm_tls_get();</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
   <link itemprop="mainEntityOfPage" href="http://chanlan.github.io/2017/06/07/朴素算法/">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1617,126 +1749,6 @@ if( g_sprites[nextSprite].alive )
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://chanlan.github.io/2017/04/04/hello-world/">
-
-  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
-    <meta itemprop="name" content="Kivmi">
-    <meta itemprop="description" content="">
-    <meta itemprop="image" content="/images/avatar.gif">
-  </span>
-
-  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-    <meta itemprop="name" content="Learn And Life.">
-    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
-      <img style="display:none;" itemprop="url image" alt="Learn And Life." src="">
-    </span>
-  </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2017/04/04/hello-world/" itemprop="url">
-                  RD or TDD ...
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-04-04T12:16:56+08:00">
-                2017-04-04
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>最近从做视频源站服务，开始转向做前端业务需求，也熟悉了下前端业务的代码以及基本的架构，因为最近需求少，来了之后基本没活，不经产生一种疑问？难不成我就这样一直等着？</p>
-<p>开始在想，要不把code reviwe做好？优化下整体架构？对机器人模块进行重构？还是站在整个产品的角度审思下现有的架构设计和业务架构设计，然后对现有的业务进行重新的梳理？但是目前，线上业务是正常的，有必要这么做么？<br>于是产生了，是否做完RD， 就应该开始做TDD？</p>
-<p>没有一个规范的开发流程和开发思路，TDD也是敏捷开发中比较适用的一种方式，其基本的目标就是：<br>    1.确保所有的需求都能被照顾到<br>    2.在代码不断增加和重构的过程中，可以检查所有的功能是否正确<br>所以，也觉得是可以做的，也能彼此对自己的业务更加的熟悉，但是TDD有几个比较难以处理的问题就是：<br>    1.测试范围的确定<br>    2.关注测试而不是设计<br>    3.TDD导致大量的Mock和Stub<br>    4.Test Case并没有想像中的那么简单</p>
-<p>送给一直在奋斗的亲们，也希望大家跟我交流。</p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1782,7 +1794,7 @@ if( g_sprites[nextSprite].alive )
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">23</span>
+              <span class="site-state-item-count">24</span>
               <span class="site-state-item-name">posts</span>
             </a>
           </div>
