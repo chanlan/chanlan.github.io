@@ -86,8 +86,7 @@
 
 <meta name="description" content="数据类型首先看下数据类型的分类，根据是单线程还是多线程，可以分为以下几类123全局数据局部数据线程特定数据(TSD)
 全局数据和局部数据比较好理解，但是线程特定数据是什么？独立于线程的数据，也就是说只有某个线程可以访问，其它线程不可以访问，实现某个线程内，函数调用之间的共享，也就是线程全局数据
-POSIX系统KEY数据结构数组(至少128个TSD)###Table
-
+POSIX系统KEY数据结构数组(至少128个TSD)
 
 
 KEY数组
@@ -95,15 +94,17 @@ KEY数组
 
 
 
-标志0">
+标志0
+
+
+析构函数指针">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Thread local storage">
 <meta property="og:url" content="http://chanlan.github.io/2017/07/03/几个线程函数的使用/index.html">
 <meta property="og:site_name" content="Learn And Life.">
 <meta property="og:description" content="数据类型首先看下数据类型的分类，根据是单线程还是多线程，可以分为以下几类123全局数据局部数据线程特定数据(TSD)
 全局数据和局部数据比较好理解，但是线程特定数据是什么？独立于线程的数据，也就是说只有某个线程可以访问，其它线程不可以访问，实现某个线程内，函数调用之间的共享，也就是线程全局数据
-POSIX系统KEY数据结构数组(至少128个TSD)###Table
-
+POSIX系统KEY数据结构数组(至少128个TSD)
 
 
 KEY数组
@@ -111,14 +112,16 @@ KEY数组
 
 
 
-标志0">
-<meta property="og:updated_time" content="2017-07-07T05:32:11.529Z">
+标志0
+
+
+析构函数指针">
+<meta property="og:updated_time" content="2017-07-07T05:33:48.527Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Thread local storage">
 <meta name="twitter:description" content="数据类型首先看下数据类型的分类，根据是单线程还是多线程，可以分为以下几类123全局数据局部数据线程特定数据(TSD)
 全局数据和局部数据比较好理解，但是线程特定数据是什么？独立于线程的数据，也就是说只有某个线程可以访问，其它线程不可以访问，实现某个线程内，函数调用之间的共享，也就是线程全局数据
-POSIX系统KEY数据结构数组(至少128个TSD)###Table
-
+POSIX系统KEY数据结构数组(至少128个TSD)
 
 
 KEY数组
@@ -126,7 +129,10 @@ KEY数组
 
 
 
-标志0">
+标志0
+
+
+析构函数指针">
 
 
 
@@ -346,8 +352,7 @@ KEY数组
       
         <h1 id="数据类型"><a href="#数据类型" class="headerlink" title="数据类型"></a>数据类型</h1><p>首先看下数据类型的分类，根据是单线程还是多线程，可以分为以下几类<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">全局数据</div><div class="line">局部数据</div><div class="line">线程特定数据(TSD)</div></pre></td></tr></table></figure></p>
 <p>全局数据和局部数据比较好理解，但是线程特定数据是什么？独立于线程的数据，也就是说只有某个线程可以访问，其它线程不可以访问，实现某个线程内，函数调用之间的共享，也就是线程全局数据</p>
-<h1 id="POSIX系统"><a href="#POSIX系统" class="headerlink" title="POSIX系统"></a>POSIX系统</h1><h2 id="KEY数据结构数组-至少128个TSD"><a href="#KEY数据结构数组-至少128个TSD" class="headerlink" title="KEY数据结构数组(至少128个TSD)"></a>KEY数据结构数组(至少128个TSD)</h2><p>###Table</p>
-<table>
+<h1 id="POSIX系统"><a href="#POSIX系统" class="headerlink" title="POSIX系统"></a>POSIX系统</h1><h2 id="KEY数据结构数组-至少128个TSD"><a href="#KEY数据结构数组-至少128个TSD" class="headerlink" title="KEY数据结构数组(至少128个TSD)"></a>KEY数据结构数组(至少128个TSD)</h2><table>
 <thead>
 <tr>
 <th style="text-align:left">KEY数组</th>
@@ -389,7 +394,7 @@ KEY数组
 </table>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">标志: 是否已经被使用 (每次调用pthread_key_create创建一个新的TSD时，系统都会搜索key结构数组，找出其中未使用的元素，并通过pthread_key_t返回)</div><div class="line">析构函数指针: 指向一个析构函数，用户线程结束时后期处理（析构函数参数是一个指向TSD的指针）</div></pre></td></tr></table></figure>
 <p>每一个TSD由标志字段和析构函数指针组成</p>
-<h2 id="进程数据结构"><a href="#进程数据结构" class="headerlink" title="进程数据结构"></a>进程数据结构</h2><h3 id="Table"><a href="#Table" class="headerlink" title="Table"></a>Table</h3><table>
+<h2 id="进程数据结构"><a href="#进程数据结构" class="headerlink" title="进程数据结构"></a>进程数据结构</h2><table>
 <thead>
 <tr>
 <th style="text-align:left">Pthread结构</th>
@@ -565,7 +570,7 @@ KEY数组
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#数据类型"><span class="nav-number">1.</span> <span class="nav-text">数据类型</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#POSIX系统"><span class="nav-number">2.</span> <span class="nav-text">POSIX系统</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#KEY数据结构数组-至少128个TSD"><span class="nav-number">2.1.</span> <span class="nav-text">KEY数据结构数组(至少128个TSD)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#进程数据结构"><span class="nav-number">2.2.</span> <span class="nav-text">进程数据结构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Table"><span class="nav-number">2.2.1.</span> <span class="nav-text">Table</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#函数"><span class="nav-number">3.</span> <span class="nav-text">函数</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#PHP中的多线程"><span class="nav-number">4.</span> <span class="nav-text">PHP中的多线程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#PHP中的相关的宏和函数"><span class="nav-number">4.0.1.</span> <span class="nav-text">PHP中的相关的宏和函数</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#数据类型"><span class="nav-number">1.</span> <span class="nav-text">数据类型</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#POSIX系统"><span class="nav-number">2.</span> <span class="nav-text">POSIX系统</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#KEY数据结构数组-至少128个TSD"><span class="nav-number">2.1.</span> <span class="nav-text">KEY数据结构数组(至少128个TSD)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#进程数据结构"><span class="nav-number">2.2.</span> <span class="nav-text">进程数据结构</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#函数"><span class="nav-number">3.</span> <span class="nav-text">函数</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#PHP中的多线程"><span class="nav-number">4.</span> <span class="nav-text">PHP中的多线程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#PHP中的相关的宏和函数"><span class="nav-number">4.0.1.</span> <span class="nav-text">PHP中的相关的宏和函数</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
