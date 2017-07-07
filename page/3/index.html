@@ -239,6 +239,124 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://chanlan.github.io/2016/12/03/算法/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="Kivmi">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/images/avatar.gif">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="Learn And Life.">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="Learn And Life." src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/12/03/算法/" itemprop="url">
+                  算法
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-12-03T20:17:14+08:00">
+                2016-12-03
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>1.矩阵求素数<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div></pre></td><td class="code"><pre><div class="line">#include&lt;stdio.h&gt;</div><div class="line">#include&lt;stdlib.h&gt;             </div><div class="line"></div><div class="line">void  makeMatrix(int len,int data[])&#123; </div><div class="line">    int i,j;                   </div><div class="line"></div><div class="line">    //初始化矩阵               </div><div class="line">    for(i =2;i&lt;len;i++)&#123;       </div><div class="line">        data[i] = 1;           </div><div class="line">    &#125;</div><div class="line"></div><div class="line">    for(i =2; i&lt;len; i++)&#123;     </div><div class="line">        if(data[i])&#123;           </div><div class="line">            for(j=i; i*j &lt; len; j++)&#123;       </div><div class="line">                data[i*j] = 0; </div><div class="line">            &#125;</div><div class="line">        &#125;                      </div><div class="line">    &#125;</div><div class="line">&#125; </div><div class="line"></div><div class="line">int main(int argc, char **argv)&#123;</div><div class="line">    int N = atol(argv[1]);</div><div class="line">    int *data = malloc(N * sizeof(int));</div><div class="line"></div><div class="line">    if(data == NULL)&#123;</div><div class="line">        printf(&quot;Insufficient memory.\n&quot;);</div><div class="line">        return -1;</div><div class="line">    &#125;                                                                                                                                                                              </div><div class="line"></div><div class="line">    makeMatrix(N,data);</div><div class="line"></div><div class="line">    for(int i =2 ; i &lt; N; i++)&#123;</div><div class="line">        if(data[i])&#123;    </div><div class="line">             printf(&quot;%4d &quot;, i);              </div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    printf(&quot;\n&quot;);</div><div class="line"></div><div class="line">    return 0;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>该方法使用0和1，通过构建数组的方式，使用动态内存分配的方式，来求素数</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
   <link itemprop="mainEntityOfPage" href="http://chanlan.github.io/2016/11/29/c语言中的宏/">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -777,7 +895,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">24</span>
+              <span class="site-state-item-count">25</span>
               <span class="site-state-item-name">posts</span>
             </a>
           </div>
