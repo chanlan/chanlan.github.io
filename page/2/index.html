@@ -239,6 +239,527 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://chanlan.github.io/2017/05/03/关于代码review/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="Kivmi">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/images/avatar.gif">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="Learn And Life.">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="Learn And Life." src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/05/03/关于代码review/" itemprop="url">
+                  关于code review
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-05-03T23:54:43+08:00">
+                2017-05-03
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>什么样的代码才是好的代码？代码review需要注意哪些细节？</p>
+<p>1.代码规范，每个公司都有自己的一个代码规范，比如:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">1) 命名规范？</div><div class="line">2) 换行还是空行？</div><div class="line">3) Tab还是空格？</div><div class="line">4) 等号括号两边是否使用空格？</div><div class="line">5) 注释合理？</div><div class="line">6) 功能结构单一，函数和类不能太长，要具有模块性，单一职责？</div><div class="line">7) 单元测试，测试用例覆盖是否全面？</div><div class="line">8) git使用是否规范？</div><div class="line">......</div></pre></td></tr></table></figure></p>
+<p>2.CodeReview-checklist，每个团队或者个人都应该建立自己的checklist，在每次提交代码之前，都过一遍，比如:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">1) 什么写法可能导致性能低下？</div><div class="line">2) 哪个接口或者函数要慎用？</div><div class="line">3) 哪些设计方式需要规避？</div><div class="line">3) 什么习惯容易引发内存泄漏？</div><div class="line">.....</div></pre></td></tr></table></figure></p>
+<p>3.影响范围评估<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">1) 配置修改？各个环境是否兼容？</div><div class="line">2) 全局变量和全局函数修改？</div><div class="line">3) 是否存在数据安全和一致性问题？</div><div class="line">4) 容量评估？处理能力评估？是否会引起阻塞？</div><div class="line">5) 梳理业务，此修改是否全面，是否修改了所有相关的业务，还是只是修改了一部分？</div><div class="line">......</div></pre></td></tr></table></figure></p>
+<p>4.design review<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">1) 实现是否符合预期设计？</div><div class="line">2) 是否需要压测？</div><div class="line">3) 独立部署还是分开部署？是否需要进行容量评估？</div><div class="line">4）是否需要部署任务脚本？</div><div class="line">5) 是否需要申请独立域名？</div><div class="line">.....</div></pre></td></tr></table></figure></p>
+<p>5.性能评估<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">1) 关注for循环，关注批量处理，能合就合，能简就简，不能将就</div><div class="line">2) 关注索引，是否使用了索引</div><div class="line">3) 评估业务模型，是cpu密集型还是io密集型，简化设计，做好测试</div><div class="line">.....</div></pre></td></tr></table></figure></p>
+<p>6.review级别<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">1）可编译</div><div class="line">2）可运行</div><div class="line">3）可测试</div><div class="line">4）可读</div><div class="line">5）可维护</div><div class="line">6）可重用</div><div class="line">7）可扩展</div></pre></td></tr></table></figure></p>
+<p>7.review工具<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">1) Phabricator</div><div class="line">2) Gerrit</div><div class="line">3) Gitlab</div></pre></td></tr></table></figure></p>
+<p>8.需求review<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">1) 分析需求</div><div class="line">2) 需求是否合理</div><div class="line">3) 需求是否紧急</div><div class="line">4) 大需求？小需求？</div><div class="line">5) 拒绝和简化需求</div></pre></td></tr></table></figure></p>
+<p>代码review是一个关注自己成长和产品质量的一个问题，每个程序员都应该引起重视，把不好的习惯扼杀掉，减少了bug，同时也能得到同事的认可，也能让自己给别人找找茬，不要让自己累成牲口，停下来想想，问一下自己，自己成为牲口的原因，是不是就是因为自己做事时候像就牲口一样思考？</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://chanlan.github.io/2017/04/04/并发编程Promise,Future和Callback/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="Kivmi">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/images/avatar.gif">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="Learn And Life.">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="Learn And Life." src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/04/04/并发编程Promise,Future和Callback/" itemprop="url">
+                  并发编程 Promise, Future 和 Callback
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-04-04T14:13:42+08:00">
+                2017-04-04
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>Futures and Promises</p>
+<p>By: Philipp Haller, Aleksandar Prokopec, Heather Miller, Viktor Klang, Roland Kuhn, and Vojin Jovanovic</p>
+<p>This SIP is part of two SIPs, which together constitute a redesign of scala.concurrent into a unified substrate for a variety of parallel frameworks. This proposal focuses on futures and promises.</p>
+<p>Introduction<br>Futures provide a nice way to reason about performing many operations in parallel– in an efficient and non-blocking way. The idea is simple, a Future is a sort of placeholder object that you can create for a result that doesn’t yet exist. Generally, the result of the Future is computed concurrently and can be later collected. Composing concurrent tasks in this way tends to result in faster, asynchronous, non-blocking parallel code.</p>
+<p>This is particularly evident due to the fact that within the Scala ecosystem alone, several frameworks aiming to provide a full-featured implementation of futures and promises have arisen, including the futures available in the Scala Actors package [4], Akka [3], Finagle [2], and Scalaz [5].</p>
+<p>The redesign of scala.concurrent provides a new Futures and Promises API, meant to act as a common foundation for multiple parallel frameworks and libraries to utilize both within Scala’s standard library, and externally.</p>
+<p>By default, futures and promises are non-blocking, making use of callbacks instead of typical blocking operations. In an effort to facilitate, and make use of callbacks on a higher-level, we provide combinators such as flatMap, foreach, and filter for composing futures in a non-blocking way. For cases where blocking is absolutely necessary, futures can be blocked on (although it is discouraged).</p>
+<p>The futures and promises API builds upon the notion of an ExecutionContext, an execution environment designed to manage resources such as thread pools between parallel frameworks and libraries (detailed in an accompanying SIP, forthcoming). Futures and promises are created through such ExecutionContexts. For example, this makes it possible, in the case of an application which requires blocking futures, for an underlying execution environment to resize itself if necessary to guarantee progress.</p>
+<p>Futures<br>A future is an abstraction which represents a value which may become available at some point. A Future object either holds a result of a computation or an exception in the case that the computation failed. An important property of a future is that it is in effect immutable– it can never be written to or failed by the holder of the Future object.</p>
+<p>The simplest way to create a future object is to invoke the future method which starts an asynchronous computation and returns a future holding the result of that computation. The result becomes available once the future completes.</p>
+<p>Here is an example. Let’s assume that we want to use the API of some popular social network to obtain a list of friends for a given user. After opening a new session we want to create an asynchronous request to the server for this list:</p>
+<p>import scala.concurrent.Future<br>val session = socialNetwork.createSessionFor(“user”, credentials)<br>val f: Future[List[Friend]] = Future {<br>  session.getFriends<br>}<br>The list of friends becomes available in the future f once the server responds.</p>
+<p>An unsuccessful attempt may result in an exception. In the following example, the session value is incorrectly initialized, so the future will hold a NullPointerException instead of the value:</p>
+<p>val session = null<br>val f: Future[List[Friend]] = Future {<br>  session.getFriends<br>}<br>Callbacks<br>We are generally interested in the result value of the computation. To obtain the future’s result, a client of the future would have to block until the future is completed. Although this is allowed by the Future API as we will show later in this document, a better way to do it is in a completely non-blocking way, by registering a callback on the future. This callback is called asynchronously once the future is completed. If the future has already been completed when registering the callback, then the callback may either be executed asynchronously, or sequentially on the same thread.</p>
+<p>The most general form of registering a callback is by using the onComplete method, which takes a callback function of type Either[Throwable, T] =&gt; U. The callback is applied to the value of type Right[T] if the future completes successfully, or to a value of type Left[Throwable] otherwise. The onComplete method is parametric in the return type of the callback, but it discards the result of the callback.</p>
+<p>Coming back to our social network example, let’s assume we want to fetch a list of our own recent posts and render them to the screen. We do so by calling the method getRecentPosts which returns a List[String]:</p>
+<p>val f: Future[List[String]] = Future {<br>  session.getRecentPosts<br>}<br>f onComplete {<br>  case Right(posts) =&gt; for (post &lt;- posts) render(post)<br>  case Left(t)  =&gt; render(“An error has occured: “ + t.getMessage)<br>}<br>The onComplete method is general in the sense that it allows the client to handle the result of both failed and successful future computations. To handle only successful results, the onSuccess callback is used (which takes a partial function):</p>
+<p>val f: Future[List[String]] = Future {<br>  session.getRecentPosts<br>}<br>f onSuccess {<br>  case posts =&gt; for (post &lt;- posts) render(post)<br>}<br>To handle failed results, the onFailure callback is used:</p>
+<p>val f: Future[List[String]] = Future {<br>  session.getRecentPosts<br>}<br>f onFailure {<br>  case t =&gt; render(“An error has occured: “ + t.getMessage)<br>}<br>f onSuccess {<br>  case posts =&gt; for (post &lt;- posts) render(post)<br>}<br>The onFailure callback is only executed if the future fails, that is, if it contains an exception. The onComplete, onSuccess, and onFailure methods have result type Unit, which means invocations of these methods cannot be chained. This is an intentional design decision which was made to avoid suggesting that chained invocations may imply an ordering on the execution of the registered callbacks (callbacks registered on the same future are unordered).</p>
+<p>Since partial functions have the isDefinedAt method, the onFailure method only triggers the callback if it is defined for a particular Throwable. In the following example the registered callback is never triggered:</p>
+<p>val f = Future {<br>  2 / 0<br>}<br>f onFailure {<br>  case npe: NullPointerException =&gt;<br>    println(“I’d be amazed if this printed out.”)<br>}<br>Having a regular function callback as an argument to onFailure would require including the default case in every failure callback, which is cumbersome– omitting the default case would lead to MatchErrors later.</p>
+<p>Second, try-catch blocks also expect a PartialFunction value. That means that if there are generic partial function exception handlers present in the application then they will be compatible with the onFailure method.</p>
+<p>In conclusion, the semantics of callbacks are as follows:</p>
+<p>Registering an onComplete callback on the future ensures that the corresponding closure is invoked after the future is completed, eventually.</p>
+<p>Registering an onSuccess or onFailure callback has the same semantics as onComplete, with the difference that the closure is only called if the future is completed successfully or fails, respectively.</p>
+<p>Registering a callback on the future which is already completed will result in the callback being executed eventually (as implied by 1). Furthermore, the callback may even be executed synchronously on the same thread that registered the callback if this does not cancel progress of that thread.</p>
+<p>In the event that multiple callbacks are registered on the future, the order in which they are executed is not defined. In fact, the callbacks may be executed concurrently with one another. However, a particular Future implementation may have a well-defined order.</p>
+<p>In the event that some of the callbacks throw an exception, the other callbacks are executed regardlessly.</p>
+<p>In the event that some of the callbacks never complete (e.g. the callback contains an infinite loop), the other callbacks may not be executed at all. In these cases, a potentially blocking callback must use the blocking construct (see below).</p>
+<p>Once executed, the callbacks are removed from the future object, thus being eligible for GC.</p>
+<p>Functional Composition and For-Comprehensions<br>The examples we have shown so far lend themselves naturally to the functional composition of futures. Assume we have an API for interfacing with a currency trading service. Suppose we want to buy US dollars, but only when it’s profitable. We first show how this could be done using callbacks:</p>
+<p>val rateQuote = Future {<br>  connection.getCurrentValue(USD)<br>}<br>rateQuote onSuccess { case quote =&gt;<br>  val purchase = Future {<br>    if (isProfitable(quote)) connection.buy(amount, quote)<br>    else throw new Exception(“not profitable”)<br>  }</p>
+<p>  purchase onSuccess {<br>    case _ =&gt; println(“Purchased “ + amount + “ USD”)<br>  }<br>}<br>We start by creating a future which fetches the current exchange rate. After it’s successfully obtained from the server, we create another future which makes a decision to buy only if it’s profitable to do so, and then sends a requests.</p>
+<p>This works, but is inconvenient for two reasons. First, we have to use onSuccess, and we have to nest the second purchase future within it. Second, the purchase future is not in the scope of the rest of the code.</p>
+<p>For these two reasons, futures provide combinators which allow a more straightforward composition. One of the basic combinators is map, which, given a future and a mapping function for the value of the future, produces a new future that is completed with the mapped value once the original future is successfully completed. Let’s rewrite the previous example using the map combinator:</p>
+<p>val rateQuote = Future {<br>  connection.getCurrentValue(USD)<br>}<br>val purchase = rateQuote map {<br>  quote =&gt; if (isProfitable(quote)) connection.buy(amount, quote)<br>           else throw new Exception(“not profitable”)<br>}<br>purchase onSuccess {<br>  case _ =&gt; println(“Purchased “ + amount + “ USD”)<br>}<br>The semantics of map is as follows. If the original future is completed successfully then the returned future is completed with a mapped value from the original future. If the mapping function throws an exception the future is completed with that exception. If the original future fails with an exception then the returned future also contains the same exception. This exception propagating semantics is present in the rest of the combinators, as well.</p>
+<p>To enable for-comprehensions, futures also have the flatMap, filter and foreach combinators. The flatMap method takes a function that maps the value to a new future g, and then returns a future which is completed once g is completed.</p>
+<p>Lets assume that we want to exchange US dollars for Swiss francs (CHF). We have to fetch quotes for both currencies, and then decide on buying based on both quotes. Here is an example of flatMap usage within for-comprehensions:</p>
+<p>val usdQuote = Future { connection.getCurrentValue(USD) }<br>val chfQuote = Future { connection.getCurrentValue(CHF) }<br>val purchase = for {<br>  usd &lt;- usdQuote<br>  chf &lt;- chfQuote<br>  if isProfitable(usd, chf)<br>} yield connection.buy(amount, chf)<br>purchase onSuccess {<br>  case _ =&gt; println(“Purchased “ + amount + “ CHF”)<br>}<br>The filter combinator creates a new future which contains the value of the original future only if it satisfies some predicate. Otherwise, the new future is failed with a NoSuchElementException.</p>
+<p>It is important to note that calling the foreach combinator does not block. Instead, the function for the foreach gets asynchronously executed only if the future is completed successfully. This means that the foreach has exactly the same semantics as the onSuccess callback.</p>
+<p>Since the Future trait can conceptually contain two types of values (computation results and exceptions), there exists a need for combinators which handle exceptions.</p>
+<p>Let’s assume that based on the rateQuote we decide to buy a certain amount. The connection.buy method takes an amount to buy and the expected quote. It returns the amount bought. If the quote has changed in the meanwhile, it will throw a QuoteChangedException and it will not buy anything. If we want our future to contain 0 instead of the exception, we use the recover combinator:</p>
+<p>val purchase: Future[Int] = rateQuote map {<br>  quote =&gt; connection.buy(amount, quote)<br>} recover {<br>  case quoteExc: QuoteChangedException =&gt; 0<br>}<br>The recover combinator creates a new future which holds the same result as the original future if it completed successfully. If it did not then the partial function argument is applied to the Throwable which failed the original future. If it maps the Throwable to some value, then the new future is successfully completed with that value.</p>
+<p>The recoverWith combinator creates a new future which holds the same result as the original future if it completed successfully. Otherwise, the partial function is applied to the Throwable which failed the original future. If it maps the Throwable to some future, then this future is completed with the result of that future. Its relation to recover is similar to that of flatMap to map.</p>
+<p>Combinator fallbackTo creates a new future which holds the result of this future if it was completed successfully, or otherwise the successful result of the argument future. In the event that both this future and the argument future fail, the new future is completed with the exception from this future, as in the following example which tries to print US dollar value, but prints the Swiss franc value in the case it fails to obtain the dollar value:</p>
+<p>val usdQuote = Future {<br>  connection.getCurrentValue(USD)<br>} map {<br>  usd =&gt; “Value: “ + usd + “$”<br>}<br>val chfQuote = Future {<br>  connection.getCurrentValue(CHF)<br>} map {<br>  chf =&gt; “Value: “ + chf + “CHF”<br>}<br>val anyQuote = usdQuote fallbackTo chfQuote<br>anyQuote onSuccess { println(_) }<br>The either combinator creates a new future which either holds the result of this future or the argument future, whichever completes first, irregardless of success or failure. Here is an example in which the quote which is returned first gets printed:</p>
+<p>val usdQuote = Future {<br>  connection.getCurrentValue(USD)<br>} map {<br>  usd =&gt; “Value: “ + usd + “$”<br>}<br>val chfQuote = Future {<br>  connection.getCurrentValue(CHF)<br>} map {<br>  chf =&gt; “Value: “ + chf + “CHF”<br>}<br>val anyQuote = usdQuote either chfQuote<br>anyQuote onSuccess { println(_) }<br>The andThen combinator is used purely for side-effecting purposes. It returns a new future with exactly the same result as the current future, irregardless of whether the current future failed or not. Once the current future is completed with the result, the closure corresponding to the andThen is invoked and then the new future is completed with the same result as this future. This ensures that multiple andThen calls are ordered, as in the following example which stores the recent posts from a social network to a mutable set and then renders all the posts to the screen:</p>
+<p>val allposts = mutable.Set<a href="">String</a><br>Future {<br>  session.getRecentPosts<br>} andThen {<br>  case Success(posts) =&gt; allposts ++= posts<br>} andThen {<br>  case _ =&gt;<br>  clearAll()<br>  for (post &lt;- allposts) render(post)<br>}<br>In summary, the combinators on futures are purely functional. Every combinator returns a new future which is related to the future it was derived from.</p>
+<p>Projections<br>To enable for-comprehensions on a result returned as an exception, futures also have projections. If the original future fails, the failed projection returns a future containing a value of type Throwable. If the original future succeeds, the failed projection fails with a NoSuchElementException. The following is an example which prints the exception to the screen:</p>
+<p>val f = Future {<br>  2 / 0<br>}<br>for (exc &lt;- f.failed) println(exc)<br>The following example does not print anything to the screen:</p>
+<p>val f = Future {<br>  4 / 2<br>}<br>for (exc &lt;- f.failed) println(exc)<br>Extending Futures<br>Support for extending the Futures API with additional utility methods is planned. This will allow external frameworks to provide more specialized utilities.</p>
+<p>Blocking<br>As mentioned earlier, blocking on a future is strongly discouraged – for the sake of performance and for the prevention of deadlocks – in favour of using callbacks and combinators on futures. However, blocking may be necessary in certain situations and is supported by the Futures API.</p>
+<p>In the currency trading example above, one place to block is at the end of the application to make sure that all of the futures have been completed. Here is an example of how to block on the result of a future:</p>
+<p>import scala.concurrent._<br>def main(args: Array[String]) {<br>  val rateQuote = Future {<br>    connection.getCurrentValue(USD)<br>  }</p>
+<p>  val purchase = rateQuote map {<br>    quote =&gt; if (isProfitable(quote)) connection.buy(amount, quote)<br>             else throw new Exception(“not profitable”)<br>  }</p>
+<p>  blocking(purchase, 0 ns)<br>}<br>In the case that the future fails, the caller is forwarded the exception that the future is failed with. This includes the failed projection– blocking on it results in a NoSuchElementException being thrown if the original future is completed successfully.</p>
+<p>The Future trait implements the Awaitable trait with a single method await(). The await() method contains code which can potentially result in a long running computation, block on some external condition or which may not complete the computation at all. The await() method cannot be called directly by the clients, it can only be called by the execution context implementation itself. To block on the future to obtain its result, the blocking method must be used.</p>
+<p>val f = Future { 1 }<br>val one: Int = blocking(f, 0 ns)<br>To allow clients to call 3rd party code which is potentially blocking and avoid implementing the Awaitable trait, the same blocking primitive can also be used in the following form:</p>
+<p>blocking {<br>  potentiallyBlockingCall()<br>}<br>The blocking code may also throw an exception. In this case, the exception is forwarded to the caller.</p>
+<p>Exceptions<br>When asynchronous computations throw unhandled exceptions, futures associated with those computations fail. Failed futures store an instance of Throwable instead of the result value. Futures provide the onFailure callback method, which accepts a PartialFunction to be applied to a Throwable. The following special exceptions are treated differently:</p>
+<p>TimeoutException - stored when the computation is not completed before some timeout (typically managed by an external scheduler).<br>scala.runtime.NonLocalReturnControl[_] - this exception holds a value associated with the return. Typically, return constructs in method bodies are translated to throws with this exception. Instead of keeping this exception, the associated value is stored into the future or a promise.</p>
+<p>ExecutionException - stored when the computation fails due to an unhandled InterruptedException, Error or a scala.util.control.ControlThrowable. In this case the ExecutionException has the unhandled exception as its cause. These exceptions are rethrown in the thread executing the failed asynchronous computation. The rationale behind this is to prevent propagation of critical and control-flow related exceptions normally not handled by the client code and at the same time inform the client in which future the computation failed.</p>
+<p>Promises<br>While futures are defined as a type of read-only placeholder object created for a result which doesn’t yet exist, a promise can be thought of as a writeable, single-assignment container, which completes a future. That is, a promise can be used to successfully complete a future with a value (by “completing” the promise) using the success method. Conversely, a promise can also be used to complete a future with an exception, by failing the promise, using the failure method.</p>
+<p>A promise p completes the future returned by p.future. This future is specific to the promise p. Depending on the implementation, it may be the case that p.future == p.</p>
+<p>Consider the following producer-consumer example:</p>
+<p>import scala.concurrent.{ Future, Promise }<br>val p = Promise<a href="">T</a><br>val f = p.future<br>val producer = Future {<br>  val r = produceSomething()<br>  p success r<br>  continueDoingSomethingUnrelated()<br>}<br>val consumer = Future {<br>  startDoingSomething()<br>  f onSuccess {<br>    case r =&gt; doSomethingWithResult()<br>  }<br>}<br>Here, we create a promise and use its future method to obtain the Future that it completes. Then, we begin two asynchronous computations. The first does some computation, resulting in a value r, which is then used to complete the future f, by fulfilling p. The second does some computation, and then reads the result r of the completed future f. Note that the consumer can obtain the result before the producer task is finished executing the continueDoingSomethingUnrelated() method.</p>
+<p>As mentioned before, promises have single-assignment semantics. As such, they can be completed only once. Calling success on a promise that has already been completed (or failed) will throw an IllegalStateException.</p>
+<p>The following example shows how to fail a promise.</p>
+<p>val p = Promise<a href="">T</a><br>val f = p.future<br>val producer = Future {<br>  val r = someComputation<br>  if (isInvalid(r))<br>    p failure (new IllegalStateException)<br>  else {<br>    val q = doSomeMoreComputation(r)<br>    p success q<br>  }<br>}<br>Here, the producer computes an intermediate result r, and checks whether it’s valid. In the case that it’s invalid, it fails the promise by completing the promise p with an exception. In this case, the associated future f is failed. Otherwise, the producer continues its computation, and finally completes the future f with a valid result, by completing promise p.</p>
+<p>Promises can also be completed with a complete method which takes either a failed result of type Left[Throwable] or a successful result of type Right[T].</p>
+<p>Analogous to success, calling failure and complete on a promise that has already been completed will throw an IllegalStateException.</p>
+<p>One nice property of programs written using promises with operations described so far and futures which are composed through monadic operations without side-effects is that these programs are deterministic. Deterministic here means that, given that no exception is thrown in the program, the result of the program (values observed in the futures) will always be the same, irregardless of the execution schedule of the parallel program.</p>
+<p>In some cases the client may want to complete the promise only if it has not been completed yet (e.g., there are several HTTP requests being executed from several different futures and the client is interested only in the first HTTP response - corresponding to the first future to complete the promise). For these reasons methods tryComplete, trySuccess and tryFailure exist on future. The client should be aware that using these methods results in programs which are not deterministic, but depend on the execution schedule.</p>
+<p>The method completeWith completes the promise with another future. After the future is completed, the promise gets completed with the result of that future as well. The following program prints 1:</p>
+<p>val f = Future { 1 }<br>val p = Promise<a href="">Int</a><br>p completeWith f<br>p.future onSuccess {<br>  case x =&gt; println(x)<br>}<br>When failing a promise with an exception, three subtypes of Throwables are handled specially. If the Throwable used to break the promise is a scala.runtime.NonLocalReturnControl, then the promise is completed with the corresponding value. If the Throwable used to break the promise is an instance of Error, InterruptedException, or scala.util.control.ControlThrowable, the Throwable is wrapped as the cause of a new ExecutionException which, in turn, is failing the promise.</p>
+<p>Utilities<br>To simplify handling of time in concurrent applications scala.concurrent will introduce a Duration abstraction. Duration is not supposed be yet another general time abstraction. It is meant to be used with concurrency libraries and will reside in scala.concurrent.util package.</p>
+<p>Duration is the base class representing length of time. It can be either finite or infinite. Finite duration is represented with FiniteDuration class which is constructed from Long length and java.util.concurrent.TimeUnit. Infinite durations, also extended from Duration, exist in only two instances , Duration.Inf and Duration.MinusInf. Library also provides several Duration subclasses for implicit conversion purposes and those should not be used.</p>
+<p>Abstract Duration contains methods that allow :</p>
+<p>Conversion to different time units (toNanos, toMicros, toMillis, toSeconds, toMinutes, toHours, toDays and toUnit(unit: TimeUnit)).<br>Comparison of durations (&lt;, &lt;=, &gt; and &gt;=).<br>Arithmetic operations (+, -, *, / and unary<em>-).<br>Minimum and maximum between this duration and the one supplied in the argument (min, max).<br>Check if the duration is finite (finite</em>?).<br>Duration can be instantiated in the following ways:</p>
+<p>Implicitly from types Int and Long. For example val d = 100 millis.<br>By passing a Long length and a java.util.concurrent.TimeUnit. For example val d = Duration(100, MILLISECONDS).<br>By parsing a string that represent a time period. For example val d = Duration(“1.2 µs”).<br>Duration also provides unapply methods so it can be used in pattern matching constructs. Examples:</p>
+<p>import scala.concurrent.util.Duration<br>import scala.concurrent.util.duration.<em><br>import java.util.concurrent.TimeUnit.</em></p>
+<p>// instantiation<br>val d1 = Duration(100, MILLISECONDS) // from Long and TimeUnit<br>val d2 = Duration(100, “millis”) // from Long and String<br>val d3 = 100 millis // implicitly from Long, Int or Double<br>val d4 = Duration(“1.2 µs”) // from String<br>// pattern matching<br>val Duration(length, unit) = 5 millis<br>References<br>The Task-Based Asynchronous Pattern, Stephen Toub, Microsoft, April 2011<br>Finagle Documentation<br>Akka Documentation: Futures<br>Scala Actors Futures<br>Scalaz Futures</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://chanlan.github.io/2017/04/04/无锁编程注意事项/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="Kivmi">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/images/avatar.gif">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="Learn And Life.">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="Learn And Life." src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/04/04/无锁编程注意事项/" itemprop="url">
+                  无锁编程
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-04-04T13:37:30+08:00">
+                2017-04-04
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>Lockless programming is a way to safely share changing data between multiple threads without the cost of acquiring and releasing locks. This sounds like a panacea, but lockless programming is complex and subtle, and sometimes doesn’t give the benefits that it promises. Lockless programming is particularly complex on Xbox 360.<br>Lockless programming is a valid technique for multithreaded programming, but it should not be used lightly. Before using it you must understand the complexities, and you should measure carefully to make sure that it is actually giving you the gains that you expect. In many cases, there are simpler and faster solutions, such as sharing data less frequently, which should be used instead.<br>Using lockless programming correctly and safely requires significant knowledge of both your hardware and your compiler. This article gives an overview of some of the issues to consider when trying to use lockless programming techniques.<br>Programming with Locks</p>
+<p>When writing multi-threaded code it is often necessary to share data between threads. If multiple threads are simultaneously reading and writing the shared data structures, memory corruption can occur. The simplest way of solving this problem is to use locks. For instance, if ManipulateSharedData should only be executed by one thread at a time, a CRITICAL_SECTION can be used to guarantee this, as in the following code:</p>
+<p>// Initialize<br>CRITICAL_SECTION cs;<br>InitializeCriticalSection(&amp;cs);</p>
+<p>// Use<br>void ManipulateSharedData()<br>{<br>    EnterCriticalSection(&amp;cs);<br>    // Manipulate stuff…<br>    LeaveCriticalSection(&amp;cs);<br>}</p>
+<p>// Destroy<br>DeleteCriticalSection(&amp;cs);</p>
+<p>This code is fairly simple and straightforward, and it is easy to tell that it is correct. However, programming with locks comes with several potential disadvantages. For example, if two threads try to acquire the same two locks but acquire them in a different order, you may get a deadlock. If a program holds a lock for too long—because of poor design or because the thread has been swapped out by a higher priority thread—other threads may be blocked for a long time. This risk is particularly great on Xbox 360 because the software threads are assigned a hardware thread by the developer, and the operating system won’t move them to another hardware thread, even if one is idle. The Xbox 360 also has no protection against priority inversion, where a high-priority thread spins in a loop while waiting for a low-priority thread to release a lock. Finally, if a deferred procedure call or interrupt service routine tries to acquire a lock, you may get a deadlock.<br>Despite these problems, synchronization primitives, such as critical sections, are generally the best way of coordinating multiple threads. If the synchronization primitives are too slow, the best solution is usually to use them less frequently. However, for those who can afford the extra complexity, another option is lockless programming.<br>Lockless Programming</p>
+<p>Lockless programming, as the name suggests, is a family of techniques for safely manipulating shared data without using locks. There are lockless algorithms available for passing messages, sharing lists and queues of data, and other tasks.<br>When doing lockless programming, there are two challenges that you must deal with: non-atomic operations and reordering.<br>Non-Atomic Operations</p>
+<p>An atomic operation is one that is indivisible—one where other threads are guaranteed to never see the operation when it is half done. Atomic operations are important for lockless programming, because without them, other threads might see half-written values, or otherwise inconsistent state.<br>On all modern processors, you can assume that reads and writes of naturally aligned native types are atomic. As long as the memory bus is at least as wide as the type being read or written, the CPU reads and writes these types in a single bus transaction, making it impossible for other threads to see them in a half-completed state. On x86 and x64 there, is no guarantee that reads and writes larger than eight bytes are atomic. This means that 16-byte reads and writes of streaming SIMD extension (SSE) registers, and string operations, might not be atomic.<br>Reads and writes of types that are not naturally aligned—for instance, writing DWORDs that cross four-byte boundaries—are not guaranteed to be atomic. The CPU may have to do these reads and writes as multiple bus transactions, which could allow another thread to modify or see the data in the middle of the read or write.<br>Composite operations, such as the read-modify-write sequence that occurs when you increment a shared variable, are not atomic. On Xbox 360, these operations are implemented as multiple instructions (lwz, addi, and stw), and the thread could be swapped out partway through the sequence. On x86 and x64, there is a single instruction (inc) that can be used to increment a variable in memory. If you use this instruction, incrementing a variable is atomic on single-processor systems, but it is still not atomic on multi-processor systems. Making inc atomic on x86- and x64-based multi-processor systems requires using the lock prefix, which prevents another processor from doing its own read-modify-write sequence between the read and the write of the inc instruction.<br>The following code shows some examples:</p>
+<p>// This write is not atomic because it is not natively aligned.<br>DWORD<em> pData = (DWORD</em>)(pChar + 1);<br>*pData = 0;</p>
+<p>// This is not atomic because it is three separate operations.<br>++g_globalCounter;</p>
+<p>// This write is atomic.<br>g_alignedGlobal = 0;</p>
+<p>// This read is atomic.<br>DWORD local = g_alignedGlobal;</p>
+<p>Guaranteeing Atomicity</p>
+<p>You can be sure you are using atomic operations by a combination of the following:<br>Naturally atomic operations<br>Locks to wrap composite operations<br>Operating system functions that implement atomic versions of popular composite operations<br>Incrementing a variable is not an atomic operation, and incrementing may lead to data corruption if executed on multiple threads.</p>
+<p>// This will be atomic.<br>g_globalCounter = 0;</p>
+<p>// This is not atomic and gives undefined behavior<br>// if executed on multiple threads<br>++g_globalCounter;</p>
+<p>Win32 comes with a family of functions that offer atomic read-modify-write versions of several common operations. These are the InterlockedXxx family of functions. If all modifications of the shared variable use these functions, the modifications will be thread safe.</p>
+<p>// Incrementing our variable in a safe lockless way.<br>InterlockedIncrement(&amp;g_globalCounter);</p>
+<p>Reordering</p>
+<p>A more subtle problem is reordering. Reads and writes do not always happen in the order that you have written them in your code, and this can lead to very confusing problems. In many multi-threaded algorithms, a thread writes some data and then writes to a flag that tells other threads that the data is ready. This is known as a write-release. If the writes are reordered, other threads may see that the flag is set before they can see the written data.<br>Similarly, in many cases, a thread reads from a flag and then reads some shared data if the flag says that the thread has acquired access to the shared data. This is known as a read-acquire. If reads are reordered, then the data may be read from shared storage before the flag, and the values seen might not be up to date.<br>Reordering of reads and writes can be done both by the compiler and by the processor. Compilers and processors have done this reordering for years, but on single-processor machines it was less of an issue. This is because CPU rearrangement of reads and writes is invisible on single-processor machines (for non-device driver code that is not part of a device driver), and compiler rearrangement of reads and writes is less likely to cause problems on single-processor machines.<br>If the compiler or the CPU rearranges the writes shown in the following code, another thread may see that the alive flag is set while still seeing the old values for x or y. Similar rearrangement can happen when reading.<br>In this code, one thread adds a new entry to the sprite array:</p>
+<p>// Create a new sprite by writing its position into an empty<br>// entry and then setting the ‘alive’ flag. If ‘alive’ is<br>// written before x or y then errors may occur.<br>g_sprites[nextSprite].x = x;<br>g_sprites[nextSprite].y = y;<br>g_sprites[nextSprite].alive = true;</p>
+<p>In this next code block, another thread reads from the sprite array:</p>
+<p>// Draw all sprites. If the reads of x and y are moved ahead of<br>// the read of ‘alive’ then errors may occur.<br>for( int i = 0; i &lt; numSprites; ++i )<br>{<br>    if( g_sprites[nextSprite].alive )<br>    {<br>        DrawSprite( g_sprites[nextSprite].x,<br>                g_sprites[nextSprite].y );<br>    }<br>}</p>
+<p>To make this sprite system safe, we need to prevent both compiler and CPU reordering of reads and writes.<br>Understanding CPU Rearrangement of Writes<br>Some CPUs rearrange writes so that they are externally visible to other processors or devices in non-program order. This rearranging is never visible to single-threaded non-driver code, but it can cause problems in multi-threaded code.<br>Xbox 360<br>While the Xbox 360 CPU does not reorder instructions, it does rearrange write operations, which complete after the instructions themselves. This rearranging of writes is specifically allowed by the PowerPC memory model.<br>Writes on Xbox 360 do not go directly to the L2 cache. Instead, in order to improve L2 cache write bandwidth, they go through store queues and then to store-gather buffers. The store-gather buffers allow 64-byte blocks to be written to the L2 cache in one operation. There are eight store-gather buffers, which allow efficient writing to several different areas of memory.<br>The store-gather buffers are normally written to the L2 cache in first-in-first-out (FIFO) order. However, if the target cache-line of a write is not in the L2 cache, that write may be delayed while the cache-line is fetched from memory.<br>Even when the store-gather buffers are written to the L2 cache in strict FIFO order, this does not guarantee that individual writes are written to the L2 cache in order. For instance, imagine that the CPU writes to location 0x1000, then to location 0x2000, and then to location 0x1004. The first write allocates a store-gather buffer and puts it at the front of the queue. The second write allocates another store-gather buffer and puts it next in the queue. The third write adds its data to the first store-gather buffer, which remains at the front of the queue. Thus, the third write ends up going to the L2 cache before the second write.<br>Reordering caused by store-gather buffers is fundamentally unpredictable, especially because both threads on a core share the store-gather buffers, making the allocation and emptying of the store-gather buffers highly variable.<br>This is one example of how writes can be reordered. There may be other possibilities.<br>x86 and x64<br>Even though x86 and x64 CPUs do reorder instructions, they generally do not reorder write operations relative to other writes. There are some exceptions for write-combined memory. Additionally, string operations (MOVS and STOS) and 16-byte SSE writes can be internally reordered, but otherwise, writes are not reordered relative to each other.<br>Understanding CPU Rearrangement of Reads<br>Some CPUs rearrange reads so that they effectively come from shared storage in non-program order. This rearranging is never visible to single-threaded non-driver code, but can cause problems in multi-threaded code.<br>Xbox 360<br>Cache misses can cause some reads to be delayed, which effectively causes reads to come from shared memory out of order, and the timing of these cache misses is fundamentally unpredictable. Prefetching and branch prediction can also cause data to come from shared memory out of order. These are just a few examples of how reads can be reordered. There may be other possibilities. This rearranging of reads is specifically allowed by the PowerPC memory model.<br>x86 and x64<br>Even though x86 and x64 CPUs do reorder instructions, they generally do not reorder read operations relative to other reads. String operations (MOVS and STOS) and 16-byte SSE reads can be internally reordered, but otherwise, reads are not reordered relative to each other.<br>Other Reordering<br>Even though x86 and x64 CPUs do not reorder writes relative to other writes, or reorder reads relative to other reads, they can reorder reads relative to writes. Specifically, if a program writes to one location followed by reading from a different location, the read data may come from shared memory before the written data makes it there. This reordering can break some algorithms, such as Dekker’s mutual exclusion algorithms. In Dekker’s algorithm, each thread sets a flag to indicate that it wants to enter the critical region, and then checks the other thread’s flag to see if the other thread is in the critical region or trying to enter it. The initial code follows.</p>
+<p>volatile bool f0 = false;<br>volatile bool f1 = false;</p>
+<p>void P0Acquire()<br>{<br>    // Indicate intention to enter critical region<br>    f0 = true;<br>    // Check for other thread in or entering critical region<br>    while (f1)<br>    {<br>        // Handle contention.<br>    }<br>    // critical region<br>    …<br>}</p>
+<p>void P1Acquire()<br>{<br>    // Indicate intention to enter critical region<br>    f1 = true;<br>    // Check for other thread in or entering critical region<br>    while (f0)<br>    {<br>        // Handle contention.<br>    }<br>    // critical region<br>    …<br>}</p>
+<p>The problem is that the read of f1 in P0Acquire can read from shared storage before the write to f0 makes it to shared storage. Meanwhile, the read of f0 in P1Acquire can read from shared storage before the write to f1 makes it to shared storage. The net effect is that both threads set their flags to TRUE, and both threads see the other thread’s flag as being FALSE, so they both enter the critical region. Therefore, while problems with reordering on x86- and x64-based systems are less common than on Xbox 360, they definitely can still happen. Dekker’s algorithm will not work without hardware memory barriers on any of these platforms.<br>x86 and x64 CPUs will not reorder a write ahead of a previous read. x86 and x64 CPUs only reorder reads ahead of previous writes if they target different locations.<br>PowerPC CPUs can reorder reads ahead of writes, and can reorder writes ahead of reads, as long as they are to different addresses.<br>Reordering Summary<br>The Xbox 360 CPU reorders memory operations much more aggressively than do x86 and x64 CPUs, as shown in the following table. For more details, consult the processor documentation.<br>Reordering Activity    x86 and x64    Xbox 360<br>Reads moving ahead of reads    No    Yes<br>Writes moving ahead of writes    No    Yes<br>Writes moving ahead of reads    No    Yes<br>Reads moving ahead of writes    Yes    Yes</p>
+<p>Read-Acquire and Write-Release Barriers</p>
+<p>The main constructs used to prevent reordering of reads and writes are called read-acquire and write-release barriers. A read-acquire is a read of a flag or other variable to gain ownership of a resource, coupled with a barrier against reordering. Similarly, a write-release is a write of a flag or other variable to give away ownership of a resource, coupled with a barrier against reordering.<br>The formal definitions, courtesy of Herb Sutter, are:<br>A read-acquire executes before all reads and writes by the same thread that follow it in program order.<br>A write-release executes after all reads and writes by the same thread that precede it in program order.<br>When your code acquires ownership of some memory, either by acquiring a lock or by pulling an item off of a shared linked list (without a lock), there is always a read involved—testing a flag or pointer to see if ownership of the memory has been acquired. This read may be part of an InterlockedXxx operation, in which case it involves both a read and a write, but it is the read that indicates whether ownership has been gained. After ownership of the memory is acquired, values are typically read from or written to that memory, and it is very important that these reads and writes execute after acquiring ownership. A read-acquire barrier guarantees this.<br>When ownership of some memory is released, either by releasing a lock or by pushing an item on to a shared linked list, there is always a write involved which notifies other threads that the memory is now available to them. While your code had ownership of the memory, it probably read from or wrote to it, and it is very important that these reads and writes execute before releasing ownership. A write-release barrier guarantees this.<br>It is simplest to think of read-acquire and write-release barriers as single operations. However, they sometimes have to be constructed from two parts: a read or write and a barrier that does not allow reads or writes to move across it. In this case, the placement of the barrier is critical. For a read-acquire barrier, the read of the flag comes first, then the barrier, and then the reads and writes of the shared data. For a write-release barrier the reads and writes of the shared data come first, then the barrier, and then the write of the flag.</p>
+<p>// Read that acquires the data.<br>if( g_flag )<br>{<br>    // Guarantee that the read of the flag executes before<br>    // all reads and writes that follow in program order.<br>    BarrierOfSomeSort();</p>
+<pre><code>// Now we can read and write the shared data.
+int localVariable = sharedData.y;
+sharedData.x = 0;
+
+// Guarantee that the write to the flag executes after all
+// reads and writes that precede it in program order.
+BarrierOfSomeSort();
+
+// Write that releases the data.
+g_flag = false;
+</code></pre><p>}</p>
+<p>The only difference between a read-acquire and a write-release is the location of the memory barrier. A read-acquire has the barrier after the lock operation, and a write-release has the barrier before. In both cases the barrier is in-between the references to the locked memory and the references to the lock.<br>To understand why barriers are needed both when acquiring and when releasing data, it is best (and most accurate) to think of these barriers as guaranteeing synchronization with shared memory, not with other processors. If one processor uses a write-release to release a data structure to shared memory, and another processor uses a read-acquire to gain access to that data structure from shared memory, the code will then work properly. If either processor doesn’t use the appropriate barrier, the data sharing may fail.<br>Using the right barrier to prevent compiler and CPU reordering for your platform is critical.<br>One of the advantages of using the synchronization primitives provided by the operating system is that all of them include the appropriate memory barriers.<br>Preventing Compiler Reordering</p>
+<p>A compiler’s job is to aggressively optimize your code in order to improve performance. This includes rearranging instructions wherever it is helpful and wherever it will not change behavior. Because the C++ Standard never mentions multithreading, and because the compiler doesn’t know what code needs to be thread-safe, the compiler assumes that your code is single-threaded when deciding what rearrangements it can safely do. Therefore, you need to tell the compiler when it is not allowed to reorder reads and writes.<br>With Visual C++ you can prevent compiler reordering by using the compiler intrinsic _ReadWriteBarrier. Where you insert _ReadWriteBarrier into your code, the compiler will not move reads and writes across it.</p>
+<p>#if _MSC_VER &lt; 1400<br>    // With VC++ 2003 you need to declare _ReadWriteBarrier<br>    extern “C” void _ReadWriteBarrier();</p>
+<p>#else<br>    // With VC++ 2005 you can get the declaration from intrin.h</p>
+<pre><code>#include &lt;intrin.h&gt;
+</code></pre><p>#endif<br>// Tell the compiler that this is an intrinsic, not a function.</p>
+<p>#pragma intrinsic(_ReadWriteBarrier)</p>
+<p>// Create a new sprite by filling in a previously empty entry.<br>g_sprites[nextSprite].x = x;<br>g_sprites[nextSprite].y = y;<br>// Write-release, barrier followed by write.<br>// Guarantee that the compiler leaves the write to the flag<br>// after all reads and writes that precede it in program order.<br>_ReadWriteBarrier();<br>g_sprites[nextSprite].alive = true;</p>
+<p>In the following code, another thread reads from the sprite array:</p>
+<p>// Draw all sprites.<br>for( int i = 0; i &lt; numSprites; ++i )<br>{</p>
+<pre><code>// Read-acquire, read followed by barrier.
+if( g_sprites[nextSprite].alive )
+{
+
+    // Guarantee that the compiler leaves the read of the flag
+    // before all reads and writes that follow in program order.
+    _ReadWriteBarrier();
+    DrawSprite( g_sprites[nextSprite].x,
+            g_sprites[nextSprite].y );
+}
+</code></pre><p>}</p>
+<p>It is important to understand that _ReadWriteBarrier does not insert any additional instructions, and it does not prevent the CPU from rearranging reads and writes—it only prevents the compiler from rearranging them. Thus, _ReadWriteBarrier is sufficient when you implement a write-release barrier on x86 and x64 (because x86 and x64 do not reorder writes, and a normal write is sufficient for releasing a lock), but in most other cases, it is also necessary to prevent the CPU from reordering reads and writes.<br>You can also use _ReadWriteBarrier when you write to non-cacheable write-combined memory to prevent reordering of writes. In this case _ReadWriteBarrier helps to improve performance, by guaranteeing that the writes happen in the processor’s preferred linear order.<br>It is also possible to use the _ReadBarrier and _WriteBarrier intrinsics for more precise control of compiler reordering. The compiler will not move reads across a _ReadBarrier, and it will not move writes across a _WriteBarrier.<br>Preventing CPU Reordering</p>
+<p>CPU reordering is more subtle than compiler reordering. You can’t ever see it happen directly, you just see inexplicable bugs. In order to prevent CPU reordering of reads and writes you need to use memory barrier instructions, on some processors. The all-purpose name for a memory barrier instruction, on Xbox 360 and on Windows, is MemoryBarrier. This macro is implemented appropriately for each platform.<br>On Xbox 360, MemoryBarrier is defined as lwsync (lightweight sync), also available through the <strong>lwsync intrinsic, which is defined in ppcintrinsics.h. </strong>lwsync also serves as a compiler memory barrier, preventing rearranging of reads and writes by the compiler.<br>The lwsync instruction is a memory barrier on Xbox 360 that synchronizes one processor core with the L2 cache. It guarantees that all writes before lwsync make it to the L2 cache before any writes that follow. It also guarantees that any reads that follow lwsync don’t get older data from L2 than previous reads. The one type of reordering that it does not prevent is a read moving ahead of a write to a different address. Thus, lwsync enforces memory ordering that matches the default memory ordering on x86 and x64 processors. To get full memory ordering requires the more expensive sync instruction (also known as heavyweight sync), but in most cases, this is not required. The memory reordering options on Xbox 360 are shown in the following table.<br>Xbox 360 Reordering    No sync    lwsync    sync<br>Reads moving ahead of reads    Yes    No    No<br>Writes moving ahead of writes    Yes    No    No<br>Writes moving ahead of reads    Yes    No    No<br>Reads moving ahead of writes    Yes    Yes    No</p>
+<p>PowerPC also has the synchronization instructions isync and eieio (which is used to control reordering to caching-inhibited memory). These synchronization instructions should not be needed for normal synchronization purposes.<br>On Windows, MemoryBarrier is defined in Winnt.h and gives you a different memory barrier instruction depending on whether you are compiling for x86 or x64. The memory barrier instruction serves as a full barrier, preventing all reordering of reads and writes across the barrier. Thus, MemoryBarrier on Windows gives a stronger reordering guarantee than it does on Xbox 360.<br>On Xbox 360, and on many other CPUs, there is one additional way that read-reordering by the CPU can be prevented. If you read a pointer and then use that pointer to load other data, the CPU guarantees that the reads off of the pointer are not older than the read of the pointer. If your lock flag is a pointer and if all reads of shared data are off of the pointer, the MemoryBarrier can be omitted, for a modest performance savings.</p>
+<p>Data* localPointer = g_sharedPointer;<br>if( localPointer )<br>{<br>    // No import barrier is needed–all reads off of localPointer<br>    // are guaranteed to not be reordered past the read of<br>    // localPointer.<br>    int localVariable = localPointer-&gt;y;<br>    // A memory barrier is needed to stop the read of g_global<br>    // from being speculatively moved ahead of the read of<br>    // g_sharedPointer.<br>    int localVariable2 = g_global;<br>}</p>
+<p>The MemoryBarrier instruction only prevents reordering of reads and writes to cacheable memory. If you allocate memory as PAGE_NOCACHE or PAGE_WRITECOMBINE, a common technique for device driver authors and for game developers on Xbox 360, MemoryBarrier has no effect on accesses to this memory. Most developers don’t need synchronization of non-cacheable memory. That is beyond the scope of this article.<br>Interlocked Functions and CPU Reordering</p>
+<p>Sometimes the read or write that acquires or releases a resource is done using one of the InterlockedXxx functions. On Windows, this simplifies things; because on Windows, the InterlockedXxx functions are all full-memory barriers. They effectively have a CPU memory barrier both before and after them, which means that they are a full read-acquire or write-release barrier all by themselves.<br>On Xbox 360, the InterlockedXxx functions do not contain CPU memory barriers. They prevent compiler reordering of reads and writes but not CPU reordering. Therefore, in most cases when using InterlockedXxx functions on Xbox 360, you should precede or follow them with an <strong>lwsync, to make them a read-acquire or write-release barrier. For convenience and for easier readability, there are Acquire and Release versions of many of the InterlockedXxx functions. These come with a built-in memory barrier. For instance, InterlockedIncrementAcquire does an interlocked increment followed by an </strong>lwsync memory barrier to give the full read-acquire functionality.<br>It is recommended that you use the Acquire and Release versions of the InterlockedXxx functions (most of which are available on Windows as well, with no performance penalty) to make your intent more obvious and to make it easier to get the memory barrier instructions in the correct place. Any use of InterlockedXxx on Xbox 360 without a memory barrier should be examined very carefully, because it is often a bug.<br>This sample demonstrates how one thread can pass tasks or other data to another thread using the Acquire and Release versions of the InterlockedXxxSList functions. The InterlockedXxxSList functions are a family of functions for maintaining a shared singly linked list without a lock. Note that Acquire and Release variants of these functions are not available on Windows, but the regular versions of these functions are a full memory barrier on Windows.</p>
+<p>// Declarations for the Task class go here.</p>
+<p>// Add a new task to the list using lockless programming.<br>void AddTask( DWORD ID, DWORD data )<br>{<br>    Task* newItem = new Task( ID, data );<br>    InterlockedPushEntrySListRelease( g_taskList, newItem );<br>}</p>
+<p>// Remove a task from the list, using lockless programming.<br>// This will return NULL if there are no items in the list.<br>Task<em> GetTask()<br>{<br>    Task</em> result = (Task*)<br>        InterlockedPopEntrySListAcquire( g_taskList );<br>    return result;<br>}</p>
+<p>Volatile Variables and Reordering</p>
+<p>The C++ Standard says that reads of volatile variables cannot be cached, volatile writes cannot be delayed, and volatile reads and writes cannot be moved past each other. This is sufficient for communicating with hardware devices, which is the purpose of the volatile keyword in the C++ Standard.<br>However, the guarantees of the standard are not sufficient for using volatile for multi-threading. The C++ Standard does not stop the compiler from reordering non-volatile reads and writes relative to volatile reads and writes, and it says nothing about preventing CPU reordering.<br>Visual C++ 2005 goes beyond standard C++ to define multi-threading-friendly semantics for volatile variable access. Starting with Visual C++ 2005, reads from volatile variables are defined to have read-acquire semantics, and writes to volatile variables are defined to have write-release semantics. This means that the compiler will not rearrange any reads and writes past them, and on Windows it will ensure that the CPU does not do so either.<br>It is important to understand that these new guarantees only apply to Visual C++ 2005 and future versions of Visual C++. Compilers from other vendors will generally implement different semantics, without the extra guarantees of Visual C++ 2005. Also, on Xbox 360, the compiler does not insert any instructions to prevent the CPU from reordering reads and writes.<br>Example of a Lock-Free Data Pipe</p>
+<p>A pipe is a construct that lets one or more threads write data that is then read by other threads. A lockless version of a pipe can be an elegant and efficient way to pass work from thread to thread. The DirectX SDK supplies LockFreePipe, a single-reader, single-writer lockless pipe that is available in DXUTLockFreePipe.h. The same LockFreePipe is available in the Xbox 360 SDK in AtgLockFreePipe.h.<br>LockFreePipe can be used when two threads have a producer/consumer relationship. The producer thread can write data to the pipe for the consumer thread to process at a later date, without ever blocking. If the pipe fills up, writes fail, and the producer thread will have to try again later, but this would only happen if the producer thread is ahead. If the pipe empties, reads fail, and the consumer thread will have to try again later, but this would only happen if there is no work for the consumer thread to do. If the two threads are well-balanced, and the pipe is big enough, the pipe lets them smoothly pass data along with no delays or blocks.<br>Xbox 360 Performance</p>
+<p>The performance of synchronization instructions and functions on Xbox 360 will vary depending on what other code is running. Acquiring locks will take much longer if another thread currently owns the lock. InterlockedIncrement and critical section operations will take much longer if other threads are writing to the same cache line. The contents of the store queues can also affect performance. Therefore, all of these numbers are just approximations, generated from very simple tests:<br>lwsync was measured as taking 33-48 cycles.<br>InterlockedIncrement was measured as taking 225-260 cycles.<br>Acquiring or releasing a critical section was measured as taking about 345 cycles.<br>Acquiring or releasing a mutex was measured as taking about 2350 cycles.<br>Windows Performance</p>
+<p>The performance of synchronization instructions and functions on Windows vary widely depending on the processor type and configuration, and on what other code is running. Multi-core and multi-socket systems often take longer to execute synchronizing instructions, and acquiring locks take much longer if another thread currently owns the lock.<br>However, even some measurements generated from very simple tests are helpful:<br>MemoryBarrier was measured as taking 20-90 cycles.<br>InterlockedIncrement was measured as taking 36-90 cycles.<br>Acquiring or releasing a critical section was measured as taking 40-100 cycles.<br>Acquiring or releasing a mutex was measured as taking about 750-2500 cycles.<br>These tests were done on Windows XP on a range of different processors. The short times were on a single-processor machine, and the longer times were on a multi-processor machine.<br>While acquiring and releasing locks is more expensive than using lockless programming, it is even better to share data less frequently, thus avoiding the cost altogether.<br>Performance Thoughts</p>
+<p>Acquiring or releasing a critical section consists of a memory barrier, an InterlockedXxx operation, and some extra checking to handle recursion and to fall back to a mutex, if necessary. You should be wary of implementing your own critical section, because spinning in a loop waiting for a lock to be free, without falling back to a mutex, can waste considerable performance. For critical sections that are heavily contended but not held for long, you should consider using InitializeCriticalSectionAndSpinCount so that the operating system will spin for a while waiting for the critical section to be available rather than immediately deferring to a mutex if the critical section is owned when you try to acquire it. In order to identify critical sections that can benefit from a spin count, it is necessary to measure the length of the typical wait for a particular lock.<br>If a shared heap is used for memory allocations—the default behavior—every memory allocation and free involves acquiring a lock. As the number of threads and the number of allocations increases, performance levels off, and eventually starts to decrease. Using per-thread heaps, or reducing the number of allocations, can avoid this locking bottleneck.<br>If one thread is generating data and another thread is consuming data, they may end up sharing data frequently. This can happen if one thread is loading resources and another thread is rendering the scene. If the rendering thread references the shared data on every draw call, the locking overhead will be high. Much better performance can be realized if each thread has private data structures which are then synchronized once per frame or less.<br>Lockless algorithms are not guaranteed to be faster than algorithms that use locks. You should check to see if locks are actually causing you problems before trying to avoid them, and you should measure to see if your lockless code actually improves performance.<br>Platform Differences Summary</p>
+<p>InterlockedXxx functions prevent CPU read/write reordering on Windows, but not on Xbox 360.<br>Reading and writing of volatile variables using Visual Studio C++ 2005 prevents CPU read/write reordering on Windows, but on Xbox 360, it only prevents compiler read/write reordering.<br>Writes are reordered on Xbox 360, but not on x86 or x64.<br>Reads are reordered on Xbox 360, but on x86 or x64 they are only reordered relative to writes, and only if the reads and writes target different locations.<br>Recommendations</p>
+<p>Use locks when possible because they are easier to use correctly.<br>Avoid locking too frequently, so that locking costs do not become significant.<br>Avoid holding locks for too long, in order to avoid long stalls.<br>Use lockless programming when appropriate, but be sure that the gains justify the complexity.<br>Use lockless programming or spin locks in situations where other locks are prohibited, such as when sharing data between deferred procedure calls and normal code.<br>Only use standard lockless programming algorithms that have been proven to be correct.<br>When doing lockless programming, be sure to use volatile flag variables and memory barrier instructions as needed.<br>When using InterlockedXxx on Xbox 360, use the Acquire and Release variants.<br>References</p>
+<p>MSDN Library. “volatile (C++).” C++ Language Reference.<br>Vance Morrison. “Understand the Impact of Low-Lock Techniques in Multithreaded Apps.” MSDN Magazine, October 2005.<br>Lyons, Michael. “PowerPC Storage Model and AIX Programming.” IBM developerWorks, 16 Nov 2005.<br>McKenney, Paul E. “Memory Ordering in Modern Microprocessors, Part II.” Linux Journal, September 2005. [This article has some x86 details.]<br>Intel Corporation. “Intel® 64 Architecture Memory Ordering.” August 2007. [Applies to both IA-32 and Intel 64 processors.]<br>Niebler, Eric. “Trip Report: Ad-Hoc Meeting on Threads in C++.” The C++ Source, 17 Oct 2006.<br>Hart, Thomas E. 2006. “Making Lockless Synchronization Fast: Performance Implications of Memory Reclamation.” Proceedings of the 2006 International Parallel and Distributed Processing Symposium (IPDPS 2006), Rhodes Island, Greece, April 2006.</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
   <link itemprop="mainEntityOfPage" href="http://chanlan.github.io/2017/04/04/无锁编程实战/">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -349,6 +870,181 @@
 <p>   void pop_front() {<br>      auto p = head.load();<br>      while (p &amp;&amp; !head.compare_exchange_weak(p, p-&gt;next))<br>         {}<br>   }<br>};<br>Here the trick is that the pointer is returned wrapped into a shared_ptr, so we are safe as to deletion concerns.</p>
 <p>This implementation shows a nice property known as linearizability, which makes that a series of overlapping operations, can be though of as if they were executed in sequence.</p>
 <p>The final part of the talk is dedicated to discussing an example of measuring a program to find out how it behaves and what benefits it can get from going lock-free.</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://chanlan.github.io/2017/04/04/无锁编程/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="Kivmi">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/images/avatar.gif">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="Learn And Life.">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="Learn And Life." src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/04/04/无锁编程/" itemprop="url">
+                  无锁编程
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-04-04T13:37:30+08:00">
+                2017-04-04
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>Lock-Free Data Structures<br>By Andrei Alexandrescu, October 01, 2004</p>
+<p>Lock-free data structures guarantee the progress of at least one thread when executing mutlithreaded procedures, thereby helping you avoid deadlock.<br>Andrei Alexandrescu is a graduate student in Computer Science at the University of Washington and author of Modern C++ Design. He can be contacted at andrei@metalanguage.com.</p>
+<p>After skipping an installment of “Generic<programming>“ (it’s naive, I know, to think that grad school asks for anything less than 100 percent of one’s time), there has been an embarrassment of riches as far as topic candidates for this article. One topic candidate was a discussion of constructors; in particular, forwarding constructors, handling exceptions, and two-stage object construction. One other topic candidate—and another glimpse into the Yaslander technology [2]—was creating containers (such as lists, vectors, or maps) of incomplete types, something that is possible with the help of an interesting set of tricks, but not guaranteed by the standard containers.</programming></p>
+<p>While both candidates are intriguing, they couldn’t stand a chance against lock-free data structures, which are all the rage in the multithreaded programming community. At this year’s Programming Language Design and Implementation conference (<a href="http://www.cs.umd.edu/~pugh/pldi04/" target="_blank" rel="external">http://www.cs.umd.edu/~pugh/pldi04/</a>), Michael Maged presented the world’s first lock-free memory allocator [7], which surpasses at many tests other more complex, carefully designed lock-based allocators.</p>
+<p>This is the most recent of many lock-free data structures and algorithms that have appeared in the recent past.</p>
+<p>What Do You Mean, “lock-free?”<br>That’s exactly what I would have asked only a while ago. As the bona-fide mainstream multithreaded programmer that I was, lock-based multithreaded algorithms were familiar to me. In classic lock-based programming, whenever you need to share some data, you need to serialize access to it. The operations that change data must appear as atomic, such that no other thread intervenes to spoil your data’s invariant. Even a simple operation such as ++count<em> (where count</em> is an integral type) must be locked. Incrementing is really a three-step (read, modify, write) operation that isn’t necessarily atomic.</p>
+<p>In short, with lock-based multithreaded programming, you need to make sure that any operation on shared data that is susceptible to race conditions is made atomic by locking and unlocking a mutex. On the bright side, as long as the mutex is locked, you can perform just about any operation, in confidence that no other thread will trample on your shared state.</p>
+<p>It is exactly this “arbitrary”-ness of what you can do while a mutex is locked that’s also problematic. You could, for example, read the keyboard or perform some slow I/O operation, which means that you delay any other threads waiting for the same mutex. Worse, you could decide you want access to some other piece of shared data and attempt to lock its mutex. If another thread has already locked that last mutex and wants access to the first mutex that your threads already holds, both processes hang faster than you can say “deadlock.”</p>
+<p>Enter lock-free programming. In lock-free programming, you can’t do just about anything atomically. There is only a precious small set of things that you can do atomically, a limitation that makes lock-free programming way harder. (In fact, there must be around half a dozen lock-free programming experts around the world, and yours truly is not among them. With luck, however, this article will provide you with the basic tools, references, and enthusiasm to help you become one.) The reward of such a scarce framework is that you can provide much better guarantees about thread progress and the interaction between threads. But what’s that “small set of things” that you can do atomically in lock-free programming? In fact, what would be the minimal set of atomic primitives that would allow implementing any lock-free algorithm—if there’s such a set?</p>
+<p>If you believe that’s a fundamental enough question to award a prize to the answerer, so did others. In 2003, Maurice Herlihy was awarded the Edsger W. Dijkstra Prize in Distributed Computing for his seminal 1991 paper “Wait-Free Synchronization” (see <a href="http://www.podc.org/dijkstra/2003.html" target="_blank" rel="external">http://www.podc.org/dijkstra/2003.html</a>, which includes a link to the paper, too). In his tour-de-force paper, Herlihy proves which primitives are good and which are bad for building lock-free data structures. That brought some seemingly hot hardware architectures to instant obsolescence, while clarifying what synchronization primitives should be implemented in future hardware.</p>
+<p>For example, Herlihy’s paper gave impossiblity results, showing that atomic operations such as test-and-set, swap, fetch-and-add, or even atomic queues (!) are insufficient for properly synchronizing more than two threads. (That’s surprising because queues with atomic push and pop operations would seem to provide quite a powerful abstraction.) On the bright side, Herlihy also gave universality results, proving that some simple constructs are enough for implementing any lock-free algorithm for any number of threads.</p>
+<p>The simplest and most popular universal primitive, and the one that I use throughout, is the compare-and-swap (CAS) operation:</p>
+<p>template <class t=""><br>bool CAS(T<em> addr, T expected, T value) {<br>   if (</em>addr == expected) {<br>      *addr = value;<br>      return true;<br>   }<br>   return false;<br>}  </class></p>
+<p>CAS compares the content of a memory address with an expected value, and if the comparison succeeds, replaces the content with a new value. The entire procedure is atomic. Many modern processors implement CAS or equivalent primitives for different bit lengths (the reason for which we’ve made it a template, assuming an implementation uses metaprogramming to restrict possible Ts). As a rule of thumb, the more bits a CAS can compare-and-swap atomically, the easier it is to implement lock-free data structures with it. Most of today’s 32-bit processors implement 64-bit CAS; for example, Intel’s assembler calls it CMPXCHG8 (you gotta love those assembler mnemonics).</p>
+<p>A Word of Caution<br>Usually a C++ article is accompanied by C++ code snippets and examples. Ideally, that code is Standard C++, and “Generic<programming>“ strives to live up to that ideal.</programming></p>
+<p>When writing about multithreaded code, however, giving Standard C++ code samples is simply impossible. Threads don’t exist in Standard C++, and you can’t code something that doesn’t exist. Therefore, the code for this article is “pseudocode” and not meant as Standard C++ code for portable compilation. Take memory barriers, for example. Real code would need to be either assembly language translations of the algorithms described herein, or at least sprinkle C++ code with some so-called “memory barriers”—processor-dependent magic that forces proper ordering of memory reads and writes. I don’t want to spread the discussion too thin by explaining memory barriers in addition to lock-free data structures. If you are interested, refer to Butenhof’s excellent book [3] or to a short introduction [6]. For purposes here, I assume that the compiler and the hardware don’t introduce funky optimizations (such as eliminating some “redundant” variable reads, a valid optimization under a single-thread assumption). Technically, that’s called a “sequentially consistent” model in which reads and writes are performed and seen in the exact order in which the source code does them [8].</p>
+<p>Wait-Free and Lock-Free versus Locked<br>A “wait-free” procedure can complete in a finite number of steps, regardless of the relative speeds of other threads.</p>
+<p>A “lock-free” procedure guarantees progress of at least one of the threads executing the procedure. That means some threads can be delayed arbitrarily, but it is guaranteed that at least one thread makes progress at each step. So the system as a whole always makes progress, although some threads might make slower progress than others. Lock-based programs can’t provide any of the aforementioned guarantees. If any thread is delayed while holding a lock to a mutex, progress cannot be made by threads that wait for the same mutex; and in the general case, locked algorithms are prey to deadlock—each waits for a mutex locked by the other—and livelock—each tries to dodge the other’s locking behavior, just like two dudes in the hallway trying to go past one another but end up doing that social dance of swinging left and right in synchronicity. We humans are pretty good at ending that with a laugh; processors, however, often enjoy doing it until rebooting sets them apart.</p>
+<p>Wait-free and lock-free algorithms enjoy more advantages derived from their definitions:</p>
+<p>Thread-killing Immunity: Any thread forcefully killed in the system won’t delay other threads.<br>Signal Immunity: The C and C++Standards prohibit signals or asynchronous interrupts from calling many system routines such as malloc. If the interrupt calls malloc at the same time with an interrupted thread, that could cause deadlock. With lock-free routines, there’s no such problem anymore: Threads can freely interleave execution.<br>Priority Inversion Immunity: Priority inversion occurs when a low-priority thread holds a lock to a mutex needed by a high-priority thread. Such tricky conflicts must be resolved by the OS kernel. Wait-free and lock-free algorithms are immune to such problems.<br>A Lock-Free WRRM Map<br>Column writing offers the perk of defining acronyms, so let’s define WRRM (Write Rarely Read Many) maps as maps that are read a lot more than they are mutated. Examples include object factories [1], many instances of the Observer design pattern [5], mappings of currency names to exchange rates that are looked up many, many times but are updated only by a comparatively slow stream, and various other look-up tables.</p>
+<p>WRRM maps can be implemented via std::map or the post-standard unordered_map (<a href="http://www.open-std.org/jtcl/sc22/wg21/docs/papers/2004/n1647.pdf" target="_blank" rel="external">http://www.open-std.org/jtcl/sc22/wg21/docs/papers/2004/n1647.pdf</a>), but as I argue in Modern C++ Design, assoc_vector (a sorted vector or pairs) is a good candidate for WRRM maps because it trades update speed for lookup speed. Whatever structure is used, our lock-free aspect is orthogonal to it; let’s just call the back-end Map<key, value="">. Also, for the purposes of this article, iteration is irrelevant—maps are only tables that provide a means to lookup a key or update a key-value pair.</key,></p>
+<p>To recap how a locking implementation would look, let’s combine a Map object with a Mutex object like so:</p>
+<p>// A locking implementation of WRRMMap<br>template <class k,="" class="" v=""><br>class WRRMMap {<br>   Mutex mtx<em>;<br>   Map<k, v=""> map</k,></em>;<br>public:<br>   V Lookup(const K&amp; k) {<br>      Lock lock(mtx<em>);<br>      return map</em>[k];<br>   }<br>   void Update(const K&amp; k,<br>         const V&amp; v) {<br>      Lock lock(mtx<em>);<br>      map</em>[k] = v;<br>   }<br>};</class></p>
+<p>To avoid ownership issues and dangling references (that could bite us harder later), Lookup returns its result by value. Rock-solid—but at a cost. Every lookup locks/unlocks the Mutex, although (1) parallel lookups don’t need to interlock, and (2) by the spec, Update is much less often called than Lookup. Ouch! Let’s now try to provide a better WRRMMap implementation.</p>
+<p>Garbage Collector, Where Art Thou?<br>The first shot at implementing a lock-free WRRMMap rests on this idea:</p>
+<p>Reads have no locking at all.<br>Updates make a copy of the entire map, update the copy, and then try to CAS it with the old map. While the CAS operation does not succeed, the copy/update/CAS process is tried again in a loop.<br>Because CAS is limited in how many bytes it can swap, WRRMMap stores the Map as a pointer and not as a direct member of WRRMMap.<br>// 1st lock-free implementation of WRRMMap<br>// Works only if you have GC<br>template <class k,="" class="" v=""><br>class WRRMMap {<br>   Map<k, v=""><em> pMap_;<br>public:<br>   V Lookup (const K&amp; k) {<br>      //Look, ma, no lock<br>      return (</em>pMap<em>) [k];<br>   }<br>   void Update(const K&amp; k,<br>         const V&amp; v) {<br>      Map<k, v=""><em> pNew = 0;<br>      do {<br>         Map<k, v=""></k,></em> pOld = pMap</k,></em>;<br>         delete pNew;<br>         pNew = new Map<k, v="">(<em>pOld);<br>         (</em>pNew) [k] = v;<br>      } while (!CAS(&amp;pMap<em>, pOld, pNew));<br>      // DON’T delete pMap</em>;<br>   }<br>};</k,></k,></class></p>
+<p>It works! In a loop, the Update routine makes a full-blown copy of the map, adds the new entry to it, and then attempts to swap the pointers. It is important to do CAS and not a simple assignment; otherwise, the following sequence of events could corrupt the map:</p>
+<p>Thread A copies the map.<br>Thread B copies the map as well and adds an entry.<br>Thread A adds some other entry.<br>Thread A replaces the map with its version of the map—a version that does not contain whatever B added.<br>With CAS, things work pretty neatly because each thread says something like, “assuming the map hasn’t changed since I last looked at it, copy it. Otherwise, start all over again.”</p>
+<p>This makes Update lock-free but not wait-free, by my definitions. If many threads call Update concurrently, any particular thread might loop indefinitely, but at all times some thread will be guaranteed to update the structure successfully, thus global progress is being made at each step. Luckily, Lookup is wait-free.</p>
+<p>In a garbage-collected environment, we’d be done, and this article would end on an upbeat note. Without garbage collection, however, there is much pain to come. This is because you cannot simply dispose of the old pMap<em> willy-nilly; what if, just as you are trying to delete it, many other threads are frantically looking for things inside pMap</em> via the Lookup function? You see, a garbage collector would have access to all threads’ data and private stacks; it would have a good perspective on when the unused pMap_ pointers aren’t perused anymore, and would nicely scavenge them. Without a garbage collector, things get harder. Much harder, actually, and it turns out that deterministic memory freeing is quite a fundamental problem in lock-free data structures.</p>
+<p>Write-Locked WRRM Maps<br>To understand the viciousness of our adversary, it is instructive to try a classic reference-counting implementation and see where it fails. So, think of associating a reference count with the pointer to map, and have WRRMMap store a pointer to the thusly formed structure:</p>
+<p>template <class k,="" class="" v=""><br>class WRRMMap {<br>   typedef std::pair<map<k, v=""><em>,<br>      unsigned&gt; Data;<br>   Data</em> pData_;<br>   …<br>};</map<k,></class></p>
+<p>Sweet. Now, Lookup increments pData<em>-&gt;second, searches through the map all it wants, then decrements pData</em>-&gt;second. When the reference count hits zero, pData<em>-&gt;first can be deleted, and then so can pData</em> itself. Sounds foolproof, except…except it’s “foolish” (or whatever the antonym to “foolproof” is). Imagine that right at the time some thread notices the refcount is zero and proceeds on deleting pData<em>, another thread…no, better: A bazillion threads have just loaded the moribund pData</em> and are about to read through it! No matter how smart a scheme is, it hits this fundamental Catch-22—to read the pointer to the data, you need to increment a reference count; but the counter must be part of the data itself, so it can’t be read without accessing the pointer first. It’s like an electric fence that has the turn-off button up on top of it: To safely climb the fence you need to disable it first, but to disable it you need to climb it.</p>
+<p>So let’s think of other ways to delete the old map properly. One solution would be to wait, then delete. You see, the old pMap<em> objects will be looked up by less and less threads as processor eons (milliseconds) go by; this is because new lookups use the new maps; as soon as the lookups that were active just before the CAS finish, the pMap</em> is ready to go to Hades. Therefore, a solution would be to queue up old pMap_ values to some “boa serpent” thread that, in a loop, sleeps for, say, 200 milliseconds, wakes up and deletes the least recent map, and then goes back to sleep for digestion.</p>
+<p>This is not a theoretically safe solution (although it practically could well be within bounds). One nasty thing is that if, for whatever reason, a lookup thread is delayed, the boa serpent thread can delete the map under that thread’s feet. This could be solved by always assigning the boa serpent thread a lower priority than any other’s, but as a whole, the solution has a stench that is hard to remove. If you agree with me that it’s hard to defend this technique with a straight face, let’s move on.</p>
+<p>Other solutions [4] rely on an extended DCAS atomic instruction, which is able to compare-and-swap two noncontiguous words in memory:</p>
+<p>template <class t1,="" class="" t2=""><br>bool  DCAS(T1<em> p1, T2</em> p2,<br>      T1 e1, T2 e2,<br>      T1 v1, T2 v2) {<br>   if (<em>p1 == e1 &amp;&amp; </em>p2 == e2) {<br>      <em>p1 = v1; </em>p2 = v2;<br>      return true;<br>   }<br>   return false;<br>}</class></p>
+<p>Naturally, the two locations would be the pointer and the reference count itself. DCAS has been implemented (very inefficiently) by the Motorola 68040 processors, but not by other processors. Because of that, DCAS-based solutions are considered of primarily theoretical value.</p>
+<p>The first shot at a solution with deterministic destruction is to rely on the less-demanding CAS2. Again, many 32-bit machines implement a 64-bit CAS, often dubbed as CAS2. (Because it only operates on contiguous words, CAS2 is obviously less powerful than DCAS.) For starters, let’s store the reference count next to the pointer that it guards:</p>
+<p>template <class k,="" class="" v=""><br>class WRRMMap {<br>   typedef std::pair<map<k, v="">*,<br>      unsigned&gt; Data;<br>   Data data_;<br>   …<br>};</map<k,></class></p>
+<p>(Notice that this time the count sits next to the pointer that it protects, a setup that eliminates the Catch-22 problem mentioned earlier. You’ll see the cost of this setup in a minute.)</p>
+<p>Then, let’s modify Lookup to increment the reference count before accessing the map, and decrement it after. In the following code snippets, I ignore exception safety issues (which can be taken care of with standard techniques) for the sake of brevity.</p>
+<p>V Lookup(const K&amp; k) {<br>   Data old;<br>   Data fresh;<br>   do {<br>      old = data<em>;<br>      fresh = old;<br>      ++fresh.second;<br>   } while (CAS(&amp;data</em>, old, fresh));<br>   V temp = (*fresh.first)[k];<br>   do {<br>      old = data<em>;<br>      fresh = old;<br>      –fresh.second;<br>   } while (CAS(&amp;data</em>, old, fresh));<br>   return temp;<br>}</p>
+<p>Finally, Update replaces the map with a new one—but only in the window of opportunity when the reference count is 1.</p>
+<p>void Update(const K&amp; k,<br>      const V&amp; v) {<br>   Data old;<br>   Data fresh;<br>   old.second = 1;<br>   fresh.first = 0;<br>   fresh.second = 1;<br>   Map<k, v="">* last = 0;<br>   do {<br>      old.first = data_.first;<br>      if (last != old.first) {<br>         delete fresh.first;<br>         fresh.first = new Map<k, v="">(old.first);<br>         fresh.first-&gt;insert(make<em>pair(k, v));<br>         last = old.first;<br>      }<br>   } while (!CAS(&amp;data</em>, old, fresh));<br>   delete old.first; // whew<br>}</k,></k,></p>
+<p>Here’s how Update works. It defines the now-familiar old and fresh variables. But this time old.last (the count) is never assigned from data_.last; it is always 1. This means that Update loops until it has a window of opportunity to replace a pointer with a counter of 1, with another pointer having a counter of 1. In plain English, the loop says “I’ll replace the old map with a new, updated one, and I’ll be on the lookout for any other updates of the map, but I’ll only do the replacement when the reference count of the existing map is one.” The variable last and its associated code are only one optimization: Avoid rebuilding the map over and over again if the old map hasn’t been replaced (only the count).</p>
+<p>Neat, huh? Not that much. Update is now locked: It needs to wait for all Lookups to finish before it has a chance to update the map. Gone with the wind are all the nice properties of lock-free data structures. In particular, it is easy to starve Update to death: Just look up the map at a high-enough rate—and the reference count never goes down to 1. So what you really have so far is not a WRRM (Write-Rarely-Read-Many) map, but a WRRMBNTM (Write-Rarely-Read-Many-But-Not-Too-Many) one instead.</p>
+<p>Conclusion<br>Lock-free data structures are promising. They exhibit good properties with regards to thread killing, priority inversion, and signal safety. They never deadlock or livelock. In tests, recent lock-free data structures surpass their locked counterparts by a large margin [9]. However, lock-free programming is tricky, especially with regards to memory deallocation. A garbage-collected environment is a plus because it has the means to stop and inspect all threads, but if you want deterministic destruction, you need special support from the hardware or the memory allocator. In the next installment of “Generic<programming>,” I’ll look into ways to optimize WRRMMap such that it stays lock-free while performing deterministic destruction.</programming></p>
+<p>And if this installment’s garbage-collected map and WRRMBNTM map dissatisfied you, here’s a money saving tip: Don’t go watch the movie Alien vs. Predator, unless you like “so bad it’s funny” movies.</p>
+<p>Acknowlegments<br>David B. Held, Michael Maged, Larry Evans, and Scott Meyers provided very helpful feedback. Also, Michael graciously agreed to coauthor the next “Generic<programming>“ installment, which will greatly improve on our WRRMap implementation.</programming></p>
+<p>References<br>[1]    Alexandrescu, Andrei. Modern C++ Design, Addison-Wesley Longman, 2001.</p>
+<p>[2]    Alexandrescu, Andrei. “Generic<programming>:yasli::vector Is On the Move,” C/C++ Users Journal, June 2004.</programming></p>
+<p>[3]    Butenhof, D.R. Programming with POSIX Threads, Addison-Wesley, 1997.</p>
+<p>[4]    Detlefs, David L., Paul A. Martin, Mark Moir, and Guy L. Steele, Jr. “Lock-free Reference Counting,” Proceedings of the Twentieth Annual ACM Symposium on Principles of Distributed Computing, pages 190-199, ACM Press, 2001. ISBN 1-58113-383-9.</p>
+<p>[5]    Gamma, Erich, Richard Helm, Ralph E. Johnson, and John Vlissides. Design Patterns: Elements of Resusable Object-Oriented Software, Addison-Wesley, 1995.</p>
+<p>[6]    Meyers, Scott and Andrei Alexandrescu. “The Perils of Double-Checked Locking.” Dr. Dobb’s Journal, July 2004.</p>
+<p>[7]    Maged, Michael M. “Scalable Lock-free Dynamic Memory Allocation,” Proceedings of the ACM SIGPLAN 2004 Conference on Programming Language Design and Implementation, pages 35-46. ACM Press, 2004. ISBN 1-58113-807-5.</p>
+<p>[8]    Robison, Arch. “Memory Consistency &amp; .NET,” Dr. Dobb’s Journal, April 2003.</p>
+<p>[9]    Maged, Michael M. “CAS-Based Lock-Free Algorithm for Shared Deques,” The Ninth Euro-Par Conference on Parallel Processing, LNCS volume 2790, pages 651-660, August 2003.</p>
 
           
         
@@ -977,651 +1673,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://chanlan.github.io/2016/12/22/关于线上问题/">
-
-  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
-    <meta itemprop="name" content="Kivmi">
-    <meta itemprop="description" content="">
-    <meta itemprop="image" content="/images/avatar.gif">
-  </span>
-
-  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-    <meta itemprop="name" content="Learn And Life.">
-    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
-      <img style="display:none;" itemprop="url image" alt="Learn And Life." src="">
-    </span>
-  </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/12/22/关于线上问题/" itemprop="url">
-                  关于线上问题
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-12-22T10:01:43+08:00">
-                2016-12-22
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>关于线上问题，是真正能够让我们成长的最好的方式，所以需要不断的积累，特别是大数据量时引起的一系列问题，包括人为的和线上的：</p>
-<p>1.个人行为造成的问题，某同学想修改下数据表字段的类型，修改了一个几百万数据量的表，修改过程中会导致SQL阻塞，进一步导致请求阻塞，以至于整个系统请求平均延迟上升，产生了蝴蝶效应。如果量级更大的话，影响时间会更长，以至于整个系统不可用<br>总结：<br>线上的大表，因为都是基于innodb存储引起，修改引起的代价是比较大的，可能会锁表，索引尽可能的少执行这种操作，需要做好测试评估好执行影响时间</p>
-<p>2.应用场景引发的问题，对于直播产品，视频直播结束，会向观众发送直播已经结束的消息，而这种消息是同时发送的，这样就会引起大量的数据产生和消费，造成的影响是，服务器消息堆积，客户端不知道直播是否结束，客户端仍然还在聊天室<br>总结：<br>在一定的时间内，比如1min, 离散的发送消息，让客户端能够在有限的时间内退出聊天室，不至于影响产品的用户体验</p>
-<p>3.redis错误，read error on connection<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">PHP Fatal error:  Uncaught exception &apos;RedisException&apos; with message &apos;read error on connection&apos; in ....</div></pre></td></tr></table></figure></p>
-<p>这个错误是偶尔遇到，有同学通过修改php soctet超时时间来修复该问题<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">default_socket_timeout = 60</div></pre></td></tr></table></figure></p>
-<p>或者在脚本中添加<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ini_set(&apos;default_socket_timeout&apos;, -1);  //不超时</div></pre></td></tr></table></figure></p>
-<p>来解决该问题,但是这种解决方式并不是最好，而且这种方式需要重启php-fpm进程才可以生效</p>
-<p>4.服务配置引起的问题，新开一个elb,支持cloudfront CDN支持，针对某个地区，将xxx.xxx.net这个域名，解析到cloudfront地址上，经由cloudfront再到后端elb进行访问，出现服务访问不了的情况，经运维协查，是cloude front服务配置问题导致<br>总结：<br>线上配置，需要谨慎修改，支持各种环境（线上，开发，测试，联调）发布部署配置文件的管理</p>
-<p>5.设计问题，redis大key如何解，有时候对于好友关系等出现长尾数据的时候，存和读都会遇到问题，一般对大key的读，使用分页读，如果存储的数据量过大，1000w,那么做数据迁移还是数据恢复就会有问题，所以，单key的数据量的存储，不应过大<br>总结：<br>大key,可以使用应用层对id进行hash，生成统一前缀的key，自动实现key的查找</p>
-<p>6.高并发，大数据引起最初设计的变化的问题，随着用户量的增加，uv上升，导致之前的设计请求量增加，系统压力增大，这样需要在原先的设计上，增加一些策略，当然，这种策略的增加需要产品的支持，比如消息发送，对任何用户等级之间的用户发送私信，当大网红直播时，这样导致消息量剧增，如果同时直播数比较多，产生的消息量会非常大，这样，可以增加一些策略来减少这种压力，比如只有达到某个等级的用户，在直播的时候，才对其粉丝发送私信，这样就大大的减少了消息量的产生，当然也可以在技术上支持</p>
-<p>7.减少存储系统的压力，对于给予协助处理服务程序的数据，比如算法，这种服务的特性是非实时的，或者接近实时，对于这种数据的存储，不需要放到内存中存储，可以使用kafka来存储，将算法服务接入该系统，获取数据，并将数据的结果写入前端服务器或者内存中，供前端服务使用</p>
-<p>8.线上日志，一种为数据日志，提供分析平台使用，而另外一种属于业务日志，供问题定位，对于业务日志，需要做到能准确定位所发生的问题，用户线上问题排查</p>
-<p>9.无状态设计和有状态设计，无状态设计，比如静态文件，或者使用已有的信息，能拿到所需要的静态资源数据信息，怎样区权衡是使用有状态设计，还是使用无状态设计，还是有无状态设计相结合，需要考虑到对系统性能的影响，有多大的影响，增加有状态设计会产生什么多大的存储资源的损耗？是否是热点数据，是否需要将数据分多次多状态存储和维护？如果数据量不大，而且是基于热点，那么最好还是使用有状态设计，不会产生太多的资源损耗问题，性能还是实现的逻辑也是可以控制的</p>
-<p>10.系统架构设计，使用ha来实现各节点之间活跃监控，增强系统的容错处理和可靠性</p>
-<p>11.redis并发症控制，可以使用setnx来替换set</p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://chanlan.github.io/2016/12/20/go基础/">
-
-  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
-    <meta itemprop="name" content="Kivmi">
-    <meta itemprop="description" content="">
-    <meta itemprop="image" content="/images/avatar.gif">
-  </span>
-
-  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-    <meta itemprop="name" content="Learn And Life.">
-    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
-      <img style="display:none;" itemprop="url image" alt="Learn And Life." src="">
-    </span>
-  </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/12/20/go基础/" itemprop="url">
-                  go基础
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-12-20T13:14:35+08:00">
-                2016-12-20
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>初涉这门语言，该语言以其高性能并发编程而被程序员们所喜欢，虽然鄙人还没涉足如何很好的去运用这门语言来支持现有的产品性能提升，只是抱着学习的态度，了解一门新的语言有哪些特性，可以为我所用，仅此，写下此篇，来记录自己学习历程！</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">go语言哲学</div></pre></td></tr></table></figure>
-<p>少即是多，你理解得越好，你将变得越简洁！这里的少和多主要是针对GO和C、C++之间的比较，下面看看Go做了些什么：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div></pre></td><td class="code"><pre><div class="line">常规的语法(不需要一个符号表来辅助解析)</div><div class="line">GC机制(仅仅是GC)</div><div class="line">没有头文件</div><div class="line">显式依赖关系</div><div class="line">没有循环依赖</div><div class="line">数字常量仅仅是数字(没有类型)</div><div class="line">int和int32不是同种类型</div><div class="line">字母大小写将确定可见性</div><div class="line">任何类型都可以有方法(没有类)</div><div class="line">没有子类型继承(没有子类)</div><div class="line">包级别的初始化和良好定义的初始化顺序</div><div class="line">同一个包的文件一起编译</div><div class="line">包级别的全局定义可以以任意顺序进行</div><div class="line">没有算术类型转换(常量可以弥补)</div><div class="line">接口是隐式实现的(没有”implements”声明)</div><div class="line">嵌入的结构体(没有类型提升和子类)</div><div class="line">方法像函数一样定义(不必定义在特殊的地方)</div><div class="line">方法就是函数</div><div class="line">接口就是方法(没有数据)</div><div class="line">方法仅仅靠名字匹配(不是靠类型)</div><div class="line">没有构造函数和析构函数</div><div class="line">后置增量/减量运算符仅仅是语句，而不是表达式</div><div class="line">没有前置增量/减量运算符</div><div class="line">赋值号是语句，不是表达式</div><div class="line">表达式求值顺序在赋值和函数调用时确定(没有所谓的”sequence point”)</div><div class="line">没有指针算术</div><div class="line">内存总是初始化为0</div><div class="line">对本地变量取地址是合法的</div><div class="line">方法中没有叫this的指针</div><div class="line">分段式栈</div><div class="line">没有常量或其它类型的注记</div><div class="line">没有模板</div><div class="line">没有异常</div><div class="line">内建字符串，切片和映射(map)</div><div class="line">数组边界检查</div></pre></td></tr></table></figure></p>
-<p>Doug Mcilroy，Unix管道的最终发明人，在1964年(!)写道:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">我们应该有一些机制能将程序耦合(串)起来，像花园软管那样——当我们需要另一种方式传送数据时，拧紧另外一段即可。 I/O也可以这么做。</div></pre></td></tr></table></figure></p>
-<p>如果C++和Java注重类型继承和类型系统的分类学，那么Go就注重组合，是一门关于(功能上的)组合和(调用上的)耦合的语言。写这些，只是为了便于理解go语言是什么，便于更快的理解go语言</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">go语言特性</div></pre></td></tr></table></figure>
-<p>1.自动垃圾回收<br>2.更丰富的内置类型<br>3.函数多返回值<br>4.错误处理<br>5.匿名函数和闭包<br>6.类型和接口<br>7.并发编程<br>8.反射<br>9.语言交互性</p>
-<p>….以后补充….</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">go语言初步</div></pre></td></tr></table></figure>
-<p>…..以后补充…..</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">go语言开源项目</div></pre></td></tr></table></figure>
-<p>1.cache2go<br><a href="https://github.com/muesli/cache2go" target="_blank" rel="external">https://github.com/muesli/cache2go</a><br>比较简单的一个缓存库，代码量很少，适合新手学习，可以学习到锁、goroutines等</p>
-<p>2.groupcache<br><a href="https://github.com/golang/groupcache" target="_blank" rel="external">https://github.com/golang/groupcache</a><br>与memcached同一作者，相当于是memcached的go语言实现</p>
-<p>3.nsq<br><a href="https://github.com/bitly/nsq" target="_blank" rel="external">https://github.com/bitly/nsq</a><br>消息分发平台，阅读代码可以了解到很多分布式、负载均衡等方面的编程</p>
-<p>4.docker<br><a href="https://github.com/docker/docker" target="_blank" rel="external">https://github.com/docker/docker</a><br>成为了高手后可以研究下其实现</p>
-<p>5.go语言开发工具集<br><a href="https://github.com/golang/go/wiki/Projects" target="_blank" rel="external">https://github.com/golang/go/wiki/Projects</a></p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://chanlan.github.io/2016/12/11/linux的10个命令/">
-
-  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
-    <meta itemprop="name" content="Kivmi">
-    <meta itemprop="description" content="">
-    <meta itemprop="image" content="/images/avatar.gif">
-  </span>
-
-  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-    <meta itemprop="name" content="Learn And Life.">
-    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
-      <img style="display:none;" itemprop="url image" alt="Learn And Life." src="">
-    </span>
-  </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/12/11/linux的10个命令/" itemprop="url">
-                  linux的10个命令
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-12-11T00:20:53+08:00">
-                2016-12-11
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>先看下这个10个命令：<br>uptime<br>dmesg | tail<br>vmstat 1<br>mpstat -P ALL 1<br>pidstat 1<br>iostat -xz 1<br>free -m<br>sar -n DEV 1<br>sar -n TCP,ETCP 1<br>top</p>
-<p>下面讲解下这个10个命令都是用来做什么的，怎么用</p>
-<p>uptime</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">chenjingxiu:~ kivmi$ uptime</div><div class="line">00:23上午  up 6 days  1:53,  3 users,  load average: 1.96, 1.70, 1.70</div></pre></td></tr></table></figure>
-<p>uptime – show how long system has been running<br>DESCRIPTION<br>     The uptime utility displays the current time, the length of time the system has been up, the number of users, and the load average of the system over the<br>          last 1, 5, and 15 minutes.<br>该命令用来查看系统的运行时间和负载情况，分别对应以下列<br>当前时间  启动运行时间 系统启动时间  当前系统用户数   系统最近1分钟、5分钟、15分钟系统的负载情况</p>
-<p>dmesg | tail<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">chenjingxiu:~ kivmi$ sudo  dmesg | tail</div><div class="line">ARPT: 243830.149501: DequeueTime: 0x1906f048 LastTxTime: 0x1ff947d1 PHYTxErr:   0x0000 RxAckRSSI: 0x0000 RxAckSQ: 0x0000</div><div class="line">ARPT: 243830.149527: Raw[0]    1 Valid</div><div class="line">ARPT: 243830.149536: [2]    0 IM</div><div class="line">ARPT: 243830.149541: [3]    1 PM</div><div class="line">ARPT: 243830.149545: [7-4]  0 Suppr</div><div class="line">ARPT: 243830.149550: [14:8] 1 Ncons</div><div class="line">ARPT: 243830.149555: [15]   0 Acked</div><div class="line">ARPT: 243830.149561: txpktpend AC_BK 0 AC_BE 0 AC_VI 0 AC_VO 1 BCMC 0 ATIM 0</div><div class="line">SmartBattery: finished polling type 4</div><div class="line">UserEventAgent is not entitledUserEventAgent is not entitledloginwindow is not entitledloginwindow is not entitledUserEventAgent is not entitledUserEventAgent is not entitledloginwindow is not entitledloginwindow is not entitledUserEventAgent is not entitledUserEventAgent is not entitledloginwindow is not entitledloginwindow is not entitledSmartBattery: finished polling type 4</div></pre></td></tr></table></figure></p>
-<p>dmesg – display the system message buffer<br>DESCRIPTION<br>     Dmesg displays the contents of the system message buffer.  This command needs to be run as root.<br>该命令用来显示linux内核的环形缓冲区(kernel ring buffer)信息,从中获得诸如系统架构、cpu、挂载的硬件，RAM等多个运行级别的大量的系统信息,当计算机启动时，系统内核（操作系统的核心部分）将会被加载到内存中,在加载的过程中会显示很多的信息，在这些信息中我们可以看到内核检测硬件设备，主要是硬件检测，包括磁盘sda,hda,usb等</p>
-<p>vmstat 2 1<br>每两秒采集一次服务器的状态 2 时间间隔 1 次数<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">[chenjingxiu@op ~]$ vmstat 1  3</div><div class="line">procs    -----------memory----------  ---swap-- -----io---- --system-- -----cpu-----</div><div class="line">r  b    swpd   free   buff  cache     si   so    bi    bo   in   cs us sy id wa st</div><div class="line">0  0      0 5564792 408260 20643368    0    0     0    27    1    1  1  2 97  0  0</div><div class="line">0  0      0 5562248 408260 20643372    0    0     0     0 2609 3087  1  2 98  0  0</div><div class="line">6  0      0 5530268 408260 20643380    0    0     0     0 4354 4287  4  6 90  0  0</div></pre></td></tr></table></figure></p>
-<p>NAME<br>       vmstat - Report virtual memory statistics</p>
-<p>SYNOPSIS<br>       vmstat [-a] [-n] [-t] [-S unit] [delay [ count ]]<br>       vmstat [-s] [-n] [-S unit]<br>       vmstat [-m] [-n] [delay [ count ]]<br>       vmstat [-d] [-n] [delay [ count ]]<br>       vmstat [-p disk partition] [-n] [delay [ count ]]<br>       vmstat [-f]<br>       vmstat [-V]</p>
-<p>DESCRIPTION<br>       vmstat reports information about processes, memory, paging, block IO, traps, and cpu activity.The  first  report produced gives averages since the last reboot.  Additional reports give information on a sampling period of length delay.  The process and memory<br>                     reports are instantaneous in either case.</p>
-<p>DESCRIPTION FOR VM MODE</p>
-<p>Procs<br>    r: The number of processes waiting for run time.(在运行队列中等待cpu进程数)<br>    b: The number of processes in uninterruptible sleep.(等待I/O的进程数)</p>
-<p>Memory<br>    swpd: the amount of virtual memory used.(切换到内存交换区的内存数量,如果swpd比较大，但是si,so一直为0，系统性能也是正常的)<br>    free: the amount of idle memory.<br>    buff: the amount of memory used as buffers.(一般对块设备的读写进行缓存)<br>    cache: the amount of memory used as cache.(page cache数量，一般作为文件系统的缓存，如果cache比较大，说明用到cache的文件比较多，如果I/O的bi比较小，说明文件系统效率比较好)<br>    inact: the amount of inactive memory. (-a option)<br>    active: the amount of active memory. (-a option)</p>
-<p>Swap<br>    si: Amount of memory swapped in from disk (/s).(从磁盘交换进内存的页数量)<br>    so: Amount of memory swapped to disk (/s).(从内存交换到磁盘的页数量)</p>
-<p>IO<br>    bi: Blocks received from a block device (blocks/s).(从磁盘读到内存的块数)<br>    bo: Blocks sent to a block device (blocks/s).(从内存写入磁盘的块数)</p>
-<p>System<br>    in: The number of interrupts per second, including the clock.(每秒设备中断数)<br>    cs: The number of context switches per second.(每秒产生的上下文切换次数，cs正常情况下，应小于I/O的包传输速率)</p>
-<p>CPU<br>    These are percentages of total CPU time.<br>    us: Time spent running non-kernel code. (user time, including nice time) (用户进程占用cpu的时间比)<br>    sy: Time spent running kernel code. (system time) (系统进程占用cpu的时间比)<br>    id: Time spent idle. Prior to Linux 2.5.41, this includes IO-wait time.(中央处理器空闲时间占用比)<br>    wa: Time spent waiting for IO. Prior to Linux 2.5.41, included in idle.<br>    st: Time stolen from a virtual machine. Prior to Linux 2.6.11, unknown.</p>
-<p>FIELD DESCRIPTION FOR DISK MODE</p>
-<p>Reads<br>    total: Total reads completed successfully<br>    merged: grouped reads (resulting in one I/O)<br>    sectors: Sectors read successfully<br>    ms: milliseconds spent reading</p>
-<p>Writes<br>    total: Total writes completed successfully<br>    merged: grouped writes (resulting in one I/O)<br>    sectors: Sectors written successfully<br>    ms: milliseconds spent writing</p>
-<p>IO<br>    cur: I/O in progress<br>    s: seconds spent for I/O<br>    ms: milliseconds spent writing</p>
-<p>IO<br>    cur: I/O in progress<br>    s: seconds spent for I/O</p>
-<p>FIELD DESCRIPTION FOR DISK PARTITION MODE</p>
-<pre><code>reads: Total number of reads issued to this partition read sectors: Total read sectors for partition
-writes : Total number of writes issued to this partition
-requested writes: Total number of write requests made for partition
-</code></pre><p>FIELD DESCRIPTION FOR SLAB MODE</p>
-<pre><code>cache: Cache name
-num: Number of currently active objects
-total: Total number of available objects
-size: Size of each object
-pages: Number of pages with at least one active object
-totpages: Total number of allocated pages
-pslab: Number of pages per slab
-</code></pre><p>如果r经常大于4 ，且id经常小于40，表示中央处理器的负荷很重。 如果bi，bo 长期不等于0，表示物理内存容量太小</p>
-<p>mpstat -P ALL 1<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line">[chenjingxiu@op ~]$ mpstat -P ALL 1</div><div class="line">Linux 2.6.32-279.19.1.el6.centos.plus.x86_64 (op.liebaopay.com)         12/11/2016      _x86_64_        (8 CPU)</div><div class="line"></div><div class="line">06:49:57 AM  CPU    %usr   %nice    %sys %iowait    %irq   %soft  %steal  %guest   %idle</div><div class="line">06:49:58 AM  all    0.50    0.00    1.00    0.50    0.00    0.00    0.00    0.00   97.99</div><div class="line">06:49:58 AM    0    1.01    0.00    1.01    1.01    0.00    0.00    0.00    0.00   96.97</div><div class="line">06:49:58 AM    1    1.00    0.00    1.00    3.00    0.00    0.00    0.00    0.00   95.00</div><div class="line">06:49:58 AM    2    0.00    0.00    2.02    0.00    0.00    0.00    0.00    0.00   97.98</div><div class="line">06:49:58 AM    3    0.99    0.00    0.99    0.00    0.00    0.00    0.00    0.00   98.02</div><div class="line">06:49:58 AM    4    0.99    0.00    0.99    0.00    0.00    0.00    0.00    0.00   98.02</div><div class="line">06:49:58 AM    5    0.00    0.00    1.00    0.00    0.00    0.00    0.00    0.00   99.00</div><div class="line">06:49:58 AM    6    0.00    0.00    1.00    0.00    0.00    0.00    0.00    0.00   99.00</div><div class="line">06:49:58 AM    7    0.00    0.00    1.00    0.00    0.00    0.00    0.00    0.00   99.00</div><div class="line"></div><div class="line">06:49:58 AM  CPU    %usr   %nice    %sys %iowait    %irq   %soft  %steal  %guest   %idle</div><div class="line">06:49:59 AM  all    0.50    0.00    1.51    0.00    0.00    0.00    0.00    0.00   97.99</div><div class="line">06:49:59 AM    0    2.97    0.00    5.94    0.00    0.00    0.00    0.00    0.00   91.09</div><div class="line">06:49:59 AM    1    0.00    0.00    1.02    0.00    0.00    0.00    0.00    0.00   98.98</div><div class="line">06:49:59 AM    2    0.99    0.00    1.98    0.00    0.00    0.00    0.00    0.00   97.03</div><div class="line">06:49:59 AM    3    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00  100.00</div><div class="line">06:49:59 AM    4    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00  100.00</div><div class="line">06:49:59 AM    5    0.00    0.00    1.01    0.00    0.00    0.00    0.00    0.00   98.99</div><div class="line">06:49:59 AM    6    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00  100.00</div><div class="line">06:49:59 AM    7    0.00    0.00    1.00    0.00    0.00    0.00    0.00    0.00   99.00</div></pre></td></tr></table></figure></p>
-<p>NAME<br>    mpstat - Report processors related statistics.</p>
-<p>DESCRIPTION<br>    The mpstat command writes to standard output activities for each available processor, processor 0 being the first one.  Global average activities among all processors are also reported.  The mpstat command can be used both on SMP and UP machines, but in the  latter,  only  global  average  activities  will  be printed. If no activity has been selected, then the default report is the CPU utilization report.<br>    The  interval  parameter  specifies  the  amount  of time in seconds between each report.  A value of 0 (or no parameters at all) indicates that processors statistics are to be reported for the time since system startup (boot).  The count parameter can be specified in conjunction with the interval parameter if  this  one  is not set to zero. The value of count determines the number of reports generated at interval seconds apart. If the interval parameter is speci-fied without the count parameter, the mpstat command generates reports continuously.</p>
-<p>OPTIONS<br>    -A     This option is equivalent to specifying -I ALL -u -P ALL<br>    -P { cpu [,…] | ON | ALL  }<br>    Indicate the processor number for which statistics are to be reported.  cpu is the processor number. Note that processor 0 is the  first  processor.The  ON keyword indicates that statistics are to be reported for every online processor, whereas the ALL keyword indicates that statistics are to be reported for all processors.<br>    -u     Report CPU utilization. The following values are displayed:</p>
-<pre><code>CPU Processor number. The keyword all indicates that statistics are calculated as averages among all processors.
-%usr Show the percentage of CPU utilization that occurred while executing at the user level (application).
-%nice Show the percentage of CPU utilization that occurred while executing at the user level with nice priority.
-%sys Show the percentage of CPU utilization that occurred while executing at the system level (kernel). Note that this does not include time spent servicing hardware and software interrupts.
-%iowait Show the percentage of time that the CPU or CPUs were idle during which the system had an outstanding disk I/O request.
-%irq Show the percentage of time spent by the CPU or CPUs to service hardware interrupts.
-%soft Show the percentage of time spent by the CPU or CPUs to service software interrupts.
-%steal Show  the  percentage of time spent in involuntary wait by the virtual CPU or CPUs while the hypervisor was servicing another virtual proces-sor.
-%guest Show the percentage of time spent by the CPU or CPUs to run a virtual processor.
-%idle Show the percentage of time that the CPU or CPUs were idle and the system did not have an outstanding disk I/O request.
-</code></pre><p>ipdstat 1<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">[chenjingxiu@op ~]$ pidstat 1</div><div class="line">Linux 2.6.32-279.19.1.el6.centos.plus.x86_64 (op.liebaopay.com)         12/11/2016      _x86_64_        (8 CPU)</div><div class="line"></div><div class="line">07:01:34 AM       PID    %usr %system  %guest    %CPU   CPU  Command</div><div class="line">07:01:35 AM      3294    0.00    0.84    0.00    0.84     3  python2.7</div><div class="line">07:01:35 AM     14733    0.84    0.00    0.00    0.84     0  sshd</div><div class="line">07:01:35 AM     15959    4.20   11.76    0.00   15.97     0  pidstat</div><div class="line">07:01:35 AM     30156    0.00    0.84    0.00    0.84     1  tmux</div><div class="line"></div><div class="line">07:01:35 AM       PID    %usr %system  %guest    %CPU   CPU  Command</div><div class="line">07:01:36 AM        36    0.00    1.00    0.00    1.00     1  events/1</div><div class="line">07:01:36 AM     14733    0.00    1.00    0.00    1.00     0  sshd</div><div class="line">07:01:36 AM     15959    5.00   13.00    0.00   18.00     0  pidstat</div><div class="line">07:01:36 AM     29962    1.00    0.00    0.00    1.00     0  python</div></pre></td></tr></table></figure></p>
-<p>NAME<br>       pidstat - Report statistics for Linux tasks.</p>
-<p>DESCRIPTION<br>The pidstat command is used for monitoring individual tasks currently being managed by the Linux kernel.  It writes to standard output activities for every task  selected with option -p or for every task managed by the Linux kernel if option -p ALL has been used. Not selecting any tasks is equivalent to speci-fying -p ALL but only active tasks (tasks with non-zero statistics values) will appear in the report.</p>
-<p>The pidstat command can also be used for monitoring the child processes of selected tasks.  Read about option -T below.</p>
-<p>The interval parameter specifies the amount of time in seconds between each report.  A value of 0 (or no parameters at all) indicates that tasks statistics are  to  be reported for the time since system startup (boot).  The count parameter can be specified in conjunction with the interval parameter if this one is not set to zero. The value of count determines the number of reports generated at interval seconds apart. If the interval parameter is specified without the count parameter, the pidstat command generates reports continuously.</p>
-<p>You can select information about specific task activities using flags.  Not specifying any flags selects only CPU activity.</p>
-<p>EXAMPLES</p>
-<p>pidstat 2 5<br>    Display five reports of CPU statistics for every active task in the system at two second intervals.</p>
-<p>pidstat -r -p 1643 2 5<br>    Display five reports of page faults and memory statistics for PID 1643 at two second intervals.</p>
-<p>pidstat -T CHILD -r 2 5<br>    Display five reports of page faults statistics at two second intervals for the child processes of all tasks in the system. Only child processes with non-zero statistics values are displayed.</p>
-<p>iostat -xz 1<br>iostat主要用于监控系统设备的IO负载情况<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line">chenjingxiu:~ kivmi$ iostat -d -K 1 10</div><div class="line">disk0               disk2               disk3 </div><div class="line">KB/t  tps  MB/s     KB/t  tps  MB/s     KB/t  tps  MB/s </div><div class="line">52.04    6  0.31    14.14    0  0.00    14.03    0  0.00 </div><div class="line">4.00    9  0.04     0.00    0  0.00     0.00    0  0.00 </div><div class="line">6.67    3  0.02     0.00    0  0.00     0.00    0  0.00 </div><div class="line">4.00    1  0.00     0.00    0  0.00     0.00    0  0.00 </div><div class="line">394.00    2  0.77     0.00    0  0.00     0.00    0  0.00 </div><div class="line"></div><div class="line">[chenjingxiu@op ~]$ iostat -xz 1</div><div class="line">Linux 2.6.32-279.19.1.el6.centos.plus.x86_64 (op.liebaopay.com)         12/11/2016      _x86_64_        (8 CPU)</div><div class="line"></div><div class="line">avg-cpu:  %user   %nice %system %iowait  %steal   %idle</div><div class="line">1.08    0.00    1.92    0.13    0.01   96.86</div><div class="line"></div><div class="line">Device:         rrqm/s   wrqm/s     r/s     w/s   rsec/s   wsec/s avgrq-sz avgqu-sz   await  svctm  %util</div><div class="line">xvda              0.00     0.09    0.03    7.72     0.89    62.49     8.18     0.05    6.19   1.23   0.95</div><div class="line">xvdi              0.00     9.52    0.03    6.74     2.13   130.09    19.52     0.09   12.73   0.51   0.34</div><div class="line">xvdb              0.00     0.00    0.01    0.12     0.12     9.44    73.96     0.04  304.96   2.07   0.03</div><div class="line">xvdf              0.00     0.01    0.06    3.31     3.25   229.37    69.16     0.03    8.61   0.17   0.06</div><div class="line"></div><div class="line">avg-cpu:  %user   %nice %system %iowait  %steal   %idle</div><div class="line">0.38    0.00    0.75    0.25    0.13   98.50</div><div class="line"></div><div class="line">Device:         rrqm/s   wrqm/s     r/s     w/s   rsec/s   wsec/s avgrq-sz avgqu-sz   await  svctm  %util</div><div class="line">xvda              0.00     0.00    1.00    0.00    16.00     0.00    16.00     0.02   17.00  17.00   1.70</div></pre></td></tr></table></figure></p>
-<p>NAME<br>    iostat - Report Central Processing Unit (CPU) statistics and input/output statistics for devices, partitions and network filesystems (NFS).</p>
-<p>DESCRIPTION<br>    The  iostat  command is used for monitoring system input/output device loading by observing the time the devices are active in relation to their average transfer rates. The iostat command generates reports that can be used to change system configuration to better balance the input/output load between physical disks.</p>
-<p>The first report generated by the iostat command provides statistics concerning the time since the system was booted. Each  subsequent  report  covers  the  time since  the  previous  report.  All  statistics are reported each time the iostat command is run. The report consists of a CPU header row followed by a row of CPU statistics. On multiprocessor systems, CPU statistics are calculated system-wide as averages among all processors. A device header row is displayed followed by a line  of statistics for each device that is configured.  When option -n is used, an NFS header row is displayed followed by a line of statistics for each network filesystem that is mounted.</p>
-<p>The interval parameter specifies the amount of time in seconds between each report. The first report contains  statistics  for  the  time  since  system  startup (boot).  Each  subsequent report contains statistics collected during the interval since the previous report. The count parameter can be specified in conjunction with the interval parameter. If the count parameter is specified, the value of count determines the number of reports generated at interval seconds apart. If the interval parameter is specified without the count parameter, the iostat command generates reports continuously.</p>
-<p>REPORTS<br>    The iostat command generates three types of reports, the CPU Utilization report, the Device Utilization report and the Network Filesystem report.</p>
-<p>CPU Utilization Report<br>    The  first  report generated by the iostat command is the CPU Utilization Report. For multiprocessor systems, the CPU values are global averages among all processors.  The report has the following format:<br>%user<br>Show the percentage of CPU utilization that occurred while executing at the user level (application).</p>
-<p>%nice<br>Show the percentage of CPU utilization that occurred while executing at the user level with nice priority.</p>
-<p>%system<br>Show the percentage of CPU utilization that occurred while executing at the system level (kernel).</p>
-<p>%iowait<br>Show the percentage of time that the CPU or CPUs were idle during which the system had an outstanding disk I/O request.</p>
-<p>%steal<br>Show the percentage of time spent in involuntary wait by the virtual CPU or CPUs while the hypervisor was servicing another virtual processor.</p>
-<p>%idle<br>Show the percentage of time that the CPU or CPUs were idle and the system did not have an outstanding disk I/O request.</p>
-<p>Device Utilization Report<br>    The second report generated by the iostat command is the Device Utilization Report. The device report provides statistics on a per physical device or par-tition  basis.  Block  devices  for which statistics are to be displayed may be entered on the command line. Partitions may also be entered on the command line providing that option -x is not used.  If no device nor partition is entered, then statistics are displayed for every device used by the system,  and providing  that  the  kernel maintains statistics for it.  If the ALL keyword is given on the command line, then statistics are displayed for every device defined by the system, including those that have never been used.  The report may show the following fields, depending on the flags used.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">tps: 每秒传输的次数，一次传输即一次I/O请求（多个逻辑请求可以合并为一次I/O请求)</div><div class="line">kB_read/s: 每秒从设备读取的数据量</div><div class="line">kB_wrtn/s: 每秒向设备写入的数据量</div><div class="line">kB_read: 读取的总数据量</div><div class="line">kB_wrtn: 写入的总数据量</div><div class="line">rrqm/s：每秒这个设备相关的读取请求有多少被Merge了</div><div class="line">wrqm/s：每秒这个设备相关的写入请求有多少被Merge了</div><div class="line">rsec/s：每秒读取的扇区数</div><div class="line">wsec/：每秒写入的扇区数</div><div class="line">rKB/s：The number of read requests that were issued to the device per second</div><div class="line">wKB/s：The number of write requests that were issued to the device per second</div><div class="line">avgrq-sz：平均请求扇区的大小</div><div class="line">avgqu-sz：平均请求队列的长度</div><div class="line">await：每一个IO请求的处理的平均时间（单位是微秒毫秒)，即IO的响应时间,一般情况下，await大于svctm，两者差值越小，则说明队列时间越短，反之差值越大，队列时间越长,说明系统出问题了，await一般低于5ms</div><div class="line">svctm：表示平均每次设备I/O操作的服务时间（以毫秒为单位)，如果svctm的值与await很接近，表示几乎没有I/O等待，磁盘性能很好，如果await的值远高于svctm的值，则表示I/O队列等待太长，系统上运行的应用程序将变慢</div><div class="line">%util： 在统计时间内所有处理IO时间，除以总共统计时间，预示设备的繁忙程度，如果该参数是100%表示设备已经接近满负荷运行了</div></pre></td></tr></table></figure>
-<p>Network Filesystem report<br>    The Network Filesystem (NFS) report provides statistics for each mounted network filesystem.  The report shows the following fields </p>
-<p>OPTIONS<br>    -c     Display the CPU utilization report.<br>    -d     Display the device utilization report.(显示磁盘的使用状态)<br>    -K     对块设备，强制使用Kilobytes为单位<br>    -x     Display  extended  statistics.  This option works with post 2.5 kernels since it needs /proc/diskstats file or a mounted sysfs to get the statistics. This option may also work with older kernels (e.g. 2.4) only if extended statistics are available in /proc/partitions (the  kernel  needs  to  be  patched  for that).(显示I/O相关的扩展数据)<br>    -n     Display the network filesystem (NFS) report. This option works only with kernel 2.6.17 and later.<br>    -p [ { device [,…] | ALL  }  ]<br>        The  -p  option  displays  statistics  for block devices and all their partitions that are used by the system.  If a device name is entered on the command line, then statistics for it and all its partitions are displayed. Last, the ALL keyword indicates that statistics have to be displayed for all the  block devices and partitions defined by the system, including those that have never been used.  Note that this option works only with post 2.5 kernels.</p>
-<p>EXAMPLES</p>
-<pre><code>iostat
-Display a single history since boot report for all CPU and Devices.
-iostat -d 2
-Display a continuous device report at two second intervals.
-iostat -d 2 6
-Display six reports at two second intervals for all devices.
-iostat -x hda hdb 2 6
-Display six reports of extended statistics at two second intervals for devices hda and hdb.
-iostat -p sda 2 6
-Display six reports at two second intervals for device sda and all its partitions (sda1, etc.)
-</code></pre><p>主要看await和%util的值，await是否大于5ms，%util是否大于80%</p>
-<p>free -m<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">[chenjingxiu@op ~]$ free -m </div><div class="line">total       used       free     shared    buffers     cached</div><div class="line">Mem:         30100      24655       5445          0        398      20166</div><div class="line">-/+ buffers/cache:       4089      26010</div><div class="line">Swap:            0          0          0</div></pre></td></tr></table></figure></p>
-<p>NAME<br>       free - Display amount of free and used memory in the system<br>DESCRIPTION<br>       free  displays  the  total  amount  of free and used physical and swap memory in the system, as well as the buffers used by the kernel.  The shared memory column should be ignored; it is obsolete.</p>
-<p>sar -n DEV 1<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">[chenjingxiu@op ~]$ sar -n DEV 1</div><div class="line">Linux 2.6.32-279.19.1.el6.centos.plus.x86_64 (op.liebaopay.com)         12/11/2016      _x86_64_        (8 CPU)</div><div class="line"></div><div class="line">07:26:36 AM     IFACE   rxpck/s   txpck/s    rxkB/s    txkB/s   rxcmp/s   txcmp/s  rxmcst/s</div><div class="line">07:26:37 AM        lo      0.00      0.00      0.00      0.00      0.00      0.00      0.00</div><div class="line">07:26:37 AM      eth0    150.51    152.53     29.42     21.03      0.00      0.00      0.00</div><div class="line"></div><div class="line">07:26:37 AM     IFACE   rxpck/s   txpck/s    rxkB/s    txkB/s   rxcmp/s   txcmp/s  rxmcst/s</div><div class="line">07:26:38 AM        lo      0.00      0.00      0.00      0.00      0.00      0.00      0.00</div><div class="line">07:26:38 AM      eth0    107.00    103.00     24.87     14.36      0.00      0.00      0.00</div></pre></td></tr></table></figure></p>
-<p>NAME<br>       sar - Collect, report, or save system activity information.</p>
-<p>DESCRIPTION<br>The  sar  command  writes to standard output the contents of selected cumulative activity counters in the operating system. The accounting system, based on the values in the count and interval parameters, writes information the specified number of times spaced at the specified intervals  in  seconds.   If  the interval  parameter is set to zero, the sar command displays the average statistics for the time since the system was started. If the interval parameter is specified without the count parameter, then reports are generated continuously.  The collected data can also be saved in the file specified by the -o file-name  flag,  in  addition  to  being  displayed  onto  the  screen.  If  filename  is  omitted,  sar uses the standard system activity daily data file, the /var/log/sa/sadd file, where the dd parameter indicates the current day.  By default all the data available from the kernel are saved in the data file.</p>
-<p>The sar command extracts and writes to standard output records previously saved in a file. This file can be either the one specified by the -f flag or,  by default, the standard system activity daily data file.</p>
-<p>Without the -P flag, the sar command reports system-wide (global among all processors) statistics, which are calculated as averages for values expressed as percentages, and as sums otherwise. If the -P flag is given, the sar command reports activity which relates to the specified processor or processors. If -P ALL is given, the sar command reports statistics for each individual processor and global statistics among all processors.</p>
-<p>You  can  select  information  about specific system activities using flags. Not specifying any flags selects only CPU activity.  Specifying the -A flag is equivalent to specifying -bBdqrRSvwWy -I SUM -I XALL -n ALL -u ALL -P ALL.</p>
-<p>The default version of the sar command (CPU utilization report) might be one of the first facilities the user runs to begin system activity  investigation,because it monitors major system resources. If CPU utilization is near 100 percent (user + nice + system), the workload sampled is CPU-bound.If  multiple samples and multiple reports are desired, it is convenient to specify an output file for the sar command.  Run the sar command as a background process. The syntax for this is:</p>
-<p>sar -o datafile interval count &gt;/dev/null 2&gt;&amp;1 &amp;</p>
-<pre><code>All data is captured in binary form and saved to a file (datafile).  The data can then be selectively displayed with the sar command using the  -f  option.Set the interval and count parameters to select count records at interval second intervals. If the count parameter is not set, all the records saved in the file will be selected.  Collection of data in this manner is useful to characterize system usage over a period of time and determine peak usage hours.
-</code></pre><p>Indicate  the  number  of  transfers  per second that were issued to the device.  Multiple logical requests can be combined into a single I/O<br>request to the device. A transfer is of indeterminate size.</p>
-<p>rd_sec/s<br>Number of sectors read from the device. The size of a sector is 512 bytes.</p>
-<p>wr_sec/s<br>Number of sectors written to the device. The size of a sector is 512 bytes.</p>
-<p>avgrq-sz<br>The average size (in sectors) of the requests that were issued to the device.</p>
-<p>avgqu-sz<br>The average queue length of the requests that were issued to the device.</p>
-<p>await<br>The average time (in milliseconds) for I/O requests issued to the device to be served. This includes the time spent by the requests in  queue<br>and the time spent servicing them.</p>
-<p>svctm<br>The average service time (in milliseconds) for I/O requests that were issued to the device.</p>
-<p>%util<br>Percentage  of  CPU time during which I/O requests were issued to the device (bandwidth utilization for the device). Device saturation occurs<br>when this value is close to 100%.</p>
-<p> sar -n TCP,ETCP 1<br> <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">[chenjingxiu@op ~]$  sar -n TCP,ETCP 1</div><div class="line">Linux 2.6.32-279.19.1.el6.centos.plus.x86_64 (op.liebaopay.com)         12/11/2016      _x86_64_        (8 CPU)</div><div class="line"></div><div class="line">07:38:52 AM  active/s passive/s    iseg/s    oseg/s</div><div class="line">07:38:53 AM      0.00      0.00    122.22    114.14</div><div class="line"></div><div class="line">07:38:52 AM  atmptf/s  estres/s retrans/s isegerr/s   orsts/s</div><div class="line">07:38:53 AM      0.00      0.00      0.00      0.00      0.00</div></pre></td></tr></table></figure></p>
-<p>top<br> <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">top - 07:40:00 up 47 days, 23:57, 122 users,  load average: 2.01, 2.03, 2.06</div><div class="line">Tasks: 2185 total,   1 running, 2174 sleeping,   8 stopped,   2 zombie</div><div class="line">Cpu(s):  0.9%us,  2.2%sy,  0.0%ni, 96.9%id,  0.0%wa,  0.0%hi,  0.0%si,  0.0%st</div><div class="line">Mem:  30822952k total, 25263368k used,  5559584k free,   408320k buffers</div><div class="line">Swap:        0k total,        0k used,        0k free, 20652508k cached</div><div class="line"></div><div class="line">PID USER      PR  NI  VIRT  RES  SHR S %CPU %MEM    TIME+  COMMAND                                                                                                                </div><div class="line">11028 chenjing  20   0 18732 2928  972 R  3.2  0.0   0:00.48 top                                                                                                                     </div><div class="line">3294 ansible   20   0  635m  49m 2928 S  1.3  0.2 525:49.41 python2.7</div></pre></td></tr></table></figure></p>
-<p>NAME<br>       top - display Linux tasks</p>
-<p>a: PID  –  Process Id<br>The task’s unique process ID, which periodically wraps, though never restarting at zero.</p>
-<p>b: PPID  –  Parent Process Pid<br>The process ID of a task’s parent.</p>
-<p>c: RUSER  –  Real User Name<br>The real user name of the task’s owner.</p>
-<p>d: UID  –  User Id<br>The effective user ID of the task’s owner.</p>
-<p>e: USER  –  User Name<br>The effective user name of the task’s owner.</p>
-<p>f: GROUP  –  Group Name<br>The effective group name of the task’s owner.</p>
-<p>g: TTY  –  Controlling Tty<br>The  name  of  the  controlling terminal.  This is usually the device (serial port, pty, etc.) from which the process was started, and which it uses for input or output.  However, a task need not be associated with a terminal, in which case you’ll see ’?’ displayed.</p>
-<p>h: PR  –  Priority<br>The priority of the task.</p>
-<p>i: NI  –  Nice value<br>The nice value of the task.  A negative nice value means higher priority, whereas a positive nice value means lower priority.  Zero in this field simply means priority will not be adjusted in determining a task’s dispatchability.</p>
-<p>j: P  –  Last used CPU (SMP)<br>A  number  representing  the last used processor.  In a true SMP environment this will likely change frequently since the kernel intentionally uses weak affinity.  Also, the very act of running top may break this weak affinity and cause more processes to change CPUs  more  often  (because  of  the  extra demand for cpu time).</p>
-<p>k: %CPU  –  CPU usage<br>The task’s share of the elapsed CPU time since the last screen update, expressed as a percentage of total CPU time.  In a true SMP environment, if ’Irixmode’ is Off, top will operate in ’Solaris mode’ where a task’s cpu usage will be divided by the total number of CPUs.  You toggle ’Irix/Solaris’  modes with the ’I’ interactive command.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">us 用户空间占用CPU百分比</div><div class="line">sy 内核空间占用cpu百分比</div><div class="line">ni 用户空间内改变优先级的进程占用cpu百分比</div><div class="line">id cpu空闲占用百分比</div><div class="line">wa 等待输入输出的cpu占用百分比</div><div class="line">hi 硬件cpu中断占用百分比</div><div class="line">si 软中断占用百分比</div><div class="line">st 虚拟机占用百分比</div></pre></td></tr></table></figure></p>
-<p>l: TIME  –  CPU Time 进程使用cpu时间总计,单位秒<br>Total CPU time the task has used since it started.  When ’Cumulative mode’ is On, each process is listed with the cpu time that it and its dead children has used.  You toggle ’Cumulative mode’ with ’S’, which is a command-line option and an interactive command.  See the ’S’ interactive command for  addi-tional information regarding this mode.</p>
-<p>m: TIME+  –  CPU Time, hundredths 进程使用cpu时间总计, 单位1/100秒<br>The same as ’TIME’, but reflecting more granularity through hundredths of a second.</p>
-<p>n: %MEM  –  Memory usage (RES) 使用物理内存占用比<br>A task’s currently used share of available physical memory.</p>
-<p>o: VIRT  –  Virtual Image (kb)虚拟内存使用量<br>The  total amount of virtual memory used by the task.  It includes all code, data and shared libraries plus pages that have been swapped out. (Note: you can define the STATSIZE=1 environment variable and the VIRT will be calculated from the /proc/#/state VmSize field.)</p>
-<p>p: SWAP  –  Swapped size (kb) 使用虚拟内存，被换出的大小<br>Per-process swap values are now taken from /proc/#/status VmSwap field.</p>
-<p>q: RES  –  Resident size (kb) 进程使用的，未被还出的物理内存大小<br>The non-swapped physical memory a task has used.<br>RES = CODE + DATA.</p>
-<p>r: CODE  –  Code size (kb) 可执行的代码占用物理内存的大小<br>The amount of physical memory devoted to executable code, also known as the ’text resident set’ size or TRS.</p>
-<p>s: DATA  –  Data+Stack size (kb) 可执行代码以外的部分（数据段+棧)占用物理内存的大小<br>The amount of physical memory devoted to other than executable code, also known as the ’data resident set’ size or DRS.</p>
-<p>t: SHR  –  Shared Mem size (kb) 共享内存大小<br>The amount of shared memory used by a task.  It simply reflects memory that could be potentially shared with other processes.</p>
-<p>u: nFLT  –  Page Fault count  页面错误次数<br>The number of major page faults that have occurred for a task.  A page fault occurs when a process attempts to read from or write to a virtual page that</p>
-<p>v: nDRT  –  Dirty Pages count 最后一次写入，未被修改的的页面数<br>The number of pages that have been modified since they were last written to disk.  Dirty pages must be written to disk before the corresponding physical memory location can be used for some other virtual page.</p>
-<p>w: S  –  Process Status 进程状态<br>The status of the task which can be one of:<br>    ’D’ = uninterruptible sleep()<br>    ’R’ = running<br>    ’S’ = sleeping<br>    ’T’ = traced or stopped<br>    ’Z’ = zombie(僵尸进程数)<br>Tasks shown as running should be more properly thought of as ’ready to run’  –  their task_struct is simply represented on the Linux  run-queue.   Even without a true SMP machine, you may see numerous tasks in this state depending on top’s delay interval and nice value.</p>
-<p>x: Command  –  Command line or Program name 命令名<br>Display the command line used to start a task or the name of the associated program.  You toggle between command line and name with ’c’, which is both a command-line option and an interactive command.When you’ve chosen to display command lines, processes without a command line (like kernel threads) will be shown with only the program name  in  paren-theses, as in this example:<br>( mdrecoveryd  )<br>Either  form  of display is subject to potential truncation if it’s too long to fit in this field’s current width.  That width depends upon other fields selected, their order and the current screen width.<br>Note: The ’Command’ field/column is unique, in that it is not fixed-width.  When displayed, this column will be allocated all remaining screen width (up to the maximum 512 characters) to provide for the potential growth of program names into command lines.</p>
-<p>y: WCHAN  –  Sleeping in Function 睡眠状态的进程系统函数名<br>Depending  on  the  availability of the kernel link map (’System.map’), this field will show the name or the address of the kernel function in which the task is currently sleeping.  Running tasks will display a dash (’-’) in this column.<br>Note: By displaying this field, top’s own working set will be increased by over 700Kb.  Your only means of reducing that overhead will be  to  stop  and restart top.</p>
-<p>z: Flags  –  Task Flags 任务标志<br>This column represents the task’s current scheduling flags which are expressed in hexadecimal notation and with zeros suppressed.  These flags are offi-cially documented in <linux sched.h="">.  Less formal documentation can also be found on the ’Fields select’ and ’Order fields’ screens.</linux></p>
-<p>以上均摘录自手册，供大家参考，使用!</p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://chanlan.github.io/2016/12/10/关于一个接口的设计/">
-
-  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
-    <meta itemprop="name" content="Kivmi">
-    <meta itemprop="description" content="">
-    <meta itemprop="image" content="/images/avatar.gif">
-  </span>
-
-  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-    <meta itemprop="name" content="Learn And Life.">
-    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
-      <img style="display:none;" itemprop="url image" alt="Learn And Life." src="">
-    </span>
-  </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/12/10/关于一个接口的设计/" itemprop="url">
-                  关于一个接口的设计
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-12-10T22:03:36+08:00">
-                2016-12-10
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>对最近的工作做一个总结和反思，最近在处理消息分片的工作，先介绍下应用的场景：<br>我们在做一个直播的产品，直播中会存在很多消息，这样就需要对消息进行处理，然后回放的时候，会用到这些存储的文件，我们目前使用的第三方的聊天室系统，需要对第三方的消息同步到我们的系统存储起来，一方面便于查询问题，因为消息内容中除了第三方的自定义的协议之外，也会涉及到我们业务数据的上报；另外一方面，不需要依赖第三方服务，对自己的数据管控。在改版之前，第三方会在直播结束，会回调我们的接口，进行消息的同步，写入异步队列，实现串行处理，之前每个直播消息，会生成独立的一个文件，放到云存储s3，由于消息文件过大，导致有些回播在下载消息文件的过程中，加载时间太慢，甚至导致客户端app直接崩溃，为此，之前有人改过一版，只是对于消息过于大的文件，进行了不处理，也就是完全的抛弃掉，回播不会存在聊天消息，这种处理太过于武断，没有从根本上解决问题</p>
-<p>在处理这个问题的过程中，遇到了一些问题<br>之前的处理方式：<br>    将消息文件从redis落地，将消息文件存放于磁盘，然后用shell脚本实现同步到s3</p>
-<p>方案一<br>    我没有修改既有的这种方式，甚至没有对这种方式产生任何的质疑， 于是做了如下的设计</p>
-<p>1.新增接口，提供消息分片的文件列表，需要服务端存储某个视频的消息分片的文件的列表<br>2.仍然使用既有使用shell脚本同步消息文件的方案</p>
-<p>这样的设计有什么问题呢？<br>1.浪费了存储空间，这些消息文件是静态的文件，生成之后就不会变，所以并不需要把消息分片文件列表存放于redis中<br>2.消息文件的同步，将消息文件存放于本地磁盘，然后使用shell脚本同步，而且同步进程使用的单进程，实践证明，这种方式并不是最好的，由于产生的文件的数量比较多，导致消费脚本处理不过来，产生消息文件的积压</p>
-<p>方案二<br>1.做好对旧版本的兼容，对接口进行修改，提供消息文件的索引文件，索引文件是消息分片文件上传到s3之后的文件列表<br>2.不基于shell脚本处理，基于s3提供的sdk，完全使用同步的方式进行处理，即不将redis中的消息内容落地处理，不生成消息文件<br>3.动态生成消息分片文件的时候，同时生成消息索引文件，并同步到s3</p>
-<p>索引文件：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">[</div><div class="line">&#123;</div><div class="line">  timestamp: &quot;1481188775520&quot;,</div><div class="line">  url: &quot;http://test.s3.amazonaws.com/cheetahlive/15/33/14811887487207113059/14811887487207113059_0.json&quot;</div><div class="line">&#125;</div><div class="line">&#123;</div><div class="line">  timestamp: &quot;1481188775520&quot;,</div><div class="line">  url: &quot;http://test.s3.amazonaws.com/cheetahlive/15/33/14811887487207113059/14811887487207113059_1.json&quot;</div><div class="line">&#125;</div><div class="line"></div><div class="line">...</div><div class="line"></div><div class="line">]</div></pre></td></tr></table></figure></p>
-<p>这样，既解决了服务端的存储问题，不用再存储消息分片文件了，直接客户端通过接口请求，拿到消息索引文件，通过解析消息索引文件，得到所需要的消息索引文件列表，同时解决了消息文件存放于存盘，产生的消费能力跟不上导致的文件积压的问题，如果文件比较多，还可以对回调任务处理脚本使用多进程的方式，不用考虑到是否会产生多个进程同时消费一个消息文件的问题，完美支持多进程，这样设计似乎完美了吧？</p>
-<p>真的完美么？</p>
-<p>方案三<br>在方案二的基础上做了以下的修改<br>方案二会产生什么问题呢？<br>1.客户端要下载消息文件，需要先请求索引文件接口，下载并解析索引文件，获取消息分片文件列表，客户端同学会说，你的接口太难用了得改啊<br>2.流量问题，移动端应用，最需要考虑的问题之一，就是能省流量<br>如何更友好的处理这些问题呢？<br>1.简化接口，还是使用索引列表的方式返回，但是处理方式跟方案一不同的地方是，服务端请求索引文件，解析并通过接口返回<br>2.生成的消息文件使用gz压缩，当然这个压缩需要s3支持，开启s3的gz压缩模式，减少消息的传输</p>
-<p>到此，也算是比较完美的了，不知道还没有比较好的方案来处理这个问题？希望能得到大家的交流！</p>
-<p>总结：<br>1.在接口升级的过程中需要考虑到客户端新老版本的兼容性<br>2.对于同步处理还是异步处理的选择，根据特定的业务场景进行选择，考虑有没有必要使用异步处理，不是所有场景都适合使用异步处理的方式<br>3.文件存储，考虑磁盘的使用文件，目录划分<br>4.消费模型，必须需要考虑生产者和消息者之间能力匹配问题，不然会产生积压<br>5.对于数据的处理方式和存储方式，不是所有的数据都需要使用内存或者数据库存储，可以使用云存储，结合cdn技术，更好的管理静态文件<br>6.对于考虑一个方案的时候，需要做更多的可能性测试，通过测试来选取最佳方案<br>7.在思考方案的时候，需要从头到尾的考虑整个的数据的处理过程，可能是一个回路，只是变更一种数据获取方式，所以考虑的时候，尽可能的考虑每一个数据上处理的环节</p>
-<p>人因为梦想而伟大，产品因为一个更好的技术方案而解放我们，多思考细节的东西，才能挖掘别人看不到的东西，一切变化，都因为在变！！</p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1667,7 +1718,7 @@ Display six reports at two second intervals for device sda and all its partition
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">26</span>
+              <span class="site-state-item-count">30</span>
               <span class="site-state-item-name">posts</span>
             </a>
           </div>

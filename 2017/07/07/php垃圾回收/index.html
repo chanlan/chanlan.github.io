@@ -1,0 +1,637 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="zend_gc_globals结构体1234567891011121314151617181920212223242526272829typedef struct _zend_gc_globals &amp;#123;        zend_bool         gc_enabled;        zend_bool         gc_active;        zend_bool">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Php垃圾回收">
+<meta property="og:url" content="http://chanlan.github.io/2017/07/07/php垃圾回收/index.html">
+<meta property="og:site_name" content="Learn And Life.">
+<meta property="og:description" content="zend_gc_globals结构体1234567891011121314151617181920212223242526272829typedef struct _zend_gc_globals &amp;#123;        zend_bool         gc_enabled;        zend_bool         gc_active;        zend_bool">
+<meta property="og:updated_time" content="2017-07-12T04:08:42.177Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Php垃圾回收">
+<meta name="twitter:description" content="zend_gc_globals结构体1234567891011121314151617181920212223242526272829typedef struct _zend_gc_globals &amp;#123;        zend_bool         gc_enabled;        zend_bool         gc_active;        zend_bool">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://chanlan.github.io/2017/07/07/php垃圾回收/"/>
+
+
+
+
+
+  <title> Php垃圾回收 | Learn And Life. </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Learn And Life.</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">Focus on php and open source.</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://chanlan.github.io/2017/07/07/php垃圾回收/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="Kivmi">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/images/avatar.gif">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="Learn And Life.">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="Learn And Life." src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Php垃圾回收
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-07-07T23:10:23+08:00">
+                2017-07-07
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="zend-gc-globals结构体"><a href="#zend-gc-globals结构体" class="headerlink" title="zend_gc_globals结构体"></a>zend_gc_globals结构体</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line">typedef struct _zend_gc_globals &#123;</div><div class="line">        zend_bool         gc_enabled;</div><div class="line">        zend_bool         gc_active;</div><div class="line">        zend_bool         gc_full;</div><div class="line"></div><div class="line">        gc_root_buffer   *buf;                          /* preallocated arrays of buffers   */</div><div class="line">        gc_root_buffer    roots;                        /* list of possible roots of cycles */</div><div class="line">        gc_root_buffer   *unused;                       /* list of unused buffers           */</div><div class="line">        gc_root_buffer   *first_unused;         /* pointer to first unused buffer   */</div><div class="line">        gc_root_buffer   *last_unused;          /* pointer to last unused buffer    */</div><div class="line"></div><div class="line">        gc_root_buffer    to_free;                      /* list to free                     */</div><div class="line">        gc_root_buffer   *next_to_free;</div><div class="line"></div><div class="line">        uint32_t gc_runs;</div><div class="line">        uint32_t collected;</div><div class="line"></div><div class="line">#if GC_BENCH</div><div class="line">        uint32_t root_buf_length;</div><div class="line">        uint32_t root_buf_peak;</div><div class="line">        uint32_t zval_possible_root;</div><div class="line">        uint32_t zval_buffered;</div><div class="line">        uint32_t zval_remove_from_buffer;</div><div class="line">        uint32_t zval_marked_grey;</div><div class="line">#endif</div><div class="line"></div><div class="line">        gc_additional_buffer *additional_buffer;</div><div class="line"></div><div class="line">&#125; zend_gc_globals;</div></pre></td></tr></table></figure>
+<p>说明:<br>   gc_enabled  是否开启了GC<br>   gc_active   是否GC正在运行<br>   gc_full     GC缓冲区是否已经满le<br>   buf         预分配总的缓冲区大小<br>   roots       可能需要回收对象列表<br>   unused      未使用的缓存区<br>   first_unused 未使用的缓冲区的第一个元素<br>   last_unused  未使用的缓冲区的最后一个元素<br>   to_free      垃圾列表<br>   next_to_free 指一个垃圾列表元素<br>   gc_runs      GC运行次数<br>   collected    是否垃圾收集完成<br>   additional_buffer 其它缓冲区</p>
+<h1 id="GC初始化gc-globals"><a href="#GC初始化gc-globals" class="headerlink" title="GC初始化gc_globals"></a>GC初始化gc_globals</h1><p>gc_globals_ctor  -&gt;  ts_allocate_id -&gt;  gc_globals_ctor_ex</p>
+<p>```</p>
+<p>ZEND_API void gc_globals_ctor(void)<br>{</p>
+<p>#ifdef ZTS<br>        ts_allocate_id(&amp;gc_globals_id, sizeof(zend_gc_globals), (ts_allocate_ctor) gc_globals_ctor_ex, (ts_allocate_dtor) root_buffer_dtor);</p>
+<p>#else<br>        gc_globals_ctor_ex(&amp;gc_globals);</p>
+<p>#endif<br>}</p>
+<p>参数说明:<br>rsrc_id  全局资源id (int型)<br>size     资源大小<br>ctor     构造器<br>dtor     析构器</p>
+<p>TSRM_API ts_rsrc_id ts_allocate_id(ts_rsrc_id <em>rsrc_id, size_t size, ts_allocate_ctor ctor, ts_allocate_dtor dtor)<br>{<br>        int i;<br>        TSRM_ERROR((TSRM_ERROR_LEVEL_CORE, “Obtaining a new resource id, %d bytes”, size));<br>        /</em> 加互斥锁 <em>/<br>        tsrm_mutex_lock(tsmm_mutex);<br>        /</em> 生成全局资源id  <em>/
+        </em>rsrc_id = TSRM_SHUFFLE_RSRC_ID(id_count++);<br>        TSRM_ERROR((TSRM_ERROR_LEVEL_CORE, “Obtained resource id %d”, <em>rsrc_id));<br>        /</em> 注册新的资源到全局资源表 <em>/<br>        if (resource_types_table_size &lt; id_count) { /</em> 如果资源表的大小太小，则调整资源表的大小 <em>/<br>                /</em> 扩展资源表的内存空间 <em>/<br>                resource_types_table = (tsrm_resource_type </em>) realloc(resource_types_table, sizeof(tsrm_resource_type)<em>id_count);<br>                /</em>  如果内存分配失败，解锁并返回 <em>/<br>                if (!resource_types_table) {<br>                        tsrm_mutex_unlock(tsmm_mutex);<br>                        TSRM_ERROR((TSRM_ERROR_LEVEL_ERROR, “Unable to allocate storage for resource”));
+                        </em>rsrc_id = 0;<br>                        return 0;<br>                }<br>                /<em> 如果分配成功，则修改资源表的大小 </em>/<br>                resource_types_table_size = id_count;<br>        }<br>        /<em> 注册全局资源对象 </em>/<br>        resource_types_table[TSRM_UNSHUFFLE_RSRC_ID(<em>rsrc_id)].size = size;<br>        resource_types_table[TSRM_UNSHUFFLE_RSRC_ID(</em>rsrc_id)].ctor = ctor;<br>        resource_types_table[TSRM_UNSHUFFLE_RSRC_ID(<em>rsrc_id)].dtor = dtor;<br>        resource_types_table[TSRM_UNSHUFFLE_RSRC_ID(</em>rsrc_id)].done = 0;<br>        /<em> 遍历线程表，同步全局资源到各个线程对象 </em>/<br>         for (i=0; i<tsrm_tls_table_size; i++)="" {="" *="" 读取tsrm_tls_entry线程对象链表头指针="" tsrm_tls_entry="" *p="tsrm_tls_table[i];" 遍历线程链表="" while="" (p)="" 如果线程中的资源数跟全局资源表中的数量不一致，则更新线程资源数据表="" if="" (p-="">count &lt; id_count) {<br>                                int j;<br>                                /<em> 扩展线程资源数据内存空间 </em>/<br>                                p-&gt;storage = (void <em>) realloc(p-&gt;storage, sizeof(void </em>)<em>id_count);<br>                                /</em> 新增资源分配内存空间 <em>/<br>                                for (j=p-&gt;count; j<id_count; j++)="" {="" p-="">storage[j] = (void </id_count;></em>) malloc(resource_types_table[j].size);<br>                                        if (resource_types_table[j].ctor) {<br>                                                /<em> 调用构造器，初始化gc_globals对象 </em>/<br>                                                resource_types_table[j].ctor(p-&gt;storage[j]);<br>                                        }<br>                                }<br>                                /<em> 修改线程资源数量 </em>/<br>                                p-&gt;count = id_count;<br>                        }<br>                        /<em> 同步下一个线程对象 </em>/<br>                        p = p-&gt;next;<br>                }<br>        }<br>        /<em> 资源初始化完毕，解锁 </em>/<br>        tsrm_mutex_unlock(tsmm_mutex);<br>        TSRM_ERROR((TSRM_ERROR_LEVEL_CORE, “Successfully allocated new resource id %d”, <em>rsrc_id));<br>        /</em> 全局资源id <em>/<br>        return </em>rsrc_id;<br>}</tsrm_tls_table_size;></p>
+<p>/<em> 初始化gc_globals对象 </em>/<br>static void gc_globals_ctor_ex(zend_gc_globals *gc_globals)<br>{<br>        gc_globals-&gt;gc_enabled = 0;<br>        gc_globals-&gt;gc_active = 0;</p>
+<pre><code>gc_globals-&gt;buf = NULL;
+
+gc_globals-&gt;roots.next = &amp;gc_globals-&gt;roots;
+gc_globals-&gt;roots.prev = &amp;gc_globals-&gt;roots;
+gc_globals-&gt;unused = NULL;
+gc_globals-&gt;next_to_free = NULL;
+
+gc_globals-&gt;to_free.next = &amp;gc_globals-&gt;to_free;
+gc_globals-&gt;to_free.prev = &amp;gc_globals-&gt;to_free;
+
+gc_globals-&gt;gc_runs = 0;
+gc_globals-&gt;collected = 0;
+
+gc_globals-&gt;additional_buffer = NULL;
+</code></pre><p>#if GC_BENCH<br>        gc_globals-&gt;root_buf_length = 0;<br>        gc_globals-&gt;root_buf_peak = 0;<br>        gc_globals-&gt;zval_possible_root = 0;<br>        gc_globals-&gt;zval_buffered = 0;<br>        gc_globals-&gt;zval_remove_from_buffer = 0;<br>        gc_globals-&gt;zval_marked_grey = 0;</p>
+<p>#endif<br>}</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/07/07/php中的结构/" rel="next" title="Php数据结构">
+                <i class="fa fa-chevron-left"></i> Php数据结构
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/07/12/php数据结构/" rel="prev" title="php数据结构">
+                php数据结构 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+  <div style="width:200px;height:200px;margin:0 auto;"><img src="/images/pay.png" ></div>
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="Kivmi" />
+          <p class="site-author-name" itemprop="name">Kivmi</p>
+          <p class="site-description motion-element" itemprop="description">代码也是有灵魂的</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">30</span>
+              <span class="site-state-item-name">posts</span>
+            </a>
+          </div>
+
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#zend-gc-globals结构体"><span class="nav-number">1.</span> <span class="nav-text">zend_gc_globals结构体</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#GC初始化gc-globals"><span class="nav-number">2.</span> <span class="nav-text">GC初始化gc_globals</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Kivmi</span>
+</div>
+
+
+<div class="powered-by">
+  Powered by <a class="theme-link" href="https://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+
+</body>
+</html>

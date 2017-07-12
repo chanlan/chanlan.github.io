@@ -84,22 +84,18 @@
 
 
 
-<meta name="description" content="什么样的代码才是好的代码？代码review需要注意哪些细节？
-1.代码规范，每个公司都有自己的一个代码规范，比如:1234567891) 命名规范？2) 换行还是空行？3) Tab还是空格？4) 等号括号两边是否使用空格？5) 注释合理？6) 功能结构单一，函数和类不能太长，要具有模块性，单一职责？7) 单元测试，测试用例覆盖是否全面？8) git使用是否规范？......
-2.CodeRevie">
+<meta name="description" content="#类型关系图">
 <meta property="og:type" content="article">
-<meta property="og:title" content="关于code review">
-<meta property="og:url" content="http://chanlan.github.io/2017/05/03/关于代码review/index.html">
+<meta property="og:title" content="php数据类型关系">
+<meta property="og:url" content="http://chanlan.github.io/2017/07/12/php-datastruct/index.html">
 <meta property="og:site_name" content="Learn And Life.">
-<meta property="og:description" content="什么样的代码才是好的代码？代码review需要注意哪些细节？
-1.代码规范，每个公司都有自己的一个代码规范，比如:1234567891) 命名规范？2) 换行还是空行？3) Tab还是空格？4) 等号括号两边是否使用空格？5) 注释合理？6) 功能结构单一，函数和类不能太长，要具有模块性，单一职责？7) 单元测试，测试用例覆盖是否全面？8) git使用是否规范？......
-2.CodeRevie">
-<meta property="og:updated_time" content="2017-05-03T18:02:21.916Z">
+<meta property="og:description" content="#类型关系图">
+<meta property="og:image" content="http://chanlan.github.io/2017/07/12/php-datastruct/php-struct.png">
+<meta property="og:updated_time" content="2017-07-12T05:25:33.030Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="关于code review">
-<meta name="twitter:description" content="什么样的代码才是好的代码？代码review需要注意哪些细节？
-1.代码规范，每个公司都有自己的一个代码规范，比如:1234567891) 命名规范？2) 换行还是空行？3) Tab还是空格？4) 等号括号两边是否使用空格？5) 注释合理？6) 功能结构单一，函数和类不能太长，要具有模块性，单一职责？7) 单元测试，测试用例覆盖是否全面？8) git使用是否规范？......
-2.CodeRevie">
+<meta name="twitter:title" content="php数据类型关系">
+<meta name="twitter:description" content="#类型关系图">
+<meta name="twitter:image" content="http://chanlan.github.io/2017/07/12/php-datastruct/php-struct.png">
 
 
 
@@ -127,13 +123,13 @@
 
 
 
-  <link rel="canonical" href="http://chanlan.github.io/2017/05/03/关于代码review/"/>
+  <link rel="canonical" href="http://chanlan.github.io/2017/07/12/php-datastruct/"/>
 
 
 
 
 
-  <title> 关于code review | Learn And Life. </title>
+  <title> php数据类型关系 | Learn And Life. </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="en">
@@ -244,7 +240,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://chanlan.github.io/2017/05/03/关于代码review/">
+  <link itemprop="mainEntityOfPage" href="http://chanlan.github.io/2017/07/12/php-datastruct/">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <meta itemprop="name" content="Kivmi">
@@ -268,7 +264,7 @@
             
             
               
-                关于code review
+                php数据类型关系
               
             
           </h1>
@@ -281,8 +277,8 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-05-03T23:54:43+08:00">
-                2017-05-03
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-07-12T13:20:51+08:00">
+                2017-07-12
               </time>
             
 
@@ -317,16 +313,7 @@
       
 
       
-        <p>什么样的代码才是好的代码？代码review需要注意哪些细节？</p>
-<p>1.代码规范，每个公司都有自己的一个代码规范，比如:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">1) 命名规范？</div><div class="line">2) 换行还是空行？</div><div class="line">3) Tab还是空格？</div><div class="line">4) 等号括号两边是否使用空格？</div><div class="line">5) 注释合理？</div><div class="line">6) 功能结构单一，函数和类不能太长，要具有模块性，单一职责？</div><div class="line">7) 单元测试，测试用例覆盖是否全面？</div><div class="line">8) git使用是否规范？</div><div class="line">......</div></pre></td></tr></table></figure></p>
-<p>2.CodeReview-checklist，每个团队或者个人都应该建立自己的checklist，在每次提交代码之前，都过一遍，比如:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">1) 什么写法可能导致性能低下？</div><div class="line">2) 哪个接口或者函数要慎用？</div><div class="line">3) 哪些设计方式需要规避？</div><div class="line">3) 什么习惯容易引发内存泄漏？</div><div class="line">.....</div></pre></td></tr></table></figure></p>
-<p>3.影响范围评估<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">1) 配置修改？各个环境是否兼容？</div><div class="line">2) 全局变量和全局函数修改？</div><div class="line">3) 是否存在数据安全和一致性问题？</div><div class="line">4) 容量评估？处理能力评估？是否会引起阻塞？</div><div class="line">5) 梳理业务，此修改是否全面，是否修改了所有相关的业务，还是只是修改了一部分？</div><div class="line">......</div></pre></td></tr></table></figure></p>
-<p>4.design review<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">1) 实现是否符合预期设计？</div><div class="line">2) 是否需要压测？</div><div class="line">3) 独立部署还是分开部署？是否需要进行容量评估？</div><div class="line">4）是否需要部署任务脚本？</div><div class="line">5) 是否需要申请独立域名？</div><div class="line">.....</div></pre></td></tr></table></figure></p>
-<p>5.性能评估<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">1) 关注for循环，关注批量处理，能合就合，能简就简，不能将就</div><div class="line">2) 关注索引，是否使用了索引</div><div class="line">3) 评估业务模型，是cpu密集型还是io密集型，简化设计，做好测试</div><div class="line">.....</div></pre></td></tr></table></figure></p>
-<p>6.review级别<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">1）可编译</div><div class="line">2）可运行</div><div class="line">3）可测试</div><div class="line">4）可读</div><div class="line">5）可维护</div><div class="line">6）可重用</div><div class="line">7）可扩展</div></pre></td></tr></table></figure></p>
-<p>7.review工具<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">1) Phabricator</div><div class="line">2) Gerrit</div><div class="line">3) Gitlab</div></pre></td></tr></table></figure></p>
-<p>8.需求review<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">1) 分析需求</div><div class="line">2) 需求是否合理</div><div class="line">3) 需求是否紧急</div><div class="line">4) 大需求？小需求？</div><div class="line">5) 拒绝和简化需求</div></pre></td></tr></table></figure></p>
-<p>代码review是一个关注自己成长和产品质量的一个问题，每个程序员都应该引起重视，把不好的习惯扼杀掉，减少了bug，同时也能得到同事的认可，也能让自己给别人找找茬，不要让自己累成牲口，停下来想想，问一下自己，自己成为牲口的原因，是不是就是因为自己做事时候像就牲口一样思考？</p>
+        <p>#类型关系图<br><img src="/2017/07/12/php-datastruct/php-struct.png" alt="relaction for datastruct"></p>
 
       
     </div>
@@ -353,8 +340,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/04/04/并发编程Promise,Future和Callback/" rel="next" title="并发编程 Promise, Future 和 Callback">
-                <i class="fa fa-chevron-left"></i> 并发编程 Promise, Future 和 Callback
+              <a href="/2017/07/12/php数据结构/" rel="next" title="php数据结构">
+                <i class="fa fa-chevron-left"></i> php数据结构
               </a>
             
           </div>
@@ -362,10 +349,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/05/08/图片与CDN/" rel="prev" title="图片与CDN">
-                图片与CDN <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
