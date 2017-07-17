@@ -1,0 +1,649 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="PHP内存模型12jemalloctcmalloc
+PHP Memory Management
+php内存管理分为3层
+当然你也可以通过setenv(“USE_ZEND_ALLOC”) = 0直接使用系统调用
+123456789101112131415161718192021222324static void alloc_globals_ctor(zend_alloc_globals *alloc">
+<meta property="og:type" content="article">
+<meta property="og:title" content="PHP Graph">
+<meta property="og:url" content="http://chanlan.github.io/2017/07/12/php-mem/index.html">
+<meta property="og:site_name" content="Learn And Life.">
+<meta property="og:description" content="PHP内存模型12jemalloctcmalloc
+PHP Memory Management
+php内存管理分为3层
+当然你也可以通过setenv(“USE_ZEND_ALLOC”) = 0直接使用系统调用
+123456789101112131415161718192021222324static void alloc_globals_ctor(zend_alloc_globals *alloc">
+<meta property="og:image" content="http://chanlan.github.io/2017/07/12/php-mem/php-datastruct/php-memory.png">
+<meta property="og:image" content="http://chanlan.github.io/2017/07/12/php-mem/php-datastruct/php-arch.jpg">
+<meta property="og:updated_time" content="2017-07-17T18:26:39.838Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="PHP Graph">
+<meta name="twitter:description" content="PHP内存模型12jemalloctcmalloc
+PHP Memory Management
+php内存管理分为3层
+当然你也可以通过setenv(“USE_ZEND_ALLOC”) = 0直接使用系统调用
+123456789101112131415161718192021222324static void alloc_globals_ctor(zend_alloc_globals *alloc">
+<meta name="twitter:image" content="http://chanlan.github.io/2017/07/12/php-mem/php-datastruct/php-memory.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://chanlan.github.io/2017/07/12/php-mem/"/>
+
+
+
+
+
+  <title> PHP Graph | Learn And Life. </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Learn And Life.</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">Focus on php and open source.</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://chanlan.github.io/2017/07/12/php-mem/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="Kivmi">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/images/avatar.gif">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="Learn And Life.">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="Learn And Life." src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                PHP Graph
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-07-12T13:20:51+08:00">
+                2017-07-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="PHP内存模型"><a href="#PHP内存模型" class="headerlink" title="PHP内存模型"></a>PHP内存模型</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">jemalloc</div><div class="line">tcmalloc</div></pre></td></tr></table></figure>
+<h1 id="PHP-Memory-Management"><a href="#PHP-Memory-Management" class="headerlink" title="PHP Memory Management"></a>PHP Memory Management</h1><p><img src="/2017/07/12/php-mem/php-datastruct/php-memory.png" alt="memory management for php"></p>
+<p>php内存管理分为3层</p>
+<p><img src="/2017/07/12/php-mem/php-datastruct/php-arch.jpg" alt="memory management for php"><br>当然你也可以通过setenv(“USE_ZEND_ALLOC”) = 0直接使用系统调用</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line">static void alloc_globals_ctor(zend_alloc_globals *alloc_globals)</div><div class="line">&#123;</div><div class="line">#if ZEND_MM_CUSTOM</div><div class="line">	char *tmp = getenv(&quot;USE_ZEND_ALLOC&quot;);</div><div class="line"></div><div class="line">	if (tmp &amp;&amp; !zend_atoi(tmp, 0)) &#123;</div><div class="line">		alloc_globals-&gt;mm_heap = malloc(sizeof(zend_mm_heap));</div><div class="line">		memset(alloc_globals-&gt;mm_heap, 0, sizeof(zend_mm_heap));</div><div class="line">		alloc_globals-&gt;mm_heap-&gt;use_custom_heap = ZEND_MM_CUSTOM_HEAP_STD;</div><div class="line">		alloc_globals-&gt;mm_heap-&gt;custom_heap.std._malloc = __zend_malloc;</div><div class="line">		alloc_globals-&gt;mm_heap-&gt;custom_heap.std._free = free;</div><div class="line">		alloc_globals-&gt;mm_heap-&gt;custom_heap.std._realloc = __zend_realloc;</div><div class="line">		return;</div><div class="line">	&#125;</div><div class="line">#endif</div><div class="line">#ifdef MAP_HUGETLB</div><div class="line">	tmp = getenv(&quot;USE_ZEND_ALLOC_HUGE_PAGES&quot;);</div><div class="line">	if (tmp &amp;&amp; zend_atoi(tmp, 0)) &#123;</div><div class="line">		zend_mm_use_huge_pages = 1;</div><div class="line">	&#125;</div><div class="line">#endif</div><div class="line">	ZEND_TSRMLS_CACHE_UPDATE();</div><div class="line">	alloc_globals-&gt;mm_heap = zend_mm_init();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>从alloc_globals_ctor可以看到，当关闭USE_ZEND_ALLOC之后，php会通过malloc来管理head的内存分配，而不是mmap的方式。同时，使用malloc分配内存的方式也称为持久的内存分配方式，php代码中也涉及相关的内容</p>
+<h1 id="持久内存分配"><a href="#持久内存分配" class="headerlink" title="持久内存分配"></a>持久内存分配</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">#define pemalloc(size, persistent) ((persistent)?__zend_malloc(size):emalloc(size))</div><div class="line">#define safe_pemalloc(nmemb, size, offset, persistent)	((persistent)?_safe_malloc(nmemb, size, offset):safe_emalloc(nmemb, size, offset))</div><div class="line">#define pefree(ptr, persistent)  ((persistent)?free(ptr):efree(ptr))</div><div class="line">#define pefree_size(ptr, size, persistent)  ((persistent)?free(ptr):efree_size(ptr, size))</div><div class="line">#define pecalloc(nmemb, size, persistent) ((persistent)?__zend_calloc((nmemb), (size)):ecalloc((nmemb), (size)))</div><div class="line">#define perealloc(ptr, size, persistent) ((persistent)?__zend_realloc((ptr), (size)):erealloc((ptr), (size)))</div><div class="line">#define perealloc2(ptr, size, copy_size, persistent) ((persistent)?__zend_realloc((ptr), (size)):erealloc2((ptr), (size), (copy_size)))</div><div class="line">#define safe_perealloc(ptr, nmemb, size, offset, persistent)	((persistent)?_safe_realloc((ptr), (nmemb), (size), (offset)):safe_erealloc((ptr), (nmemb), (size), (offset)))</div><div class="line">#define perealloc_recoverable(ptr, size, persistent) ((persistent)?realloc((ptr), (size)):erealloc_recoverable((ptr), (size)))</div><div class="line">#define perealloc2_recoverable(ptr, size, persistent) ((persistent)?realloc((ptr), (size)):erealloc2_recoverable((ptr), (size), (copy_size)))</div><div class="line">#define pestrdup(s, persistent) ((persistent)?strdup(s):estrdup(s))</div><div class="line">#define pestrndup(s, length, persistent) ((persistent)?zend_strndup((s),(length)):estrndup((s),(length)))</div><div class="line"></div><div class="line">#define pemalloc_rel(size, persistent) ((persistent)?__zend_malloc(size):emalloc_rel(size))</div><div class="line">#define pefree_rel(ptr, persistent)	((persistent)?free(ptr):efree_rel(ptr))</div><div class="line">#define pecalloc_rel(nmemb, size, persistent) ((persistent)?__zend_calloc((nmemb), (size)):ecalloc_rel((nmemb), (size)))</div><div class="line">#define perealloc_rel(ptr, size, persistent) ((persistent)?__zend_realloc((ptr), (size)):erealloc_rel((ptr), (size)))</div><div class="line">#define perealloc2_rel(ptr, size, copy_size, persistent) ((persistent)?__zend_realloc((ptr), (size)):erealloc2_rel((ptr), (size), (copy_size)))</div><div class="line">#define perealloc_recoverable_rel(ptr, size, persistent) ((persistent)?realloc((ptr), (size)):erealloc_recoverable_rel((ptr), (size)))</div><div class="line">#define perealloc2_recoverable_rel(ptr, size, copy_size, persistent) ((persistent)?realloc((ptr), (size)):erealloc2_recoverable_rel((ptr), (size), (copy_size)))</div><div class="line">#define pestrdup_rel(s, persistent) ((persistent)?strdup(s):estrdup_rel(s))</div></pre></td></tr></table></figure>
+<p>我们可以拿几个来看看</p>
+<h2 id="持久化内存"><a href="#持久化内存" class="headerlink" title="持久化内存"></a>持久化内存</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">ZEND_API void * __zend_malloc(size_t len)</div><div class="line">&#123;</div><div class="line">	void *tmp = malloc(len);</div><div class="line">	if (EXPECTED(tmp || !len)) &#123;</div><div class="line">		return tmp;</div><div class="line">	&#125;</div><div class="line">	zend_out_of_memory();</div><div class="line">&#125;</div><div class="line"></div><div class="line">ZEND_API void* ZEND_FASTCALL _safe_malloc(size_t nmemb, size_t size, size_t offset)</div><div class="line">&#123;</div><div class="line">	return pemalloc(zend_safe_address_guarded(nmemb, size, offset), 1);</div><div class="line">&#125;</div><div class="line"></div><div class="line">ZEND_API void * __zend_calloc(size_t nmemb, size_t len)</div><div class="line">&#123;</div><div class="line">	void *tmp = _safe_malloc(nmemb, len, 0);</div><div class="line">	memset(tmp, 0, nmemb * len); </div><div class="line"></div><div class="line">	return tmp;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>可以看到， 无论是_safe_malloc，还是<strong>zend_calloc，持久化方式最终调用的都是</strong>zend_malloc，而<strong>zend_malloc内部调用的malloc来进行内存的分配，其中</strong>zend_calloc和_safe_malloc的区别仅仅在于是否初始化内存空间为0</p>
+<h2 id="非持久化内存"><a href="#非持久化内存" class="headerlink" title="非持久化内存"></a>非持久化内存</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div></pre></td><td class="code"><pre><div class="line">#define emalloc(size)						_emalloc((size) ZEND_FILE_LINE_CC ZEND_FILE_LINE_EMPTY_CC)</div><div class="line">#define emalloc_large(size)					_emalloc_large((size) ZEND_FILE_LINE_CC ZEND_FILE_LINE_EMPTY_CC)</div><div class="line">#define emalloc_huge(size)					_emalloc_huge((size) ZEND_FILE_LINE_CC ZEND_FILE_LINE_EMPTY_CC)</div><div class="line">#define safe_emalloc(nmemb, size, offset)	_safe_emalloc((nmemb), (size), (offset) ZEND_FILE_LINE_CC ZEND_FILE_LINE_EMPTY_CC)</div><div class="line">#define efree(ptr)							_efree((ptr) ZEND_FILE_LINE_CC ZEND_FILE_LINE_EMPTY_CC)</div><div class="line">#define efree_large(ptr)					_efree_large((ptr) ZEND_FILE_LINE_CC ZEND_FILE_LINE_EMPTY_CC)</div><div class="line">#define efree_huge(ptr)						_efree_huge((ptr) ZEND_FILE_LINE_CC ZEND_FILE_LINE_EMPTY_CC)</div><div class="line">#define ecalloc(nmemb, size)				_ecalloc((nmemb), (size) ZEND_FILE_LINE_CC ZEND_FILE_LINE_EMPTY_CC)</div><div class="line">#define erealloc(ptr, size)					_erealloc((ptr), (size) ZEND_FILE_LINE_CC ZEND_FILE_LINE_EMPTY_CC)</div><div class="line">#define erealloc2(ptr, size, copy_size)		_erealloc2((ptr), (size), (copy_size) ZEND_FILE_LINE_CC ZEND_FILE_LINE_EMPTY_CC)</div><div class="line">#define safe_erealloc(ptr, nmemb, size, offset)	_safe_erealloc((ptr), (nmemb), (size), (offset) ZEND_FILE_LINE_CC ZEND_FILE_LINE_EMPTY_CC)</div><div class="line">#define erealloc_recoverable(ptr, size)		_erealloc((ptr), (size) ZEND_FILE_LINE_CC ZEND_FILE_LINE_EMPTY_CC)</div><div class="line">#define erealloc2_recoverable(ptr, size, copy_size) _erealloc2((ptr), (size), (copy_size) ZEND_FILE_LINE_CC ZEND_FILE_LINE_EMPTY_CC)</div><div class="line">#define estrdup(s)							_estrdup((s) ZEND_FILE_LINE_CC ZEND_FILE_LINE_EMPTY_CC)</div><div class="line">#define estrndup(s, length)					_estrndup((s), (length) ZEND_FILE_LINE_CC ZEND_FILE_LINE_EMPTY_CC)</div><div class="line">#define zend_mem_block_size(ptr)			_zend_mem_block_size((ptr) ZEND_FILE_LINE_CC ZEND_FILE_LINE_EMPTY_CC)</div><div class="line"></div><div class="line">/* Relay wrapper macros */</div><div class="line">#define emalloc_rel(size)						_emalloc((size) ZEND_FILE_LINE_RELAY_CC ZEND_FILE_LINE_CC)</div><div class="line">#define safe_emalloc_rel(nmemb, size, offset)	_safe_emalloc((nmemb), (size), (offset) ZEND_FILE_LINE_RELAY_CC ZEND_FILE_LINE_CC)</div><div class="line">#define efree_rel(ptr)							_efree((ptr) ZEND_FILE_LINE_RELAY_CC ZEND_FILE_LINE_CC)</div><div class="line">#define ecalloc_rel(nmemb, size)				_ecalloc((nmemb), (size) ZEND_FILE_LINE_RELAY_CC ZEND_FILE_LINE_CC)</div><div class="line">#define erealloc_rel(ptr, size)					_erealloc((ptr), (size) ZEND_FILE_LINE_RELAY_CC ZEND_FILE_LINE_CC)</div><div class="line">#define erealloc2_rel(ptr, size, copy_size)		_erealloc2((ptr), (size), (copy_size) ZEND_FILE_LINE_RELAY_CC ZEND_FILE_LINE_CC)</div><div class="line">#define erealloc_recoverable_rel(ptr, size)		_erealloc((ptr), (size) ZEND_FILE_LINE_RELAY_CC ZEND_FILE_LINE_CC)</div><div class="line">#define erealloc2_recoverable_rel(ptr, size, copy_size) _erealloc2((ptr), (size), (copy_size) ZEND_FILE_LINE_RELAY_CC ZEND_FILE_LINE_CC)</div><div class="line">#define safe_erealloc_rel(ptr, nmemb, size, offset)	_safe_erealloc((ptr), (nmemb), (size), (offset) ZEND_FILE_LINE_RELAY_CC ZEND_FILE_LINE_CC)</div><div class="line">#define estrdup_rel(s)							_estrdup((s) ZEND_FILE_LINE_RELAY_CC ZEND_FILE_LINE_CC)</div><div class="line">#define estrndup_rel(s, length)					_estrndup((s), (length) ZEND_FILE_LINE_RELAY_CC ZEND_FILE_LINE_CC)</div><div class="line">#define zend_mem_block_size_rel(ptr)			_zend_mem_block_size((ptr) ZEND_FILE_LINE_RELAY_CC ZEND_FILE_LINE_CC)</div><div class="line"></div><div class="line">ZEND_API void* ZEND_FASTCALL _emalloc(size_t size ZEND_FILE_LINE_DC ZEND_FILE_LINE_ORIG_DC)</div><div class="line">&#123;</div><div class="line"></div><div class="line">#if ZEND_MM_CUSTOM</div><div class="line">	if (UNEXPECTED(AG(mm_heap)-&gt;use_custom_heap)) &#123;</div><div class="line">		if (ZEND_DEBUG &amp;&amp; AG(mm_heap)-&gt;use_custom_heap == ZEND_MM_CUSTOM_HEAP_DEBUG) &#123;</div><div class="line">			return AG(mm_heap)-&gt;custom_heap.debug._malloc(size ZEND_FILE_LINE_RELAY_CC ZEND_FILE_LINE_ORIG_RELAY_CC);</div><div class="line">		&#125; else &#123;</div><div class="line">			return AG(mm_heap)-&gt;custom_heap.std._malloc(size);</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">#endif</div><div class="line">	return zend_mm_alloc_heap(AG(mm_heap), size ZEND_FILE_LINE_RELAY_CC ZEND_FILE_LINE_ORIG_RELAY_CC);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这里可以看到，非持久化方式，使用zend_mm_alloc_heap，来分配heap的空间，其中根据size的不同有3中分配方式<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">...........</div><div class="line">if (size &lt;= ZEND_MM_MAX_SMALL_SIZE) &#123;</div><div class="line">		ptr = zend_mm_alloc_small(heap, size, ZEND_MM_SMALL_SIZE_TO_BIN(size) ZEND_FILE_LINE_RELAY_CC ZEND_FILE_LINE_ORIG_RELAY_CC);</div><div class="line">............</div><div class="line">	&#125; else if (size &lt;= ZEND_MM_MAX_LARGE_SIZE) &#123;</div><div class="line">		ptr = zend_mm_alloc_large(heap, size ZEND_FILE_LINE_RELAY_CC ZEND_FILE_LINE_ORIG_RELAY_CC);</div><div class="line">............</div><div class="line">		return ptr;</div><div class="line">	&#125; else &#123;</div><div class="line">............</div><div class="line">		return zend_mm_alloc_huge(heap, size ZEND_FILE_LINE_RELAY_CC ZEND_FILE_LINE_ORIG_RELAY_CC);</div><div class="line">	&#125;</div><div class="line">..........</div></pre></td></tr></table></figure></p>
+<p>也就是<br>(0, ZEND_MM_MAX_SMALL_SIZE]<br>(ZEND_MM_MAX_SMALL_SIZE, ZEND_MM_MAX_LARGE_SIZE]<br>(ZEND_MM_MAX_LARGE_SIZE, ZEND_MM_PAGE_SIZE]<br>这里还需要注意的是storage层，并不是指zend_mm_storage对象，需要区分开，从源码看zend_mm_storage只会跟PHPDBG有关，PHPDBG是什么呢？</p>
+<h1 id="PHPDBG"><a href="#PHPDBG" class="headerlink" title="PHPDBG"></a>PHPDBG</h1><p>   PHPDBG是一个PHP的SAPI模块，可以在不用修改代码和不影响性能的情况下控制PHP的运行环境。PHPDBG的目标是成为一个轻量级、强大、易用的PHP调试平台。可以在PHP5.4和之上版本中使用。在php5.6和之上版本将内部集成。</p>
+<p>主要功能：</p>
+<ul>
+<li>单步调试</li>
+<li>灵活的下断点方式（类方法、函数、文件:行、内存地址、opcode）</li>
+<li>可直接调用php的eval</li>
+<li>可以查看当前执行的代码</li>
+<li>用户空间API（userland/user space）</li>
+<li>方便集成</li>
+<li>支持指定php配置文件</li>
+<li>JIT全局变量</li>
+<li>readline支持（可选），终端操作更方便</li>
+<li>远程debug，使用java GUI</li>
+<li>操作简便（具体看help）</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">root@chenjingxiu:~# phptest/bin/phpdbg </div><div class="line">[Welcome to phpdbg, the interactive PHP debugger, v0.5.0]</div><div class="line">To get help using phpdbg type &quot;help&quot; and press enter</div><div class="line">[Please report bugs to &lt;http://bugs.php.net/report.php&gt;]</div><div class="line">prompt&gt; exec a.php</div><div class="line">[Set execution context: /home/chenjingxiu/a.php]</div><div class="line">[Successful compilation of /home/chenjingxiu/a.php]</div><div class="line">prompt&gt; b fun</div><div class="line">[Breakpoint #0 added at fun]</div><div class="line">prompt&gt; r</div><div class="line">[Script ended normally]</div><div class="line">[Mon Jul 17 19:23:36 2017]  Script:  &apos;-&apos;</div><div class="line">/home/chenjingxiu/php-src/sapi/phpdbg/phpdbg.c(1799) :  Freeing 0xb7204018 (1 bytes), script=-</div><div class="line">=== Total 1 memory leaks detected ===</div><div class="line">prompt&gt;</div></pre></td></tr></table></figure>
+<p>很像gdb是不？转回正题</p>
+<h1 id="php内存管理"><a href="#php内存管理" class="headerlink" title="php内存管理"></a>php内存管理</h1>
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/07/07/php垃圾回收/" rel="next" title="Php垃圾回收">
+                <i class="fa fa-chevron-left"></i> Php垃圾回收
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+  <div style="width:200px;height:200px;margin:0 auto;"><img src="/images/pay.png" ></div>
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="Kivmi" />
+          <p class="site-author-name" itemprop="name">Kivmi</p>
+          <p class="site-description motion-element" itemprop="description">代码也是有灵魂的</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">28</span>
+              <span class="site-state-item-name">posts</span>
+            </a>
+          </div>
+
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#PHP内存模型"><span class="nav-number">1.</span> <span class="nav-text">PHP内存模型</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#PHP-Memory-Management"><span class="nav-number">2.</span> <span class="nav-text">PHP Memory Management</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#持久内存分配"><span class="nav-number">3.</span> <span class="nav-text">持久内存分配</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#持久化内存"><span class="nav-number">3.1.</span> <span class="nav-text">持久化内存</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#非持久化内存"><span class="nav-number">3.2.</span> <span class="nav-text">非持久化内存</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#PHPDBG"><span class="nav-number">4.</span> <span class="nav-text">PHPDBG</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#php内存管理"><span class="nav-number">5.</span> <span class="nav-text">php内存管理</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Kivmi</span>
+</div>
+
+
+<div class="powered-by">
+  Powered by <a class="theme-link" href="https://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+
+</body>
+</html>
