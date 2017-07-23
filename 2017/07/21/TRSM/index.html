@@ -1,0 +1,619 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="扩展全局资源和内核全局资源在写php扩展的时候，我们需要使用一些线程全局的资源该如何操作呢？拿yaf来看看1234567891011#ifdef ZTS#include &amp;quot;TSRM.h&amp;quot;#endif#ifdef ZTS#define YAF_G(v) TSRMG(yaf_globals_id, zend_yaf_globals *, v)#else#define YAF_G(v">
+<meta property="og:type" content="article">
+<meta property="og:title" content="PHP之线程资源">
+<meta property="og:url" content="http://chanlan.github.io/2017/07/21/TRSM/index.html">
+<meta property="og:site_name" content="Learn And Life.">
+<meta property="og:description" content="扩展全局资源和内核全局资源在写php扩展的时候，我们需要使用一些线程全局的资源该如何操作呢？拿yaf来看看1234567891011#ifdef ZTS#include &amp;quot;TSRM.h&amp;quot;#endif#ifdef ZTS#define YAF_G(v) TSRMG(yaf_globals_id, zend_yaf_globals *, v)#else#define YAF_G(v">
+<meta property="og:updated_time" content="2017-07-23T05:47:51.587Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="PHP之线程资源">
+<meta name="twitter:description" content="扩展全局资源和内核全局资源在写php扩展的时候，我们需要使用一些线程全局的资源该如何操作呢？拿yaf来看看1234567891011#ifdef ZTS#include &amp;quot;TSRM.h&amp;quot;#endif#ifdef ZTS#define YAF_G(v) TSRMG(yaf_globals_id, zend_yaf_globals *, v)#else#define YAF_G(v">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://chanlan.github.io/2017/07/21/TRSM/"/>
+
+
+
+
+
+  <title> PHP之线程资源 | Learn And Life. </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Learn And Life.</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">Focus on php and open source.</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://chanlan.github.io/2017/07/21/TRSM/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="Kivmi">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/images/avatar.gif">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="Learn And Life.">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="Learn And Life." src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                PHP之线程资源
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-07-21T23:00:00+08:00">
+                2017-07-21
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="扩展全局资源和内核全局资源"><a href="#扩展全局资源和内核全局资源" class="headerlink" title="扩展全局资源和内核全局资源"></a>扩展全局资源和内核全局资源</h1><p>在写php扩展的时候，我们需要使用一些线程全局的资源该如何操作呢？拿yaf来看看<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">#ifdef ZTS</div><div class="line">#include &quot;TSRM.h&quot;</div><div class="line">#endif</div><div class="line"></div><div class="line">#ifdef ZTS</div><div class="line">#define YAF_G(v) TSRMG(yaf_globals_id, zend_yaf_globals *, v)</div><div class="line">#else</div><div class="line">#define YAF_G(v) (yaf_globals.v)</div><div class="line">#endif</div><div class="line"></div><div class="line">extern ZEND_DECLARE_MODULE_GLOBALS(yaf);</div></pre></td></tr></table></figure></p>
+<p>这里定义了宏YAF_G和ZEND_DECLARE_MODULE_GLOBALS，我们先看看ZEND_DECLARE_MODULE_GLOBALS<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">#ifdef ZTS</div><div class="line">#define ZEND_DECLARE_MODULE_GLOBALS(module_name)                                                        \</div><div class="line">        ts_rsrc_id module_name##_globals_id;</div><div class="line">...</div><div class="line">#else</div><div class="line">#define ZEND_DECLARE_MODULE_GLOBALS(module_name)                                                        \</div><div class="line">        zend_##module_name##_globals module_name##_globals;</div><div class="line">...</div><div class="line">#endif</div></pre></td></tr></table></figure></p>
+<p>可以看到在线程安全的环境下，ZEND_DECLARE_MODULE_GLOBALS(module_name)被定义成为ts_rsrc_id类型的,再来看看TSRMG<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">#define TSRMG(id, type, element)	(TSRMG_BULK(id, type)-&gt;element)</div></pre></td></tr></table></figure></p>
+<p>其中TSRMG_BULK<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">#define TSRMG_BULK(id, type)	((type) (*((void ***) tsrm_get_ls_cache()))[TSRM_UNSHUFFLE_RSRC_ID(id)])</div></pre></td></tr></table></figure></p>
+<p>TSRM_UNSHUFFLE_RSRC_ID是对id进行运算，暂且不管，可以看到最终的调用者tsrm_get_ls_cache()，同样还是来看看这个函数和其内部调用的tsrm_tls_get()函数<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">TSRM_API void *tsrm_get_ls_cache(void)</div><div class="line">&#123;/*&#123;&#123;&#123;*/</div><div class="line">        return tsrm_tls_get();</div><div class="line">&#125;/*&#125;&#125;&#125;*</div><div class="line"></div><div class="line"># define tsrm_tls_get()                 pthread_getspecific(tls_key)</div></pre></td></tr></table></figure></p>
+<p>哦， 看到这里，你会发现pthread_getspecific()，一定存在pthread_setspecific(),我们再来看看pthread_setspecific()<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div></pre></td><td class="code"><pre><div class="line"># define tsrm_tls_set(what)             pthread_setspecific(tls_key, (void*)(what))</div><div class="line"></div><div class="line">static void allocate_new_resource(tsrm_tls_entry **thread_resources_ptr, THREAD_T thread_id)</div><div class="line">&#123;</div><div class="line">        .....</div><div class="line">        (*thread_resources_ptr) = (tsrm_tls_entry *) malloc(sizeof(tsrm_tls_entry));</div><div class="line">        (*thread_resources_ptr)-&gt;storage = NULL;</div><div class="line">        if (id_count &gt; 0) &#123;</div><div class="line">                (*thread_resources_ptr)-&gt;storage = (void **) malloc(sizeof(void *)*id_count);</div><div class="line">        &#125;</div><div class="line">        (*thread_resources_ptr)-&gt;count = id_count;</div><div class="line">        (*thread_resources_ptr)-&gt;thread_id = thread_id;</div><div class="line">        (*thread_resources_ptr)-&gt;next = NULL;</div><div class="line"></div><div class="line">        /* Set thread local storage to this new thread resources structure */</div><div class="line">        tsrm_tls_set(*thread_resources_ptr);</div><div class="line"></div><div class="line">        if (tsrm_new_thread_begin_handler) &#123;</div><div class="line">                tsrm_new_thread_begin_handler(thread_id);</div><div class="line">        &#125;</div><div class="line">        for (i=0; i&lt;id_count; i++) &#123;</div><div class="line">                if (resource_types_table[i].done) &#123;</div><div class="line">                        (*thread_resources_ptr)-&gt;storage[i] = NULL;</div><div class="line">                &#125; else</div><div class="line">                &#123;</div><div class="line">                        (*thread_resources_ptr)-&gt;storage[i] = (void *) malloc(resource_types_table[i].size);</div><div class="line">                        if (resource_types_table[i].ctor) &#123;</div><div class="line">                                resource_types_table[i].ctor((*thread_resources_ptr)-&gt;storage[i]);</div><div class="line">                        &#125;</div><div class="line">                &#125;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        if (tsrm_new_thread_end_handler) &#123;</div><div class="line">                tsrm_new_thread_end_handler(thread_id);</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        tsrm_mutex_unlock(tsmm_mutex);</div><div class="line">        ......</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>可以看到在分配一个新的资源的时候，会调用tsrm_tls_set(*thread_resources_ptr)，而thread_resources_ptr是一个指向线程资源对象tsrm_tls_entry的数组指针，tsrm_tls_entry对象的结构体如下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">struct _tsrm_tls_entry &#123;</div><div class="line">        void **storage;</div><div class="line">        int count;</div><div class="line">        THREAD_T thread_id;</div><div class="line">        tsrm_tls_entry *next;</div><div class="line">&#125;;</div></pre></td></tr></table></figure></p>
+<p>可以看到真正资源数据存储在storage指针数组里，那么storage存储的是什么数据呢？<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">resource_types_table[i].ctor((\*thread_resources_ptr)-&gt;storage[i]);</div></pre></td></tr></table></figure></p>
+<p>这里调用了每种资源的构造方法，看看yaf是如何来注册其全局资源对象的<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div></pre></td><td class="code"><pre><div class="line">ZEND_BEGIN_MODULE_GLOBALS(yaf)</div><div class="line">	zend_string	*ext;</div><div class="line">	zend_string *base_uri;</div><div class="line">	zend_string *directory;</div><div class="line">	zend_string *local_library;</div><div class="line">	zend_string *local_namespaces;</div><div class="line">	zend_string *view_directory;</div><div class="line">	zend_string *view_ext;</div><div class="line">	zend_string *default_module;</div><div class="line">	zend_string *default_controller;</div><div class="line">	zend_string *default_action;</div><div class="line">	zend_string *bootstrap;</div><div class="line">	char         *global_library;</div><div class="line">    char         *environ_name;</div><div class="line">    char         *name_separator;</div><div class="line">    size_t        name_separator_len;</div><div class="line">	zend_bool 	lowcase_path;</div><div class="line">	zend_bool 	use_spl_autoload;</div><div class="line">	zend_bool 	throw_exception;</div><div class="line">	zend_bool   action_prefer;</div><div class="line">	zend_bool	name_suffix;</div><div class="line">	zend_bool  	autoload_started;</div><div class="line">	zend_bool  	running;</div><div class="line">	zend_bool  	in_exception;</div><div class="line">	zend_bool  	catch_exception;</div><div class="line">	zend_bool   suppressing_warning;</div><div class="line">/\* &#123;&#123;&#123; This only effects internally \*/</div><div class="line">	zend_bool  	st_compatible;</div><div class="line">/\* &#125;&#125;&#125; \*/</div><div class="line">	long		forward_limit;</div><div class="line">	HashTable	*configs;</div><div class="line">	zval 		 modules;</div><div class="line">	zval        *default_route;</div><div class="line">	zval        active_ini_file_section;</div><div class="line">	zval        *ini_wanted_section;</div><div class="line">	uint        parsing_flag;</div><div class="line">	zend_bool	use_namespace;</div><div class="line">ZEND_END_MODULE_GLOBALS(yaf)</div><div class="line"></div><div class="line">#define ZEND_BEGIN_MODULE_GLOBALS(module_name)          \</div><div class="line">        typedef struct _zend_##module_name##_globals &#123;</div><div class="line">#define ZEND_END_MODULE_GLOBALS(module_name)            \</div><div class="line">        &#125; zend_##module_name##_globals;</div></pre></td></tr></table></figure></p>
+<p>可以看到它申明了zen_yaf_globals结构体对象，而其实yaf是不支持多线程环境下运行的，zen_yaf_globals只是在扩展内部使用<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ZEND_DECLARE_MODULE_GLOBALS(yaf);</div></pre></td></tr></table></figure></p>
+<p>但是cgi, php-fpm, apache2handler是支持多线程的<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">root@chenjingxiu:~/php-src# egrep -Ern &quot;ts_allocate_id&quot;|grep sapi</div><div class="line">main/SAPI.c:84:	ts_allocate_id(&amp;sapi_globals_id, sizeof(sapi_globals_struct), (ts_allocate_ctor) sapi_globals_ctor, (ts_allocate_dtor) sapi_globals_dtor);</div><div class="line">sapi/cgi/cgi_main.c:1801:	ts_allocate_id(&amp;php_cgi_globals_id, sizeof(php_cgi_globals_struct), (ts_allocate_ctor) php_cgi_globals_ctor, NULL);</div><div class="line">sapi/fpm/fpm/fpm_main.c:1500:	ts_allocate_id(&amp;php_cgi_globals_id, sizeof(php_cgi_globals_struct), (ts_allocate_ctor) php_cgi_globals_ctor, NULL);</div><div class="line">sapi/apache2handler/php_functions.c:543:	ts_allocate_id(&amp;php_apache2_info_id, sizeof(php_apache2_info_struct), (ts_allocate_ctor) NULL, NULL);</div></pre></td></tr></table></figure></p>
+<p>这些模块中都会定义自己的析构方法，比如cgi和fpm都是php_cgi_globals_ctor,全局资源类型都是php_cgi_globals_struct</p>
+<h1 id="线程全局资源原理"><a href="#线程全局资源原理" class="headerlink" title="线程全局资源原理"></a>线程全局资源原理</h1><p>先看下面的代码<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div></pre></td><td class="code"><pre><div class="line">#include&lt;stdio.h&gt;</div><div class="line">#include&lt;pthread.h&gt;</div><div class="line">#include&lt;string.h&gt;</div><div class="line"></div><div class="line">/\*\*</div><div class="line"> \* 线程内模块数据共享</div><div class="line"> \* 功能: 共享全局唯一标识</div><div class="line"> \*/</div><div class="line"></div><div class="line">pthread_key_t global_id_key;</div><div class="line"></div><div class="line">typedef struct global_id</div><div class="line">&#123;</div><div class="line">  char \*name;</div><div class="line">  int len;</div><div class="line">&#125;global_id;</div><div class="line"></div><div class="line"></div><div class="line">/\* 读共享数据 \*/</div><div class="line">void \*get_cache_id()</div><div class="line">&#123;</div><div class="line">   return pthread_getspecific(global_id_key);</div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line">/\* 写共享数据 \*/</div><div class="line">void \*thread_global_run(void \*args)</div><div class="line">&#123;</div><div class="line">   pthread_setspecific(global_id_key,args);</div><div class="line">#ifdef DEBUG</div><div class="line">   global_id \*id = (global_id*)pthread_getspecific(global_id_key);</div><div class="line">   printf(&quot;params | name:%s len:%d\n&quot;, id-&gt;name, id-&gt;len);</div><div class="line">   global_id \*cache_id = (global_id \*)get_cache_id();</div><div class="line">   printf(&quot;the result | name:%s len:%d\n&quot;, cache_id-&gt;name, cache_id-&gt;len);</div><div class="line">#endif</div><div class="line">   return pthread_getspecific(global_id_key);</div><div class="line">&#125;</div><div class="line"></div><div class="line">int main(int argv, char \*\*argc)</div><div class="line">&#123;</div><div class="line">   pthread_t p;</div><div class="line">   global_id id = &#123;&quot;kivmi&quot;, 5&#125;;</div><div class="line"></div><div class="line">   pthread_key_create(&amp;global_id_key, NULL);</div><div class="line">   pthread_create(&amp;p, NULL, thread_global_run, &amp;id);</div><div class="line">   pthread_join(p, NULL);</div><div class="line"></div><div class="line">   return 0;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>从中可以看到pthread_setspecific会将引用类型的参数临时存起来，在thread_global_run函数里可以做一些处理，当然DEBUG模块可以处理相当复杂的业务，这里只做了简单的处理，比如其它模块间资源的共享处理，看下运行结果<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">root@chenjingxiu:~/project# gcc specific.c -o specific -lpthread -DDEBUG</div><div class="line">root@chenjingxiu:~/project# ./specific </div><div class="line">params | name:kivmi len:5</div><div class="line">the result | name:kivmi len:5</div></pre></td></tr></table></figure></p>
+<p>当然，这里只是关于线程资源的最简单的方式，php中线程全局资源的管理由于涉及到各种资源类型的管理，比这复杂的多！</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/07/12/php-datastruct/" rel="next" title="PHP Graph">
+                <i class="fa fa-chevron-left"></i> PHP Graph
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+  <div style="width:200px;height:200px;margin:0 auto;"><img src="/images/pay.png" ></div>
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="Kivmi" />
+          <p class="site-author-name" itemprop="name">Kivmi</p>
+          <p class="site-description motion-element" itemprop="description">代码也是有灵魂的</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">29</span>
+              <span class="site-state-item-name">posts</span>
+            </a>
+          </div>
+
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#扩展全局资源和内核全局资源"><span class="nav-number">1.</span> <span class="nav-text">扩展全局资源和内核全局资源</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#线程全局资源原理"><span class="nav-number">2.</span> <span class="nav-text">线程全局资源原理</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Kivmi</span>
+</div>
+
+
+<div class="powered-by">
+  Powered by <a class="theme-link" href="https://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+
+</body>
+</html>
