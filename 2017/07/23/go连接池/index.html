@@ -84,31 +84,25 @@
 
 
 
-<meta name="description" content="PHP内存模型12jemalloctcmalloc
-PHP Memory Management
-php内存管理分为3层
-当然你也可以通过setenv(“USE_ZEND_ALLOC”) = 0直接使用系统调用
-123456789101112131415161718192021222324static void alloc_globals_ctor(zend_alloc_globals *alloc">
+<meta name="description" content="go mysql连接12jemalloctcmalloc
+PHP Memory Managementphp内存管理分为3层当然你也可以通过setenv(“USE_ZEND_ALLOC”) = 0直接使用系统调用
+123456789101112131415161718192021222324static void alloc_globals_ctor(zend_alloc_globals *allo">
 <meta property="og:type" content="article">
-<meta property="og:title" content="PHP Graph">
-<meta property="og:url" content="http://chanlan.github.io/2017/07/12/php-mem/index.html">
+<meta property="og:title" content="go mysql 连接池">
+<meta property="og:url" content="http://chanlan.github.io/2017/07/23/go连接池/index.html">
 <meta property="og:site_name" content="Learn And Life.">
-<meta property="og:description" content="PHP内存模型12jemalloctcmalloc
-PHP Memory Management
-php内存管理分为3层
-当然你也可以通过setenv(“USE_ZEND_ALLOC”) = 0直接使用系统调用
-123456789101112131415161718192021222324static void alloc_globals_ctor(zend_alloc_globals *alloc">
-<meta property="og:image" content="http://chanlan.github.io/2017/07/12/php-mem/php-datastruct/php-memory.png">
-<meta property="og:image" content="http://chanlan.github.io/2017/07/12/php-mem/php-datastruct/php-arch.jpg">
-<meta property="og:updated_time" content="2017-07-17T18:28:17.574Z">
+<meta property="og:description" content="go mysql连接12jemalloctcmalloc
+PHP Memory Managementphp内存管理分为3层当然你也可以通过setenv(“USE_ZEND_ALLOC”) = 0直接使用系统调用
+123456789101112131415161718192021222324static void alloc_globals_ctor(zend_alloc_globals *allo">
+<meta property="og:image" content="http://chanlan.github.io/2017/07/23/go连接池/php-datastruct/php-memory.png">
+<meta property="og:image" content="http://chanlan.github.io/2017/07/23/go连接池/php-datastruct/php-arch.jpg">
+<meta property="og:updated_time" content="2017-07-23T09:29:46.579Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="PHP Graph">
-<meta name="twitter:description" content="PHP内存模型12jemalloctcmalloc
-PHP Memory Management
-php内存管理分为3层
-当然你也可以通过setenv(“USE_ZEND_ALLOC”) = 0直接使用系统调用
-123456789101112131415161718192021222324static void alloc_globals_ctor(zend_alloc_globals *alloc">
-<meta name="twitter:image" content="http://chanlan.github.io/2017/07/12/php-mem/php-datastruct/php-memory.png">
+<meta name="twitter:title" content="go mysql 连接池">
+<meta name="twitter:description" content="go mysql连接12jemalloctcmalloc
+PHP Memory Managementphp内存管理分为3层当然你也可以通过setenv(“USE_ZEND_ALLOC”) = 0直接使用系统调用
+123456789101112131415161718192021222324static void alloc_globals_ctor(zend_alloc_globals *allo">
+<meta name="twitter:image" content="http://chanlan.github.io/2017/07/23/go连接池/php-datastruct/php-memory.png">
 
 
 
@@ -136,13 +130,13 @@ php内存管理分为3层
 
 
 
-  <link rel="canonical" href="http://chanlan.github.io/2017/07/12/php-mem/"/>
+  <link rel="canonical" href="http://chanlan.github.io/2017/07/23/go连接池/"/>
 
 
 
 
 
-  <title> PHP Graph | Learn And Life. </title>
+  <title> go mysql 连接池 | Learn And Life. </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="en">
@@ -253,7 +247,7 @@ php内存管理分为3层
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://chanlan.github.io/2017/07/12/php-mem/">
+  <link itemprop="mainEntityOfPage" href="http://chanlan.github.io/2017/07/23/go连接池/">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <meta itemprop="name" content="Kivmi">
@@ -277,7 +271,7 @@ php内存管理分为3层
             
             
               
-                PHP Graph
+                go mysql 连接池
               
             
           </h1>
@@ -290,8 +284,8 @@ php内存管理分为3层
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-07-12T13:20:51+08:00">
-                2017-07-12
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-07-23T13:20:51+08:00">
+                2017-07-23
               </time>
             
 
@@ -326,10 +320,8 @@ php内存管理分为3层
       
 
       
-        <h1 id="PHP内存模型"><a href="#PHP内存模型" class="headerlink" title="PHP内存模型"></a>PHP内存模型</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">jemalloc</div><div class="line">tcmalloc</div></pre></td></tr></table></figure>
-<h1 id="PHP-Memory-Management"><a href="#PHP-Memory-Management" class="headerlink" title="PHP Memory Management"></a>PHP Memory Management</h1><p><img src="/2017/07/12/php-mem/php-datastruct/php-memory.png" alt="memory management for php"></p>
-<p>php内存管理分为3层</p>
-<p><img src="/2017/07/12/php-mem/php-datastruct/php-arch.jpg" alt="memory arch for php"><br>当然你也可以通过setenv(“USE_ZEND_ALLOC”) = 0直接使用系统调用</p>
+        <h1 id="go-mysql连接"><a href="#go-mysql连接" class="headerlink" title="go mysql连接"></a>go mysql连接</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">jemalloc</div><div class="line">tcmalloc</div></pre></td></tr></table></figure>
+<h1 id="PHP-Memory-Management"><a href="#PHP-Memory-Management" class="headerlink" title="PHP Memory Management"></a>PHP Memory Management</h1><p><img src="/2017/07/23/go连接池/php-datastruct/php-memory.png" alt="memory management"><br>php内存管理分为3层<br><img src="/2017/07/23/go连接池/php-datastruct/php-arch.jpg" alt="memory arch"><br>当然你也可以通过setenv(“USE_ZEND_ALLOC”) = 0直接使用系统调用</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line">static void alloc_globals_ctor(zend_alloc_globals *alloc_globals)</div><div class="line">&#123;</div><div class="line">#if ZEND_MM_CUSTOM</div><div class="line">	char *tmp = getenv(&quot;USE_ZEND_ALLOC&quot;);</div><div class="line"></div><div class="line">	if (tmp &amp;&amp; !zend_atoi(tmp, 0)) &#123;</div><div class="line">		alloc_globals-&gt;mm_heap = malloc(sizeof(zend_mm_heap));</div><div class="line">		memset(alloc_globals-&gt;mm_heap, 0, sizeof(zend_mm_heap));</div><div class="line">		alloc_globals-&gt;mm_heap-&gt;use_custom_heap = ZEND_MM_CUSTOM_HEAP_STD;</div><div class="line">		alloc_globals-&gt;mm_heap-&gt;custom_heap.std._malloc = __zend_malloc;</div><div class="line">		alloc_globals-&gt;mm_heap-&gt;custom_heap.std._free = free;</div><div class="line">		alloc_globals-&gt;mm_heap-&gt;custom_heap.std._realloc = __zend_realloc;</div><div class="line">		return;</div><div class="line">	&#125;</div><div class="line">#endif</div><div class="line">#ifdef MAP_HUGETLB</div><div class="line">	tmp = getenv(&quot;USE_ZEND_ALLOC_HUGE_PAGES&quot;);</div><div class="line">	if (tmp &amp;&amp; zend_atoi(tmp, 0)) &#123;</div><div class="line">		zend_mm_use_huge_pages = 1;</div><div class="line">	&#125;</div><div class="line">#endif</div><div class="line">	ZEND_TSRMLS_CACHE_UPDATE();</div><div class="line">	alloc_globals-&gt;mm_heap = zend_mm_init();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>从alloc_globals_ctor可以看到，当关闭USE_ZEND_ALLOC之后，php会通过malloc来管理head的内存分配，而不是mmap的方式。同时，使用malloc分配内存的方式也称为持久的内存分配方式，php代码中也涉及相关的内容</p>
 <h1 id="持久内存分配"><a href="#持久内存分配" class="headerlink" title="持久内存分配"></a>持久内存分配</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">#define pemalloc(size, persistent) ((persistent)?__zend_malloc(size):emalloc(size))</div><div class="line">#define safe_pemalloc(nmemb, size, offset, persistent)	((persistent)?_safe_malloc(nmemb, size, offset):safe_emalloc(nmemb, size, offset))</div><div class="line">#define pefree(ptr, persistent)  ((persistent)?free(ptr):efree(ptr))</div><div class="line">#define pefree_size(ptr, size, persistent)  ((persistent)?free(ptr):efree_size(ptr, size))</div><div class="line">#define pecalloc(nmemb, size, persistent) ((persistent)?__zend_calloc((nmemb), (size)):ecalloc((nmemb), (size)))</div><div class="line">#define perealloc(ptr, size, persistent) ((persistent)?__zend_realloc((ptr), (size)):erealloc((ptr), (size)))</div><div class="line">#define perealloc2(ptr, size, copy_size, persistent) ((persistent)?__zend_realloc((ptr), (size)):erealloc2((ptr), (size), (copy_size)))</div><div class="line">#define safe_perealloc(ptr, nmemb, size, offset, persistent)	((persistent)?_safe_realloc((ptr), (nmemb), (size), (offset)):safe_erealloc((ptr), (nmemb), (size), (offset)))</div><div class="line">#define perealloc_recoverable(ptr, size, persistent) ((persistent)?realloc((ptr), (size)):erealloc_recoverable((ptr), (size)))</div><div class="line">#define perealloc2_recoverable(ptr, size, persistent) ((persistent)?realloc((ptr), (size)):erealloc2_recoverable((ptr), (size), (copy_size)))</div><div class="line">#define pestrdup(s, persistent) ((persistent)?strdup(s):estrdup(s))</div><div class="line">#define pestrndup(s, length, persistent) ((persistent)?zend_strndup((s),(length)):estrndup((s),(length)))</div><div class="line"></div><div class="line">#define pemalloc_rel(size, persistent) ((persistent)?__zend_malloc(size):emalloc_rel(size))</div><div class="line">#define pefree_rel(ptr, persistent)	((persistent)?free(ptr):efree_rel(ptr))</div><div class="line">#define pecalloc_rel(nmemb, size, persistent) ((persistent)?__zend_calloc((nmemb), (size)):ecalloc_rel((nmemb), (size)))</div><div class="line">#define perealloc_rel(ptr, size, persistent) ((persistent)?__zend_realloc((ptr), (size)):erealloc_rel((ptr), (size)))</div><div class="line">#define perealloc2_rel(ptr, size, copy_size, persistent) ((persistent)?__zend_realloc((ptr), (size)):erealloc2_rel((ptr), (size), (copy_size)))</div><div class="line">#define perealloc_recoverable_rel(ptr, size, persistent) ((persistent)?realloc((ptr), (size)):erealloc_recoverable_rel((ptr), (size)))</div><div class="line">#define perealloc2_recoverable_rel(ptr, size, copy_size, persistent) ((persistent)?realloc((ptr), (size)):erealloc2_recoverable_rel((ptr), (size), (copy_size)))</div><div class="line">#define pestrdup_rel(s, persistent) ((persistent)?strdup(s):estrdup_rel(s))</div></pre></td></tr></table></figure>
@@ -382,8 +374,8 @@ php内存管理分为3层
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/07/07/php垃圾回收/" rel="next" title="Php垃圾回收">
-                <i class="fa fa-chevron-left"></i> Php垃圾回收
+              <a href="/2017/07/21/TRSM/" rel="next" title="PHP之线程资源">
+                <i class="fa fa-chevron-left"></i> PHP之线程资源
               </a>
             
           </div>
@@ -458,7 +450,7 @@ php内存管理分为3层
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">28</span>
+              <span class="site-state-item-count">30</span>
               <span class="site-state-item-name">posts</span>
             </a>
           </div>
@@ -503,7 +495,7 @@ php内存管理分为3层
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#PHP内存模型"><span class="nav-number">1.</span> <span class="nav-text">PHP内存模型</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#PHP-Memory-Management"><span class="nav-number">2.</span> <span class="nav-text">PHP Memory Management</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#持久内存分配"><span class="nav-number">3.</span> <span class="nav-text">持久内存分配</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#持久化内存"><span class="nav-number">3.1.</span> <span class="nav-text">持久化内存</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#非持久化内存"><span class="nav-number">3.2.</span> <span class="nav-text">非持久化内存</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#PHPDBG"><span class="nav-number">4.</span> <span class="nav-text">PHPDBG</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#php内存管理"><span class="nav-number">5.</span> <span class="nav-text">php内存管理</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#go-mysql连接"><span class="nav-number">1.</span> <span class="nav-text">go mysql连接</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#PHP-Memory-Management"><span class="nav-number">2.</span> <span class="nav-text">PHP Memory Management</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#持久内存分配"><span class="nav-number">3.</span> <span class="nav-text">持久内存分配</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#持久化内存"><span class="nav-number">3.1.</span> <span class="nav-text">持久化内存</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#非持久化内存"><span class="nav-number">3.2.</span> <span class="nav-text">非持久化内存</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#PHPDBG"><span class="nav-number">4.</span> <span class="nav-text">PHPDBG</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#php内存管理"><span class="nav-number">5.</span> <span class="nav-text">php内存管理</span></a></li></ol></div>
             
 
           </div>

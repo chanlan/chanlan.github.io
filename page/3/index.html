@@ -239,6 +239,137 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://chanlan.github.io/2016/12/22/关于线上问题/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="Kivmi">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/images/avatar.gif">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="Learn And Life.">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="Learn And Life." src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/12/22/关于线上问题/" itemprop="url">
+                  关于线上问题
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-12-22T10:01:43+08:00">
+                2016-12-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>关于线上问题，是真正能够让我们成长的最好的方式，所以需要不断的积累，特别是大数据量时引起的一系列问题，包括人为的和线上的：</p>
+<p>1.个人行为造成的问题，某同学想修改下数据表字段的类型，修改了一个几百万数据量的表，修改过程中会导致SQL阻塞，进一步导致请求阻塞，以至于整个系统请求平均延迟上升，产生了蝴蝶效应。如果量级更大的话，影响时间会更长，以至于整个系统不可用<br>总结：<br>线上的大表，因为都是基于innodb存储引起，修改引起的代价是比较大的，可能会锁表，索引尽可能的少执行这种操作，需要做好测试评估好执行影响时间</p>
+<p>2.应用场景引发的问题，对于直播产品，视频直播结束，会向观众发送直播已经结束的消息，而这种消息是同时发送的，这样就会引起大量的数据产生和消费，造成的影响是，服务器消息堆积，客户端不知道直播是否结束，客户端仍然还在聊天室<br>总结：<br>在一定的时间内，比如1min, 离散的发送消息，让客户端能够在有限的时间内退出聊天室，不至于影响产品的用户体验</p>
+<p>3.redis错误，read error on connection<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">PHP Fatal error:  Uncaught exception &apos;RedisException&apos; with message &apos;read error on connection&apos; in ....</div></pre></td></tr></table></figure></p>
+<p>这个错误是偶尔遇到，有同学通过修改php soctet超时时间来修复该问题<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">default_socket_timeout = 60</div></pre></td></tr></table></figure></p>
+<p>或者在脚本中添加<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ini_set(&apos;default_socket_timeout&apos;, -1);  //不超时</div></pre></td></tr></table></figure></p>
+<p>来解决该问题,但是这种解决方式并不是最好，而且这种方式需要重启php-fpm进程才可以生效</p>
+<p>4.服务配置引起的问题，新开一个elb,支持cloudfront CDN支持，针对某个地区，将xxx.xxx.net这个域名，解析到cloudfront地址上，经由cloudfront再到后端elb进行访问，出现服务访问不了的情况，经运维协查，是cloude front服务配置问题导致<br>总结：<br>线上配置，需要谨慎修改，支持各种环境（线上，开发，测试，联调）发布部署配置文件的管理</p>
+<p>5.设计问题，redis大key如何解，有时候对于好友关系等出现长尾数据的时候，存和读都会遇到问题，一般对大key的读，使用分页读，如果存储的数据量过大，1000w,那么做数据迁移还是数据恢复就会有问题，所以，单key的数据量的存储，不应过大<br>总结：<br>大key,可以使用应用层对id进行hash，生成统一前缀的key，自动实现key的查找</p>
+<p>6.高并发，大数据引起最初设计的变化的问题，随着用户量的增加，uv上升，导致之前的设计请求量增加，系统压力增大，这样需要在原先的设计上，增加一些策略，当然，这种策略的增加需要产品的支持，比如消息发送，对任何用户等级之间的用户发送私信，当大网红直播时，这样导致消息量剧增，如果同时直播数比较多，产生的消息量会非常大，这样，可以增加一些策略来减少这种压力，比如只有达到某个等级的用户，在直播的时候，才对其粉丝发送私信，这样就大大的减少了消息量的产生，当然也可以在技术上支持</p>
+<p>7.减少存储系统的压力，对于给予协助处理服务程序的数据，比如算法，这种服务的特性是非实时的，或者接近实时，对于这种数据的存储，不需要放到内存中存储，可以使用kafka来存储，将算法服务接入该系统，获取数据，并将数据的结果写入前端服务器或者内存中，供前端服务使用</p>
+<p>8.线上日志，一种为数据日志，提供分析平台使用，而另外一种属于业务日志，供问题定位，对于业务日志，需要做到能准确定位所发生的问题，用户线上问题排查</p>
+<p>9.无状态设计和有状态设计，无状态设计，比如静态文件，或者使用已有的信息，能拿到所需要的静态资源数据信息，怎样区权衡是使用有状态设计，还是使用无状态设计，还是有无状态设计相结合，需要考虑到对系统性能的影响，有多大的影响，增加有状态设计会产生什么多大的存储资源的损耗？是否是热点数据，是否需要将数据分多次多状态存储和维护？如果数据量不大，而且是基于热点，那么最好还是使用有状态设计，不会产生太多的资源损耗问题，性能还是实现的逻辑也是可以控制的</p>
+<p>10.系统架构设计，使用ha来实现各节点之间活跃监控，增强系统的容错处理和可靠性</p>
+<p>11.redis并发症控制，可以使用setnx来替换set</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
   <link itemprop="mainEntityOfPage" href="http://chanlan.github.io/2016/12/20/go基础/">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1531,7 +1662,7 @@ Display six reports at two second intervals for device sda and all its partition
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">29</span>
+              <span class="site-state-item-count">30</span>
               <span class="site-state-item-name">posts</span>
             </a>
           </div>
