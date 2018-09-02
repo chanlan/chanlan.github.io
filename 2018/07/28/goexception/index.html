@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="生活," />
+  <meta name="keywords" content="go," />
 
 
 
@@ -84,16 +84,16 @@
 
 
 
-<meta name="description" content="“酷暑已至，常去旁边的冶金学院游泳，嗮的都成黑炭头，时时想起我那掏碳的男人，这想念像甘甜的美酒一样，令人沉醉，爱情是对我是初见端倪，但已使我一洗尘泥，飘飘欲仙了，我放纵我的天性，相信爱情能给予人创造的力量，我为我的掏碳丈夫感到骄傲，是的，真正的爱情，不应该是利己的，而应该是利他的，是心甘情愿的与爱人一起奋斗，并不断的自我更新的过程，是融合在一起，完全融合在一起的共同斗争，你有没有决心为他而付出自己">
+<meta name="description" content="go编程异常的处理是个很热的话题，不像java，可以使用try…catch来捕获异常，而是直接产生panic，中断程序的执行，这样带来的一个问题就是，如果我在同一个目录下面，有几个协同工作的job，但是其中一个发生了panic，最终导致所有的job都会产生中断执行，这明显从可靠性来说是很不合理的设计，因此go从设计上，强烈建议不要使用panic，除非你知道你自己是在做什么，但是panic是避免不了">
 <meta property="og:type" content="article">
-<meta property="og:title" content="爱情">
-<meta property="og:url" content="http://chanlan.github.io/2016/11/20/爱情/index.html">
+<meta property="og:title" content="go defer and panic">
+<meta property="og:url" content="http://chanlan.github.io/2018/07/28/goexception/index.html">
 <meta property="og:site_name" content="Learn And Life.">
-<meta property="og:description" content="“酷暑已至，常去旁边的冶金学院游泳，嗮的都成黑炭头，时时想起我那掏碳的男人，这想念像甘甜的美酒一样，令人沉醉，爱情是对我是初见端倪，但已使我一洗尘泥，飘飘欲仙了，我放纵我的天性，相信爱情能给予人创造的力量，我为我的掏碳丈夫感到骄傲，是的，真正的爱情，不应该是利己的，而应该是利他的，是心甘情愿的与爱人一起奋斗，并不断的自我更新的过程，是融合在一起，完全融合在一起的共同斗争，你有没有决心为他而付出自己">
-<meta property="og:updated_time" content="2017-04-04T04:16:56.381Z">
+<meta property="og:description" content="go编程异常的处理是个很热的话题，不像java，可以使用try…catch来捕获异常，而是直接产生panic，中断程序的执行，这样带来的一个问题就是，如果我在同一个目录下面，有几个协同工作的job，但是其中一个发生了panic，最终导致所有的job都会产生中断执行，这明显从可靠性来说是很不合理的设计，因此go从设计上，强烈建议不要使用panic，除非你知道你自己是在做什么，但是panic是避免不了">
+<meta property="og:updated_time" content="2018-09-02T11:08:43.132Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="爱情">
-<meta name="twitter:description" content="“酷暑已至，常去旁边的冶金学院游泳，嗮的都成黑炭头，时时想起我那掏碳的男人，这想念像甘甜的美酒一样，令人沉醉，爱情是对我是初见端倪，但已使我一洗尘泥，飘飘欲仙了，我放纵我的天性，相信爱情能给予人创造的力量，我为我的掏碳丈夫感到骄傲，是的，真正的爱情，不应该是利己的，而应该是利他的，是心甘情愿的与爱人一起奋斗，并不断的自我更新的过程，是融合在一起，完全融合在一起的共同斗争，你有没有决心为他而付出自己">
+<meta name="twitter:title" content="go defer and panic">
+<meta name="twitter:description" content="go编程异常的处理是个很热的话题，不像java，可以使用try…catch来捕获异常，而是直接产生panic，中断程序的执行，这样带来的一个问题就是，如果我在同一个目录下面，有几个协同工作的job，但是其中一个发生了panic，最终导致所有的job都会产生中断执行，这明显从可靠性来说是很不合理的设计，因此go从设计上，强烈建议不要使用panic，除非你知道你自己是在做什么，但是panic是避免不了">
 
 
 
@@ -121,13 +121,13 @@
 
 
 
-  <link rel="canonical" href="http://chanlan.github.io/2016/11/20/爱情/"/>
+  <link rel="canonical" href="http://chanlan.github.io/2018/07/28/goexception/"/>
 
 
 
 
 
-  <title> 爱情 | Learn And Life. </title>
+  <title> go defer and panic | Learn And Life. </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="en">
@@ -238,7 +238,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://chanlan.github.io/2016/11/20/爱情/">
+  <link itemprop="mainEntityOfPage" href="http://chanlan.github.io/2018/07/28/goexception/">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <meta itemprop="name" content="Kivmi">
@@ -262,7 +262,7 @@
             
             
               
-                爱情
+                go defer and panic
               
             
           </h1>
@@ -275,8 +275,8 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-11-20T03:19:21+08:00">
-                2016-11-20
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-07-28T01:24:35+08:00">
+                2018-07-28
               </time>
             
 
@@ -311,8 +311,8 @@
       
 
       
-        <p>“酷暑已至，<br>常去旁边的冶金学院游泳，<br>嗮的都成黑炭头，<br>时时想起我那掏碳的男人，<br>这想念像甘甜的美酒一样，<br>令人沉醉，<br>爱情是对我是初见端倪，<br>但已使我一洗尘泥，<br>飘飘欲仙了，<br>我放纵我的天性，<br>相信爱情能给予人创造的力量，<br>我为我的掏碳丈夫感到骄傲，<br>是的，<br>真正的爱情，<br>不应该是利己的，<br>而应该是利他的，<br>是心甘情愿的与爱人一起奋斗，<br>并不断的自我更新的过程，<br>是融合在一起，<br>完全融合在一起的共同斗争，<br>你有没有决心为他而付出自己最大的牺牲，<br>这是衡量是不是正真爱情的标准，<br>否则，<br>就是被自己的感情所欺骗”<br>                —-平凡的世界—-</p>
-<p>很羡慕这样的爱情，朴素，充满了力量，给予我的感动都是满满的，有时候也很期盼那种简单而又真实的情感，也想跟我的爱人，有个约定，等待着那天的到来，在我的生命中，要是有田晓霞似的女友，有贺秀莲似的妻子，那该是人生多么幸福的一件事呢？</p>
+        <p>go编程异常的处理是个很热的话题，不像java，可以使用try…catch来捕获异常，而是直接产生panic，中断程序的执行，<br>这样带来的一个问题就是，如果我在同一个目录下面，有几个协同工作的job，但是其中一个发生了panic，最终导致所有的job都会产生中断执行，<br>这明显从可靠性来说是很不合理的设计，因此go从设计上，强烈建议不要使用panic，除非你知道你自己是在做什么，<br>但是panic是避免不了的，那如何来处理panic的行为呢？<br><figure class="highlight go"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">pakage main</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">test</span><span class="params">()</span></span>&#123;</div><div class="line">  status := <span class="literal">true</span></div><div class="line">  <span class="keyword">defer</span> <span class="keyword">go</span> <span class="function"><span class="keyword">func</span><span class="params">()</span></span>&#123;</div><div class="line">    <span class="keyword">if</span> status &#123;</div><div class="line">        <span class="built_in">println</span>(<span class="string">"panic happend"</span>)</div><div class="line">　　｝</div><div class="line">  &#125;()</div><div class="line">  <span class="built_in">panic</span>(<span class="string">"panic"</span>)</div><div class="line">  status = <span class="literal">false</span> </div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span>&#123;</div><div class="line">   test() </div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>从上面的代码可以看出，如果status等于true，说明是panic发生了，反之，说明没有发生panic，这样就可以实现一些收尾的工作，<br>注意panic是不能跟defer交换的，那样defer就不会执行.</p>
 
       
     </div>
@@ -336,7 +336,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/生活/" rel="tag"># 生活</a>
+            <a href="/tags/go/" rel="tag"># go</a>
           
         </div>
       
@@ -345,15 +345,15 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
+              <a href="/2017/09/07/C结构体/" rel="next" title="C结构体的理解">
+                <i class="fa fa-chevron-left"></i> C结构体的理解
+              </a>
+            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/11/20/php闭包/" rel="prev" title="PHP闭包">
-                PHP闭包 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
