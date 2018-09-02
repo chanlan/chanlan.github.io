@@ -360,123 +360,6 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://chanlan.github.io/2017/07/21/nginx基础类型/">
-
-  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
-    <meta itemprop="name" content="Kivmi">
-    <meta itemprop="description" content="">
-    <meta itemprop="image" content="/images/avatar.gif">
-  </span>
-
-  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-    <meta itemprop="name" content="Learn And Life.">
-    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
-      <img style="display:none;" itemprop="url image" alt="Learn And Life." src="">
-    </span>
-  </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2017/07/21/nginx基础类型/" itemprop="url">
-                  nginx基础类型
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-07-21T23:00:00+08:00">
-                2017-07-21
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="nginx基础类型"><a href="#nginx基础类型" class="headerlink" title="nginx基础类型"></a>nginx基础类型</h2><p><img src="/2017/07/21/nginx基础类型/php-datastruct/nginx_type.png" alt="nginx-data-type"></p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
   <link itemprop="mainEntityOfPage" href="http://chanlan.github.io/2017/07/21/TRSM/">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -570,6 +453,123 @@
 <h1 id="线程全局资源原理"><a href="#线程全局资源原理" class="headerlink" title="线程全局资源原理"></a>线程全局资源原理</h1><p>先看下面的代码<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div></pre></td><td class="code"><pre><div class="line">#include&lt;stdio.h&gt;</div><div class="line">#include&lt;pthread.h&gt;</div><div class="line">#include&lt;string.h&gt;</div><div class="line"></div><div class="line">/**</div><div class="line"> * 线程内模块数据共享</div><div class="line"> * 功能: 共享全局唯一标识</div><div class="line"> */</div><div class="line"></div><div class="line">pthread_key_t global_id_key;</div><div class="line"></div><div class="line">typedef struct global_id</div><div class="line">&#123;</div><div class="line">  char *name;</div><div class="line">  int len;</div><div class="line">&#125; global_id;</div><div class="line"></div><div class="line"></div><div class="line">/* 读共享数据 */</div><div class="line">void *get_cache_id()</div><div class="line">&#123;</div><div class="line">   return pthread_getspecific(global_id_key);</div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line">/* 写共享数据 */</div><div class="line">void *thread_global_run(void *args)</div><div class="line">&#123;</div><div class="line">   pthread_setspecific(global_id_key,args);</div><div class="line">#ifdef DEBUG</div><div class="line">   global_id *id = (global_id*)pthread_getspecific(global_id_key);</div><div class="line">   printf(&quot;params | name:%s len:%d\n&quot;, id-&gt;name, id-&gt;len);</div><div class="line">   global_id *cache_id = (global_id *)get_cache_id();</div><div class="line">   printf(&quot;the result | name:%s len:%d\n&quot;, cache_id-&gt;name, cache_id-&gt;len);</div><div class="line">#endif</div><div class="line">   return pthread_getspecific(global_id_key);</div><div class="line">&#125;</div><div class="line"></div><div class="line">int main(int argv, char **argc)</div><div class="line">&#123;</div><div class="line">   pthread_t p;</div><div class="line">   global_id id = &#123;&quot;kivmi&quot;, 5&#125;;</div><div class="line"></div><div class="line">   pthread_key_create(&amp;global_id_key, NULL);</div><div class="line">   pthread_create(&amp;p, NULL, thread_global_run, &amp;id);</div><div class="line">   pthread_join(p, NULL);</div><div class="line"></div><div class="line">   return 0;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
 <p>从中可以看到pthread_setspecific会将引用类型的参数临时存起来，在thread_global_run函数里可以做一些处理，当然DEBUG模块可以处理相当复杂的业务，这里只做了简单的处理，比如其它模块间资源的共享处理，看下运行结果<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">root@chenjingxiu:~/project# gcc specific.c -o specific -lpthread -DDEBUG</div><div class="line">root@chenjingxiu:~/project# ./specific </div><div class="line">params | name:kivmi len:5</div><div class="line">the result | name:kivmi len:5</div></pre></td></tr></table></figure></p>
 <p>当然，这里只是关于线程资源的最简单的方式，php中线程全局资源的管理由于涉及到各种资源类型的管理，比这复杂的多！</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://chanlan.github.io/2017/07/21/nginx基础类型/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="Kivmi">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/images/avatar.gif">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="Learn And Life.">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="Learn And Life." src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/07/21/nginx基础类型/" itemprop="url">
+                  nginx基础类型
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-07-21T23:00:00+08:00">
+                2017-07-21
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="nginx基础类型"><a href="#nginx基础类型" class="headerlink" title="nginx基础类型"></a>nginx基础类型</h2><p><img src="/2017/07/21/nginx基础类型/php-datastruct/nginx_type.png" alt="nginx-data-type"></p>
 
           
         
